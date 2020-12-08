@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Analytics &#8212; Document Cloud View SDK</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/js/jquery-1.11.0.min.js"></script>
+    <script src="_static/js/jquery-fix.js"></script>
+    <script src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script src="_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Release Notes" href="releasenotes.html" />
+    <link rel="prev" title="Comments and Markup" href="howtos_comments.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name='robots' content='noindex,nofollow'/>
+
+<!--code for code snippets, tabs, styling-->
+  <link rel="stylesheet" href="_static/jquery-ui-themes-1.12.1/themes/base/jquery-ui.css">
+  <script src="_static/jquery-ui-1.12.1/jquery-ui.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=desert"></script>
+
+    <script>
+  $( function() {
+    $( ".tabs" ).tabs();
+
+    $('.langmode').click(function () {
+      $(".tabs").tabs("option", "active", $(this).data('index'));
+    });
+  } );
+  </script>
+  
+<script>
+var heightMsgCounter = 0;
+var heightMsgValue = 0;
+var scrollMsgCounter = 0;
+var scrollMsgValue = -10000;
+function postDocHeight() {
+  var doc = window.document;
+  var body = doc.body;
+  var height = body.clientHeight;
+  var data = {
+      "action" : "resize",
+      "height" : height,
+  };
+  window.parent.postMessage(JSON.stringify(data), "*");
+  heightMsgValue = height;
+  //console.log("height: ", height);
+  setInterval(function(){
+      if (heightMsgCounter<=20) {
+          height = body.clientHeight;
+          data = {
+              "action": "resize",
+              "height": height,
+          };
+          if (height !== heightMsgValue) {
+              //console.log("sending again height:", height);
+              window.parent.postMessage(JSON.stringify(data), "*");
+              heightMsgValue = height;
+          }
+          heightMsgCounter++;
+      }
+  },300);
+}
+window.addEventListener("resize", postDocHeight);
+function handleAnchorClick(e) {
+    scrollMsgValue = -10000;
+    var input = e.target;
+    if (input.nodeName.toLowerCase() !== "a") {
+        input = e.target.parentNode;
+    }
+    if (input.nodeName.toLowerCase() !== "a") {
+        //console.log("Non anchor tag received");
+        return;
+    }
+    var hrefVal = input.attributes.href.value;
+    if (hrefVal.indexOf('#')===0) {
+        clickOnSubLink(hrefVal.substring(1));
+        return false;
+    }
+};
+function clickOnSubLink(linkId) {
+    var scrollTo = 0;
+    if (linkId) {
+        var divElement = document.getElementById(linkId);
+        //console.log("divElement:",divElement);
+        if (divElement) {
+            var rect = divElement.getBoundingClientRect();
+            //console.log("linkrect:", rect);
+            scrollTo = Math.ceil(rect.top);
+        }
+    }
+    var data = {
+        "action" : "scrollTo",
+        "scrollTo" : scrollTo,
+    };
+    //console.log("link id:", linkId," scrollTo:", scrollTo);
+    if (scrollTo !== scrollMsgValue) {
+        //console.log("scroll again");
+        window.parent.postMessage(JSON.stringify(data), "*");
+        scrollMsgValue = scrollTo;
+    }
+};
+$(document).ready(function() {
+    var links = document.querySelectorAll("a");
+    var i = 0;
+    for (i = 0; i < links.length; i++) {
+        var href = links[i].href;
+        //console.log("link href ", href);
+        if (href.indexOf("#") !== -1) {
+            var anchor = href.substring(href.lastIndexOf("#") + 1);
+            //console.log("Enabling click on ", anchor);
+            links[i].addEventListener('click', handleAnchorClick);
+        }
+    }
+    $("a[href^='http']").attr('target', '_blank');
+    $("a[href$='docsvcs_doc_pdftools#://']").removeAttr('target');
+    $("a[href$='docsvcs_doc_pdftools']").removeAttr('target');
+
+    postDocHeight();
+    setInterval(function(){
+        if (window.location.hash && scrollMsgCounter<=20) {
+            //console.log("window Location hash:", window.location.hash);
+            var divId = window.location.hash.substring(1);
+            clickOnSubLink(divId);
+            scrollMsgCounter++;
+        }
+    }, 300);
+});
+</script>
+<script type='text/javascript'> window.marketingtech = { adobe: {launch: {property: "global", environment: "production"}},};</script>
+<script src="https://www.adobe.com/marketingtech/main.min.js"></script>
+  
+<!-- override styles here. Note that sphinx defines some styles in JS rather than CSS -->
+<style type="text/css">
+.headerlink {display:none;}
+.toctree-l1 {font-weight:bold;}
+.toctree-l2 {font-weight:normal;}
+.removed_globaltoc {}
+div.shadow {	
+	-webkit-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	margin:2em;
+	}
+td {text-align: left;}
+blockquote > div > ul.simple {font-size:80%;}
+p { margin-bottom: 1em; }
+h2 { margin-top: 2em; }
+h3 { margin-top: 2em; }
+div.local {border:none;}
+img {
+  max-width: 98%;
+	-webkit-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+  margin: 1em 0 2.5em 1em
+}
+.cmdline {
+	word-wrap: break-word;
+	font-family: Courier, 'New Courier', monospace;
+	font-size: 12px;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	margin: 0;
+	padding: 1em;
+	background-color: #ffffff;
+	color: Black;
+}
+</style>
+
+  </head><body>
+<div class="container">
+
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><li  style="list-style:none;">
+<!-- removing the globaltoc class results in all heading2 (toctreel2) appearing in the left hand nav-->
+	 <ul class="removed_globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Quickstarts</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#getting-credentials">Getting credentials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#copy-it-run-it">Copy it. Run it.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#run-ready-samples">Run ready samples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#live-demo">Live demo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#mobile-support">Mobile support</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#feedback-and-forum">Feedback and forum</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="howtos.html">PDF Embed API basics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#embed-a-pdf-viewer">Embed a PDF viewer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#passing-file-content">Passing file content</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#embed-modes">Embed modes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#language-support">Language support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="howtos_ui.html">UI customization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="howtos_ui.html#menu-and-tool-options">Menu and tool options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos_ui.html#annotations">Annotations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos_ui.html#callbacks-workflows">Callbacks &amp; workflows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos_ui.html#user-profiles">User profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos_ui.html#user-settings">User settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos_ui.html#save-a-pdf">Save a PDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos_ui.html#status-callback">Status callback</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos_ui.html#forms-handling">Forms handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos_ui.html#viewer-api">Viewer API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="howtos_comments.html">Comments and Markup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="howtos_comments.html#single-line-implementation">Single line implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos_comments.html#commenting-feature-overview">Commenting feature overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos_comments.html#annotations-api-overview">Annotations API overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos_comments.html#annotation-schema">Annotation schema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos_comments.html#annotations-interface">Annotations interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos_comments.html#basic-apis-for-commenting">Basic APIs for commenting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos_comments.html#annotation-events">Annotation events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos_comments.html#handling-existing-annotations">Handling existing annotations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos_comments.html#apis-to-control-ui-configurations">APIs to control UI configurations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos_comments.html#code-samples">Code Samples</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Analytics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#adobe-analytics">Adobe Analytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#default-analytics">Default analytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#basic-events">Basic events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#annotation-events">Annotation events</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="releasenotes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#november-2020">November, 2020</a></li>
+<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#september-2020">September, 2020</a></li>
+<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#august-2020">August, 2020</a></li>
+<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#july-2020">July, 2020</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="https://opensource.adobe.com/pdftools-sdk-docs/release/latest/index.html#://">Go to the PDF Tools API</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.adobe.com/go/pdftoolsapi_forum#://">Community forum</a></li>
+</ul>
+</ul>
+</li>
+        </div>
+      </div>
+    <div class="col-md-9 content">
+<div>
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+</div><br/>
+
+      
+  <div class="section" id="analytics">
+<h1>Analytics<a class="headerlink" href="#analytics" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="adobe-analytics">
+<h2>Adobe Analytics<a class="headerlink" href="#adobe-analytics" title="Permalink to this headline">¶</a></h2>
+<p>If your organization already subscribes to Adobe Analytics, rich PDF analytics is yours by default. You should use Analytics as you normally would; however, there are a few setup steps required to correctly map the incoming data to Adobe Analytics variables.</p>
+<div class="section" id="set-up-the-pdf-viewer">
+<h3>Set up the PDF Viewer<a class="headerlink" href="#set-up-the-pdf-viewer" title="Permalink to this headline">¶</a></h3>
+<p>Since you want to track user interaction with the PDF viewer, you need to make sure events appear in the correct report suites. To automatically receive PDF analytics events, pass the Analytics report suite ID when creating the AdobeDC.View instance. You must ensure that Adobe Analytics is instrumented using the same <code class="docutils literal notranslate"><span class="pre">reportSuiteId</span></code> for the website where you are embedding the PDF Viewer.</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span>var adobeDCView = new AdobeDC.View({
+    clientId: &quot;<span class="p">&lt;</span><span class="nt">YOUR_CLIENT_ID</span><span class="p">&gt;</span>&quot;,
+    divId: &quot;adobe-dc-view&quot;
+<span class="hll">    reportSuiteId: <span class="p">&lt;</span><span class="nt">YOUR_Adobe_Analytics_REPORT_SUITE</span> <span class="na">ID</span><span class="p">&gt;</span>,
+</span>    ...
+})
+</pre></div>
+</div>
+</div>
+<div class="section" id="configure-adobe-analytics">
+<h3>Configure Adobe Analytics<a class="headerlink" href="#configure-adobe-analytics" title="Permalink to this headline">¶</a></h3>
+<p>The current release requires a few configuration steps to correctly map PDF Embed API data collected from your PDF viewer to your report suite. Once you’ve logged in to Analytics, do the following:</p>
+<p>Once you’ve logged in to Analytics, do the following:</p>
+<ol class="arabic simple">
+<li><p>In the top menu, go to <strong>Admin &gt; Report Suites</strong>.</p></li>
+<li><p>Select your report suite.</p></li>
+</ol>
+<img alt="_images/aemsuite.png" src="_images/aemsuite.png" />
+<ol class="arabic simple" start="3">
+<li><p>Navigate to the Report Suite Manager.</p></li>
+<li><p>Highlight your report suite.</p></li>
+<li><p>Choose <strong>Edit Settings &gt; General &gt; Processing Rules</strong>.</p></li>
+</ol>
+<img alt="_images/aemeditsettingsmenu.png" src="_images/aemeditsettingsmenu.png" />
+<ol class="arabic simple" start="6">
+<li><p>Click the <strong>Processing Rules</strong> tab. You’ll need to create two rules and configure them so that you can map collected events and event attributes to Analytics variables.</p></li>
+</ol>
+<img alt="_images/aemprocessingrules.png" src="_images/aemprocessingrules.png" />
+<div class="section" id="mapping-event-attibutes">
+<h4>Mapping event attibutes<a class="headerlink" href="#mapping-event-attibutes" title="Permalink to this headline">¶</a></h4>
+<p>You’ll need to create a new rule and map event attributes sent by the PDF Embed API to an Adobe Analytics variable. For example, an event attribute might be something like a page number or title. There could be many events with the same attribute (one for each event happening on a specific page). The following attributes eventually become dimensions in your reports:</p>
+<ul class="simple">
+<li><p>a.dc.searchTerm</p></li>
+<li><p>a.action</p></li>
+<li><p>a.dc.pageNum</p></li>
+<li><p>a.dc.filename</p></li>
+</ul>
+<p>Map event attributes as follows:</p>
+<ol class="arabic simple">
+<li><p>Choose <strong>Add Rule</strong>.</p></li>
+<li><p>Add a custom rule title such as “Event Dimensions”.</p></li>
+<li><p>Choose <strong>Add Action</strong> until you have four (one for each attribute above).</p></li>
+<li><p>Select an item (event attribute) from the <strong>With</strong> drop down list (one of those above).</p></li>
+<li><p>Select an Analytics dimension variable from the drop down list on the left.</p></li>
+<li><p>The left hand columns should remain set to “Overwrite value of”.</p></li>
+<li><p>Repeat the above steps for each incoming event attribute you track.</p></li>
+</ol>
+<img alt="_images/aemdimmap.png" src="_images/aemdimmap.png" />
+</div>
+<div class="section" id="mapping-events">
+<h4>Mapping events<a class="headerlink" href="#mapping-events" title="Permalink to this headline">¶</a></h4>
+<p>Create another new rule and map events sent by the PDF Embed API to an Adobe Analytics variable. Note that Analytics uses “metrics” and “events” interchangeably. An event is any user interaction your JavaScript event listener captures; for example, clicking on a button or commenting on a PDF. The following events eventually become metrics displayed in your reports:</p>
+<ul class="simple">
+<li><p>a.dc.zoomLevel</p></li>
+<li><p>a.dc.loadPDF</p></li>
+<li><p>a.dc.viewPage</p></li>
+<li><p>a.dc.download</p></li>
+<li><p>a.dc.search</p></li>
+<li><p>a.dc.bookmarkClicked</p></li>
+<li><p>a.dc.copyText</p></li>
+<li><p>a.dc.print</p></li>
+</ul>
+<p>Map events as follows:</p>
+<ol class="arabic simple">
+<li><p>Choose <strong>Add Rule</strong>.</p></li>
+<li><p>Add a custom rule title such as “Events”.</p></li>
+<li><p>Choose <strong>Add Action</strong> until you have eight (one for each attribute above).</p></li>
+<li><p>Select a metric (an event) from the <strong>To</strong> drop down list  (one of those above).</p></li>
+<li><p>Select an Analytics event variable from the drop down list on the left.</p></li>
+<li><p>The left hand column should remain set to “Set event”.</p></li>
+<li><p>Repeat the above steps for each metric (incoming event).</p></li>
+</ol>
+<img alt="_images/aemsection3.png" src="_images/aemsection3.png" />
+</div>
+</div>
+<div class="section" id="viewing-your-data">
+<h3>Viewing your data<a class="headerlink" href="#viewing-your-data" title="Permalink to this headline">¶</a></h3>
+<p>Set up your reporting as usual, and view the dimensions and metrics in your workspace.</p>
+<img alt="_images/aemreport.png" src="_images/aemreport.png" />
+</div>
+<div class="section" id="help-support-forum">
+<h3>Help, support, forum<a class="headerlink" href="#help-support-forum" title="Permalink to this headline">¶</a></h3>
+<p>For more detail about using this Adobe Analytics UI, refer to the <a class="reference external" href="https://docs.adobe.com/content/help/en/analytics/implementation/analytics-basics/ref-processing-rules.html">help docs</a>. You can also ask questions and get help here:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://forums.adobe.com/community/experience-cloud/analytics-cloud/analytics">Community forum</a></p></li>
+<li><p><a class="reference external" href="https://helpx.adobe.com/support/analytics.html">Analytics Support</a></p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="default-analytics">
+<h2>Default analytics<a class="headerlink" href="#default-analytics" title="Permalink to this headline">¶</a></h2>
+<p>If you are not subscribed to Adobe Analytics, you can still collect PDF analytics events as users interact with PDFs. You enable PDF analytics events by registering a callback with the API to listen the events. Tracking PDF events provides insight into user actions and thereby helps you manage and evolve the PDF experience you’re delivering to customers.</p>
+<p>As always, initialize the AdobeDC View object with your client ID, and then invoke the <code class="docutils literal notranslate"><span class="pre">previewFile</span></code> API on AdobeDC.View object as usual. Finally, register the callback to receive the events and set <code class="docutils literal notranslate"><span class="pre">enablePDFAnalytics</span></code> to <em>true</em>:</p>
+<div class="highlight-html notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td><td class="code"><div class="highlight"><pre><span></span> const eventOptions = {
+   //Pass the PDF analytics events to receive.
+   //If no event is passed in listenOn, then all PDF analytics events will be received.
+   listenOn: [ AdobeDC.View.Enum.PDFAnalyticsEvents.PAGE_VIEW, AdobeDC.View.Enum.PDFAnalyticsEvents.DOCUMENT_DOWNLOAD],
+<span class="hll">   enablePDFAnalytics: true
+</span> }
+
+ adobeDCView.registerCallback(
+   AdobeDC.View.Enum.CallbackType.EVENT_LISTENER,
+   function(event) {
+     console.log(&quot;Type &quot; + event.type);
+     console.log(&quot;Data &quot; + event.data);
+   }, eventOptions
+ );
+</pre></div>
+</td></tr></table></div>
+<p>Find the working example in the <a class="reference external" href="https://www.adobe.com/go/pdfembedapi_samples">samples repo</a>  under <code class="docutils literal notranslate"><span class="pre">\More</span> <span class="pre">Samples\Capture</span> <span class="pre">PDF</span> <span class="pre">Embed</span> <span class="pre">API</span> <span class="pre">Events\</span></code>.</p>
+<table class="colwidths-given docutils align-default" id="id1">
+<caption><span class="caption-text">Supported analytics events</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 40%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Event type</p></th>
+<th class="head"><p>Event description</p></th>
+<th class="head"><p>Event data</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>DOCUMENT_OPEN</p></td>
+<td><p>On successful opening of PDF.</p></td>
+<td><p>{fileName: &lt;FILE_NAME&gt;}</p></td>
+</tr>
+<tr class="row-odd"><td><p>PAGE_VIEW</p></td>
+<td><p>Page information on change in page(s) in view</p></td>
+<td><p>{pageNumber: &lt;PAGE_NUM&gt;, fileName: &lt;FILE_NAME&gt;}</p></td>
+</tr>
+<tr class="row-even"><td><p>BOOKMARK_ITEM_CLICK</p></td>
+<td><p>On clicking on any bookmark item</p></td>
+<td><p>{title: &lt;BOOKMARK_TITLE&gt;, fileName: &lt;FILE_NAME&gt;}</p></td>
+</tr>
+<tr class="row-odd"><td><p>DOCUMENT_DOWNLOAD</p></td>
+<td><p>When the PDF is downloaded</p></td>
+<td><p>{fileName: &lt;FILE_NAME&gt;}</p></td>
+</tr>
+<tr class="row-even"><td><p>DOCUMENT_PRINT</p></td>
+<td><p>When the PDF is printed</p></td>
+<td><p>{printSupported: true, fileName: &lt;FILE_NAME&gt;}</p></td>
+</tr>
+<tr class="row-odd"><td><p>HYPERLINK_OPEN</p></td>
+<td><p>On clicking any external hyperlink in the PDF</p></td>
+<td><p>{type: “external”, pageNumber: &lt;PAGE_NUM&gt;, x: &lt;X-coordinate of the link&gt;, y: &lt;Y-coordinate of the link&gt;, url: &lt;EXTERNAL_URL&gt;}</p></td>
+</tr>
+<tr class="row-even"><td><p>TEXT_COPY</p></td>
+<td><p>On copying any text from a PDF. Note that the TEXT_COPY event only fires for PDF files that allow text copy; for example, secured and encrypted files do not allow copying text.</p></td>
+<td><p>{copiedText: &lt;COPIED_TEXT&gt;, fileName: &lt;FILE_NAME&gt;}</p></td>
+</tr>
+<tr class="row-odd"><td><p>TEXT_SEARCH</p></td>
+<td><p>When the user searches for any text via the document search field</p></td>
+<td><p>{searchedText: &lt;SEARCHED_TEXT&gt;, fileName: &lt;FILE_NAME&gt;}</p></td>
+</tr>
+<tr class="row-even"><td><p>ZOOM_LEVEL</p></td>
+<td><p>When zoom in/out actions are performed from the page control toolbar</p></td>
+<td><p>{zoomLevel: &lt;ZOOM_LEVEL&gt;, fileName: &lt;FILE_NAME&gt;}</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="basic-events">
+<h2>Basic events<a class="headerlink" href="#basic-events" title="Permalink to this headline">¶</a></h2>
+<p>In addition to the PDF analytics events, the PDF Embed API supports events which provide insight into user actions taken related to file preview. These events can be received through the events callback. After registering the events callback, the following file preview events are generated:-</p>
+<table class="colwidths-given docutils align-default" id="id2">
+<caption><span class="caption-text">title</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 40%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Event type</p></th>
+<th class="head"><p>Event description</p></th>
+<th class="head"><p>Event data</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>APP_RENDERING_START</p></td>
+<td><p>When the PDF starts to render in the viewer.</p></td>
+<td><p>None</p></td>
+</tr>
+<tr class="row-odd"><td><p>APP_RENDERING_FAILED</p></td>
+<td><p>When the PDF fails to render because of an unexpected error.</p></td>
+<td><p>None</p></td>
+</tr>
+<tr class="row-even"><td><p>APP_RENDERING_DONE</p></td>
+<td><p>When the PDF is rendered completely and first page is displayed.</p></td>
+<td><p>None</p></td>
+</tr>
+<tr class="row-odd"><td><p>PDF_VIEWER_OPEN</p></td>
+<td><p>When the PDF viewer opens.</p></td>
+<td><p>None</p></td>
+</tr>
+<tr class="row-even"><td><p>PDF_VIEWER_CLOSE</p></td>
+<td><p>When the PDF viewer closes.</p></td>
+<td><p>None</p></td>
+</tr>
+</tbody>
+</table>
+<p>In order to receive additional file preview events, set <code class="docutils literal notranslate"><span class="pre">enableFilePreviewEvents</span></code> to <em>true</em> and pass it to the events callback. To receive specific events, pass the list of event types in the <code class="docutils literal notranslate"><span class="pre">listenOn</span></code> parameter. If nothing is passed to <code class="docutils literal notranslate"><span class="pre">listenOn</span></code>, then the API returns all the file preview events.</p>
+<div class="highlight-html notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre><span></span>     const eventOptions = {
+              //Pass the events to receive.
+              //If no event is passed in listenOn, then all file preview events will be received.
+              listenOn: [ AdobeDC.View.Enum.Events.APP_RENDERING_START, AdobeDC.View.Enum.FilePreviewEvents.PREVIEW_KEY_DOWN,  AdobeDC.View.Enum.FilePreviewEvents.PREVIEW_PAGE_VIEW_SCROLLED ],
+<span class="hll">              enableFilePreviewEvents: true
+</span>     }
+
+     adobeDCView.registerCallback(
+              AdobeDC.View.Enum.CallbackType.EVENT_LISTENER,
+              function(event) {
+                     console.log(event)
+              }, eventOptions
+     );
+</pre></div>
+</td></tr></table></div>
+<table class="colwidths-given docutils align-default" id="id3">
+<caption><span class="caption-text"><strong>List of file preview events</strong></span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 40%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Event type</p></th>
+<th class="head"><p>Event description</p></th>
+<th class="head"><p>Event data</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>PREVIEW_KEY_DOWN</p></td>
+<td><p>Any keyboard key is pressed over any PDF page.</p></td>
+<td><p>{ altKey: &lt;BOOLEAN&gt;, code: &lt;KEY_VALUE&gt;, composed: &lt;BOOLEAN&gt;, ctrlKey: &lt;BOOLEAN&gt;, key: &lt;KEYBOARD_CHARACTER&gt;, keyCode: &lt;KEY_CODE&gt;, location: &lt;LOCATION&gt;, metaKey: &lt;BOOLEAN&gt;, shiftKey: &lt;BOOLEAN&gt;, type: “keydown” }</p></td>
+</tr>
+<tr class="row-odd"><td><p>PREVIEW_PAGE_VIEW_SCROLLED</p></td>
+<td><p>The PDF page is scrolled.</p></td>
+<td><p>{ clientHeight: &lt;CLIENT_HEIGHT&gt;, clientWidth: &lt;CLIENT_WIDTH&gt;, scrollHeight: &lt;SCROLL_HEIGHT&gt;, scrollWidth: &lt;SCROLL_WIDTH&gt;, scrollLeft: &lt;SCROLL_LEFT&gt;, scrollTop: &lt;SCROLL_TOP&gt; }</p></td>
+</tr>
+<tr class="row-even"><td><p>PREVIEW_DOCUMENT_CLICK</p></td>
+<td><p>A user clicks on the area in the webpage which is outside the PDF preview (excluding the top bar and left hand panel).</p></td>
+<td><p>{ clientX: &lt;CLIENT_WIDTH&gt;, clientY: &lt;CLIENT_HEIGHT&gt;, pageX: &lt;PAGE_WIDTH&gt;, pageY: &lt;PAGE_HEIGHT&gt;, screenX: &lt;SCREEN_WIDTH&gt;, screenY: &lt;SCREEN_HEIGHT&gt; }</p></td>
+</tr>
+<tr class="row-odd"><td><p>PREVIEW_PAGE_CLICK</p></td>
+<td><p>A user clicks on any PDF page.</p></td>
+<td><p>{ pageNumber: &lt;PAGE_NUMBER&gt; }</p></td>
+</tr>
+<tr class="row-even"><td><p>PREVIEW_PAGE_DOUBLE_CLICK</p></td>
+<td><p>A user double-clicks on any PDF page.</p></td>
+<td><p>{ pageNumber: &lt;PAGE_NUMBER&gt; }</p></td>
+</tr>
+<tr class="row-odd"><td><p>PREVIEW_PAGE_MOUSE_ENTER</p></td>
+<td><p>The mouse pointer enters any PDF page.</p></td>
+<td><p>{ pageNumber: &lt;PAGE_NUMBER&gt; }</p></td>
+</tr>
+<tr class="row-even"><td><p>PREVIEW_PAGE_MOUSE_LEAVE</p></td>
+<td><p>The mouse pointer leaves any PDF page.</p></td>
+<td><p>{ pageNumber: &lt;PAGE_NUMBER&gt; }</p></td>
+</tr>
+<tr class="row-odd"><td><p>CURRENT_ACTIVE_PAGE</p></td>
+<td><p>Returns the page number of the current page in view.</p></td>
+<td><p>{ pageNumber: &lt;PAGE_NUMBER&gt; }</p></td>
+</tr>
+<tr class="row-even"><td><p>PREVIEW_SELECTION_END</p></td>
+<td><p>Any text is selected in the PDF.</p></td>
+<td><p>{ startPageNumber: &lt;PAGE_NUMBER&gt;, endPageNumber: &lt;PAGE_NUMBER&gt;, newSelection: &lt;BOOLEAN&gt;, selections: { page&lt;PAGE_NUMBER&gt;: { bbox0: { deviceBottom: &lt;Ymin-coordinate&gt;, deviceLeft: &lt;Xmin-coordinate&gt;, deviceRight: &lt;Xmax-coordinate&gt;, deviceTop: &lt;Ymax-coordinate&gt; }, bbox1: {…}, bbox2: {…}, …, bboxCount: &lt;BBOX_COUNT&gt; }} }</p></td>
+</tr>
+<tr class="row-odd"><td><p>PREVIEW_ZOOM</p></td>
+<td><p>A zoom operation is applied to any PDF page.</p></td>
+<td><p>&lt;ZOOM_LEVEL&gt;</p></td>
+</tr>
+<tr class="row-even"><td><p>PAGES_IN_VIEW_CHANGE</p></td>
+<td><p>The page in view changes to a different page through scrolling or page navigation.</p></td>
+<td><p>{ startPage: { pageNumber: &lt;PAGE_NUMBER&gt;, fractionVisible &lt;PAGE_VISIBLE_FRACTION&gt; }, endPage: { pageNumber: &lt;PAGE_NUMBER&gt;, fractionVisible &lt;PAGE_VISIBLE_FRACTION&gt; }}</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="annotation-events">
+<span id="annotevents"></span><h2>Annotation events<a class="headerlink" href="#annotation-events" title="Permalink to this headline">¶</a></h2>
+<p>Web developers can receive events when a user interacts with an annotation. These events are generated for annotation actions performed through the UI.</p>
+<p>To register the events callback, set <code class="docutils literal notranslate"><span class="pre">enableAnnotationEvents</span></code> to <em>true</em> and pass it to the callback. To receive specific events, pass the list of annotation event types in the <code class="docutils literal notranslate"><span class="pre">listenOn</span></code> parameter. If nothing is passed to <code class="docutils literal notranslate"><span class="pre">listenOn</span></code>, then the API returns all the annotation events.</p>
+<div class="highlight-html notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre><span></span>const eventOptions = {
+   //Pass the events to receive.
+   //If no event is passed in listenOn, then all annotation events will be received.
+   listenOn: [ AdobeDC.View.Enum.AnnotationEvents.ANNOTATION_ADDED, AdobeDC.View.Enum.AnnotationEvents.ANNOTATION_UPDATED ],
+<span class="hll">   enableAnnotationEvents: true
+</span> }
+
+ adobeDCView.registerCallback(
+   AdobeDC.View.Enum.CallbackType.EVENT_LISTENER,
+   function(event) {
+     console.log(event.type, event.data)
+   }, eventOptions
+ );
+</pre></div>
+</td></tr></table></div>
+<table class="colwidths-given docutils align-default" id="id4">
+<caption><span class="caption-text"><strong>List of annotation events</strong></span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 40%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Event type</p></th>
+<th class="head"><p>Event description</p></th>
+<th class="head"><p>Event data</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ANNOTATION_ADDED</p></td>
+<td><p>A new annotation is added to PDF.</p></td>
+<td><p>&lt;ANNOTATION_TYPE&gt;</p></td>
+</tr>
+<tr class="row-odd"><td><p>ANNOTATION_CLICKED</p></td>
+<td><p>An existing annotation is clicked.</p></td>
+<td><p>&lt;ANNOTATION_TYPE&gt;</p></td>
+</tr>
+<tr class="row-even"><td><p>ANNOTATION_UPDATED</p></td>
+<td><p>An existing annotation is updated.</p></td>
+<td><p>&lt;ANNOTATION_TYPE&gt;</p></td>
+</tr>
+<tr class="row-odd"><td><p>ANNOTATION_DELETED</p></td>
+<td><p>An annotation is deleted.</p></td>
+<td><p>&lt;ANNOTATION_TYPE&gt;</p></td>
+</tr>
+<tr class="row-even"><td><p>ANNOTATION_MOUSE_OVER</p></td>
+<td><p>The cursor moves over any annotation.</p></td>
+<td><p>&lt;ANNOTATION_TYPE&gt;</p></td>
+</tr>
+<tr class="row-odd"><td><p>ANNOTATION_MOUSE_OUT</p></td>
+<td><p>The cursor moves out of any annotation.</p></td>
+<td><p>&lt;ANNOTATION_TYPE&gt;</p></td>
+</tr>
+<tr class="row-even"><td><p>ANNOTATION_SELECTED</p></td>
+<td><p>Any existing annotation is selected.</p></td>
+<td><p>&lt;ANNOTATION_TYPE&gt;</p></td>
+</tr>
+<tr class="row-odd"><td><p>ANNOTATION_UNSELECTED</p></td>
+<td><p>A selected annotation is unselected</p></td>
+<td><p>&lt;ANNOTATION_TYPE&gt;</p></td>
+</tr>
+<tr class="row-even"><td><p>ANNOTATION_MODE_STARTED</p></td>
+<td><p>The user selects a particular annotation type from the toolbar.</p></td>
+<td><p>&lt;ANNOTATION_TYPE&gt;</p></td>
+</tr>
+<tr class="row-odd"><td><p>ANNOTATION_MODE_ENDED</p></td>
+<td><p>A user exits any previously selected annotation mode.</p></td>
+<td><p>&lt;ANNOTATION_TYPE&gt;</p></td>
+</tr>
+<tr class="row-even"><td><p>ANNOTATION_COUNT</p></td>
+<td><p>Denotes the total number of annotations when any new annotation is added or any existing annotation is deleted.</p></td>
+<td><p>&lt;NUMBER_OF_ANNOTATIONS&gt;</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>If annotation APIs are not enabled, the event data contains the type of annotation on which the event gets triggered.</p></li>
+<li><p>If annotation APIs are enabled, the event data contains the data of the annotation in JSON format on which the event gets triggered.</p></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+       Last updated Dec 07, 2020 <br/>
+    </p>	
+  </div>
+  </footer>
+  </body>
+</html>

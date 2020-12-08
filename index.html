@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quickstarts &#8212; Document Cloud View SDK</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/js/jquery-1.11.0.min.js"></script>
+    <script src="_static/js/jquery-fix.js"></script>
+    <script src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script src="_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="PDF Embed API basics" href="howtos.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name='robots' content='noindex,nofollow'/>
+
+<!--code for code snippets, tabs, styling-->
+  <link rel="stylesheet" href="_static/jquery-ui-themes-1.12.1/themes/base/jquery-ui.css">
+  <script src="_static/jquery-ui-1.12.1/jquery-ui.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=desert"></script>
+
+    <script>
+  $( function() {
+    $( ".tabs" ).tabs();
+
+    $('.langmode').click(function () {
+      $(".tabs").tabs("option", "active", $(this).data('index'));
+    });
+  } );
+  </script>
+  
+<script>
+var heightMsgCounter = 0;
+var heightMsgValue = 0;
+var scrollMsgCounter = 0;
+var scrollMsgValue = -10000;
+function postDocHeight() {
+  var doc = window.document;
+  var body = doc.body;
+  var height = body.clientHeight;
+  var data = {
+      "action" : "resize",
+      "height" : height,
+  };
+  window.parent.postMessage(JSON.stringify(data), "*");
+  heightMsgValue = height;
+  //console.log("height: ", height);
+  setInterval(function(){
+      if (heightMsgCounter<=20) {
+          height = body.clientHeight;
+          data = {
+              "action": "resize",
+              "height": height,
+          };
+          if (height !== heightMsgValue) {
+              //console.log("sending again height:", height);
+              window.parent.postMessage(JSON.stringify(data), "*");
+              heightMsgValue = height;
+          }
+          heightMsgCounter++;
+      }
+  },300);
+}
+window.addEventListener("resize", postDocHeight);
+function handleAnchorClick(e) {
+    scrollMsgValue = -10000;
+    var input = e.target;
+    if (input.nodeName.toLowerCase() !== "a") {
+        input = e.target.parentNode;
+    }
+    if (input.nodeName.toLowerCase() !== "a") {
+        //console.log("Non anchor tag received");
+        return;
+    }
+    var hrefVal = input.attributes.href.value;
+    if (hrefVal.indexOf('#')===0) {
+        clickOnSubLink(hrefVal.substring(1));
+        return false;
+    }
+};
+function clickOnSubLink(linkId) {
+    var scrollTo = 0;
+    if (linkId) {
+        var divElement = document.getElementById(linkId);
+        //console.log("divElement:",divElement);
+        if (divElement) {
+            var rect = divElement.getBoundingClientRect();
+            //console.log("linkrect:", rect);
+            scrollTo = Math.ceil(rect.top);
+        }
+    }
+    var data = {
+        "action" : "scrollTo",
+        "scrollTo" : scrollTo,
+    };
+    //console.log("link id:", linkId," scrollTo:", scrollTo);
+    if (scrollTo !== scrollMsgValue) {
+        //console.log("scroll again");
+        window.parent.postMessage(JSON.stringify(data), "*");
+        scrollMsgValue = scrollTo;
+    }
+};
+$(document).ready(function() {
+    var links = document.querySelectorAll("a");
+    var i = 0;
+    for (i = 0; i < links.length; i++) {
+        var href = links[i].href;
+        //console.log("link href ", href);
+        if (href.indexOf("#") !== -1) {
+            var anchor = href.substring(href.lastIndexOf("#") + 1);
+            //console.log("Enabling click on ", anchor);
+            links[i].addEventListener('click', handleAnchorClick);
+        }
+    }
+    $("a[href^='http']").attr('target', '_blank');
+    $("a[href$='docsvcs_doc_pdftools#://']").removeAttr('target');
+    $("a[href$='docsvcs_doc_pdftools']").removeAttr('target');
+
+    postDocHeight();
+    setInterval(function(){
+        if (window.location.hash && scrollMsgCounter<=20) {
+            //console.log("window Location hash:", window.location.hash);
+            var divId = window.location.hash.substring(1);
+            clickOnSubLink(divId);
+            scrollMsgCounter++;
+        }
+    }, 300);
+});
+</script>
+<script type='text/javascript'> window.marketingtech = { adobe: {launch: {property: "global", environment: "production"}},};</script>
+<script src="https://www.adobe.com/marketingtech/main.min.js"></script>
+  
+<!-- override styles here. Note that sphinx defines some styles in JS rather than CSS -->
+<style type="text/css">
+.headerlink {display:none;}
+.toctree-l1 {font-weight:bold;}
+.toctree-l2 {font-weight:normal;}
+.removed_globaltoc {}
+div.shadow {	
+	-webkit-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	margin:2em;
+	}
+td {text-align: left;}
+blockquote > div > ul.simple {font-size:80%;}
+p { margin-bottom: 1em; }
+h2 { margin-top: 2em; }
+h3 { margin-top: 2em; }
+div.local {border:none;}
+img {
+  max-width: 98%;
+	-webkit-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+	box-shadow: 4px 4px 8px 0px rgba(50, 50, 50, 0.75);
+  margin: 1em 0 2.5em 1em
+}
+.cmdline {
+	word-wrap: break-word;
+	font-family: Courier, 'New Courier', monospace;
+	font-size: 12px;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	margin: 0;
+	padding: 1em;
+	background-color: #ffffff;
+	color: Black;
+}
+</style>
+
+  </head><body>
+<div class="container">
+
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><li  style="list-style:none;">
+<!-- removing the globaltoc class results in all heading2 (toctreel2) appearing in the left hand nav-->
+	 <ul class="removed_globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quickstarts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#getting-credentials">Getting credentials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#copy-it-run-it">Copy it. Run it.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#run-ready-samples">Run ready samples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#live-demo">Live demo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mobile-support">Mobile support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#feedback-and-forum">Feedback and forum</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="howtos.html">PDF Embed API basics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#embed-a-pdf-viewer">Embed a PDF viewer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#passing-file-content">Passing file content</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#embed-modes">Embed modes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#language-support">Language support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="howtos_ui.html">UI customization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="howtos_ui.html#menu-and-tool-options">Menu and tool options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos_ui.html#annotations">Annotations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos_ui.html#callbacks-workflows">Callbacks &amp; workflows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos_ui.html#user-profiles">User profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos_ui.html#user-settings">User settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos_ui.html#save-a-pdf">Save a PDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos_ui.html#status-callback">Status callback</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos_ui.html#forms-handling">Forms handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos_ui.html#viewer-api">Viewer API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="howtos_comments.html">Comments and Markup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="howtos_comments.html#single-line-implementation">Single line implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos_comments.html#commenting-feature-overview">Commenting feature overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos_comments.html#annotations-api-overview">Annotations API overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos_comments.html#annotation-schema">Annotation schema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos_comments.html#annotations-interface">Annotations interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos_comments.html#basic-apis-for-commenting">Basic APIs for commenting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos_comments.html#annotation-events">Annotation events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos_comments.html#handling-existing-annotations">Handling existing annotations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos_comments.html#apis-to-control-ui-configurations">APIs to control UI configurations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos_comments.html#code-samples">Code Samples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="howtodata.html">Analytics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="howtodata.html#adobe-analytics">Adobe Analytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtodata.html#default-analytics">Default analytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtodata.html#basic-events">Basic events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtodata.html#annotation-events">Annotation events</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="releasenotes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#november-2020">November, 2020</a></li>
+<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#september-2020">September, 2020</a></li>
+<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#august-2020">August, 2020</a></li>
+<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#july-2020">July, 2020</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="https://opensource.adobe.com/pdftools-sdk-docs/release/latest/index.html#://">Go to the PDF Tools API</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.adobe.com/go/pdftoolsapi_forum#://">Community forum</a></li>
+</ul>
+</ul>
+</li>
+        </div>
+      </div>
+    <div class="col-md-9 content">
+<div>
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+</div><br/>
+
+      
+  <div class="section" id="quickstarts">
+<h1>Quickstarts<a class="headerlink" href="#quickstarts" title="Permalink to this headline">¶</a></h1>
+<p>The Document Services PDF Embed API allows you to embed a PDF viewer in your web applications with only a few lines of code. With options for controlling how a PDF appears and functions, your applications can deliver the rich and compelling digital document experiences to your customers expect and need.</p>
+<p>Easy-to-use, JavaScript-based interfaces are the PDF Embed API’s foundation. Simplicity is designed in so that developers can harness the power of integrated PDF in their web content. With the ability to natively display PDF in an environment you control, you no longer need to rely on Reader download buttons, 3rd party apps, and PDF viewers that care little for PDF standards. With web-based JavaScript and in-page JS options, displaying a PDF on the web couldn’t be easier. And it’s simple: a few of lines of code are all you need to get started.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Check out the <a class="reference external" href="https://www.adobe.com/go/dcviewsdk_demo">online demo</a>, and view the code to see how easy it is!</p>
+</div>
+<div class="section" id="getting-credentials">
+<h2>Getting credentials<a class="headerlink" href="#getting-credentials" title="Permalink to this headline">¶</a></h2>
+<p>You’ll need a client ID to use the Document Services PDF Embed API. To get one, <a class="reference external" href="https://www.adobe.com/go/dcsdks_credentials">click HERE</a>, and complete the workflow.</p>
+</div>
+<div class="section" id="copy-it-run-it">
+<h2>Copy it. Run it.<a class="headerlink" href="#copy-it-run-it" title="Permalink to this headline">¶</a></h2>
+<p>The quickest way to get up and running is to copy the code below and run it locally. Simply copy the code to an index.html file, and open it in a browser. The example already points to an online PDF, and you do not need a client ID to run the viewer on your machine.</p>
+<p>There really are no environment setup steps or system requirements. Develop your web app using your preferred methods and tools.</p>
+<div class="highlight-html notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c">&lt;!--Get the samples from https://www.adobe.com/go/pdfembedapi_samples--&gt;</span>
+<span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+ <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Adobe Document Services PDF Embed API Sample<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+ <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">/&gt;</span>
+ <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">http-equiv</span><span class="o">=</span><span class="s">&quot;X-UA-Compatible&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;IE=edge,chrome=1&quot;</span><span class="p">/&gt;</span>
+ <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1&quot;</span><span class="p">/&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;margin: 0px&quot;</span><span class="p">&gt;</span>
+ <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;adobe-dc-view&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+ <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://documentcloud.adobe.com/view-sdk/main.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+ <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;adobe_dc_view_sdk.ready&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span>
+    <span class="p">{</span>
+<span class="hll">        <span class="kd">var</span> <span class="nx">adobeDCView</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AdobeDC</span><span class="p">.</span><span class="nx">View</span><span class="p">({</span><span class="nx">clientId</span><span class="o">:</span> <span class="s2">&quot;&lt;YOUR_CLIENT_ID&gt;&quot;</span><span class="p">,</span> <span class="nx">divId</span><span class="o">:</span> <span class="s2">&quot;adobe-dc-view&quot;</span><span class="p">});</span>
+</span>        <span class="nx">adobeDCView</span><span class="p">.</span><span class="nx">previewFile</span><span class="p">(</span>
+       <span class="p">{</span>
+          <span class="nx">content</span><span class="o">:</span>   <span class="p">{</span><span class="nx">location</span><span class="o">:</span> <span class="p">{</span><span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;https://documentcloud.adobe.com/view-sdk-demo/PDFs/Bodea Brochure.pdf&quot;</span><span class="p">}},</span>
+          <span class="nx">metaData</span><span class="o">:</span> <span class="p">{</span><span class="nx">fileName</span><span class="o">:</span> <span class="s2">&quot;Bodea Brochure.pdf&quot;</span><span class="p">}</span>
+       <span class="p">});</span>
+    <span class="p">});</span>
+ <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="run-ready-samples">
+<h2>Run ready samples<a class="headerlink" href="#run-ready-samples" title="Permalink to this headline">¶</a></h2>
+<p>The PDF Embed API provides ready-to-run sample files for every feature.</p>
+<ol class="arabic simple">
+<li><p>Download the <a class="reference external" href="https://www.adobe.com/go/pdfembedapi_samples">samples repo</a>.</p></li>
+<li><p>Place the files in any location that has internet access.</p></li>
+<li><p>Navigate to the index.html file for any sample, and open it in a browser.</p></li>
+</ol>
+<p>If a PDF renders in the web viewer, the sample has correctly executed.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You do not need a client ID to run the samples locally.</p>
+</div>
+</div>
+<div class="section" id="live-demo">
+<h2>Live demo<a class="headerlink" href="#live-demo" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference external" href="https://www.adobe.com/go/dcviewsdk_demo">Document Services PDF Embed API demo</a> demonstrates how easy it is to configure the viewer and also provides a “generate code” button so that you can immediately see your UI changes reflected in a live code sample.</p>
+<img alt="_images/playground.png" src="_images/playground.png" />
+</div>
+<div class="section" id="mobile-support">
+<h2>Mobile support<a class="headerlink" href="#mobile-support" title="Permalink to this headline">¶</a></h2>
+<p>Much of what the PDF Embed API delivers is supported in the mobile devices. However, there are some limitations:</p>
+<ul class="simple">
+<li><p>Annotation tools are not supported on phones in Full Window embed mode. These tools are supported on tablets (both Android and iOS).</p></li>
+<li><p>Print functionality is unsupported.</p></li>
+<li><p>PDF download is unsupported on iOS devices, but it is supported on Android.</p></li>
+</ul>
+</div>
+<div class="section" id="feedback-and-forum">
+<h2>Feedback and forum<a class="headerlink" href="#feedback-and-forum" title="Permalink to this headline">¶</a></h2>
+<p>Customer feedback is particularly valuable as it helps the team validate use cases, guide development, and troubleshoot issues. Comments and questions are always welcome on the <a class="reference external" href="https://community.adobe.com/t5/Document-Cloud-SDK/bd-p/Document-Cloud-SDK">Community Forum</a>.</p>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+       Last updated Dec 07, 2020 <br/>
+    </p>	
+  </div>
+  </footer>
+  </body>
+</html>
