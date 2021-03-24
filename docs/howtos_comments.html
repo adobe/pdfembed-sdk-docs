@@ -240,7 +240,14 @@ img {
 <li class="toctree-l2"><a class="reference internal" href="howtodata.html#annotation-events">Annotation events</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="searchengineindexing.html">Handle search engine indexing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="searchengineindexing.html#sitemap">Sitemap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="searchengineindexing.html#alternative-approaches">Alternative approaches</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="releasenotes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#march-2021">March, 2021</a></li>
+<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#january-2021">January, 2021</a></li>
 <li class="toctree-l2"><a class="reference internal" href="releasenotes.html#november-2020">November, 2020</a></li>
 <li class="toctree-l2"><a class="reference internal" href="releasenotes.html#september-2020">September, 2020</a></li>
 <li class="toctree-l2"><a class="reference internal" href="releasenotes.html#august-2020">August, 2020</a></li>
@@ -268,8 +275,7 @@ img {
       
   <div class="section" id="comments-and-markup">
 <span id="annotsapi"></span><h1>Comments and Markup<a class="headerlink" href="#comments-and-markup" title="Permalink to this headline">¶</a></h1>
-<p>The Embed API provides the capability to add comments to PDF documents using the commenting and markup tools. You can add comments with add text comment tool, sticky notes, highlights, drawing tool, strikethrough and underline text.
-The basic commenting features supported by Embed API include:</p>
+<p>The Embed API provides the capability to add comments to PDF documents using the commenting and markup tools. You can add comments with add text comment tool, sticky notes, highlights, drawing tool, strikethrough and underline text.  In addition to these tools, there is also an eraser tool which can be used to erase parts of drawing annotations. The basic commenting features supported by Embed API include:</p>
 <ul class="simple">
 <li><p>Adding text comments, sticky notes, highlights, underlines, strikethroughs, drawing markups, etc.</p></li>
 <li><p>Updating annotations</p></li>
@@ -309,7 +315,8 @@ The basic commenting features supported by Embed API include:</p>
 </div>
 <div class="section" id="commenting-feature-overview">
 <h2>Commenting feature overview<a class="headerlink" href="#commenting-feature-overview" title="Permalink to this headline">¶</a></h2>
-<p>The Embed API provides several annotation types, including freehand text comments, sticky notes, text markup, and freehand drawing. All of these types deliver the following functionality:</p>
+<p>The PDF Embed API provides several annotation types, including freehand text comments, sticky notes, text markup, and freehand drawing. It also provides an eraser tool to remove parts of freehand drawings.</p>
+<p>All of these types deliver the following functionality:</p>
 <ul class="simple">
 <li><p>Support for adding replies to annotations so that document recipients can respond to the author’s original markup. All comments appear in the right-hand comments panel.</p></li>
 <li><p>Adding or updating any annotation enables the <strong>Save</strong> button.</p></li>
@@ -355,7 +362,7 @@ The basic commenting features supported by Embed API include:</p>
 </li>
 <li><p>Moving a sticky note: Place the cursor over an existing sticky note and drag to move it to some other location.</p></li>
 </ul>
-<img alt="_images/stickynote.png" src="_images/stickynote.png" />
+<img alt="_images/stickynote1.png" src="_images/stickynote1.png" />
 </div>
 <div class="section" id="text-markup-annotations">
 <h3>Text markup annotations<a class="headerlink" href="#text-markup-annotations" title="Permalink to this headline">¶</a></h3>
@@ -364,8 +371,8 @@ The basic commenting features supported by Embed API include:</p>
 <ul class="simple">
 <li><p>Adding a text markup: There are two ways to add a text markup:</p>
 <ul>
-<li><p>Click the highlight tool in the top bar and select some text. The text gets highlighted and a default comment is saved in the comments panel.</p></li>
-<li><p>Select some text. Select either the highlight, strikethrough or underline options from the context menu. The markup is added along with a default comment.</p></li>
+<li><p>Click the highlight tool in the top bar and select some text. The text gets highlighted and a comment box opens up where you can type in some text.</p></li>
+<li><p>Select some text. Select either the highlight, strikethrough or underline options from the context menu. The markup is added and a comment box opens up where you can type in some text.</p></li>
 </ul>
 </li>
 </ul>
@@ -419,6 +426,16 @@ The basic commenting features supported by Embed API include:</p>
 </ul>
 <img alt="_images/drawing_menu.png" src="_images/drawing_menu.png" />
 </div>
+<div class="section" id="eraser-tool">
+<h3>Eraser tool<a class="headerlink" href="#eraser-tool" title="Permalink to this headline">¶</a></h3>
+<p>This tool can be used to erase parts of freehand drawing annotations you added via the drawing tool.</p>
+<p>Select the eraser tool in the top bar and drag it across the areas of the drawing annotation that you wish to remove. The updated drawing annotation is saved to the PDF.</p>
+<ul class="simple">
+<li><p>Parts of a single drawing or multiple drawing annotations can be erased at the same time.  The corresponding drawing annotations are updated in the PDF.</p></li>
+<li><p>If the entire drawing is erased, then that particular drawing annotation gets removed from the PDF.</p></li>
+</ul>
+<img alt="_images/eraser.png" src="_images/eraser.png" />
+</div>
 </div>
 <div class="section" id="annotations-api-overview">
 <h2>Annotations API overview<a class="headerlink" href="#annotations-api-overview" title="Permalink to this headline">¶</a></h2>
@@ -459,10 +476,6 @@ The basic commenting features supported by Embed API include:</p>
 <li><p>Any annotation added or updated from UI or API is saved to the PDF buffer, and the Save button is enabled when the PDF has unsaved changes.</p></li>
 </ul>
 </div></blockquote>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The add text comment tool is not available when annotation APIs are enabled. If the PDF already contains some text comments, then these are not accessible through any of the annotation APIs and appear in read-only mode.</p>
-</div>
 </div>
 <div class="section" id="annotation-schema">
 <span id="schema"></span><h2>Annotation schema<a class="headerlink" href="#annotation-schema" title="Permalink to this headline">¶</a></h2>
@@ -477,6 +490,10 @@ The basic commenting features supported by Embed API include:</p>
   <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">ANNOTATION_ID</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="s2">&quot;bodyValue&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">STRING</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="s2">&quot;motivation&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">STRING</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="s2">&quot;stylesheet&quot;</span><span class="p">:</span> <span class="p">{</span>
+     <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CssStylesheet&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">CSS_DEFINITION</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="p">},</span>
   <span class="s2">&quot;target&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">target</span><span class="o">-</span><span class="n">node</span><span class="o">&gt;</span> <span class="n">OR</span> <span class="o">&lt;</span><span class="n">target</span><span class="o">-</span><span class="n">reply</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="s2">&quot;creator&quot;</span><span class="p">:</span> <span class="p">{</span>
      <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Person&quot;</span><span class="p">,</span>
@@ -550,6 +567,24 @@ The basic commenting features supported by Embed API include:</p>
 <td><p>The PDF’s unique identifier. This is same as the value of <code class="docutils literal notranslate"><span class="pre">id</span></code> in the metadata field in the <code class="docutils literal notranslate"><span class="pre">previewFile</span></code> API.</p></td>
 <td><p>Yes</p></td>
 </tr>
+<tr class="row-odd"><td><p>stylesheet.type</p></td>
+<td><p>The type of style applied to freehand text annotations. The only permissible value is CssStylesheet.</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p>stylesheet.value</p></td>
+<td><p>This specifies the font size and colour as a valid CSS JSON. This parameter is applicable only in case of freehand text annotations.</p>
+<p><strong>Note:</strong> In the current implementation, there is no support to set the font family of the text annotation. Depending on the language of the text, the following font families will be applied:</p>
+<ul class="simple">
+<li><p>English: Helvetica</p></li>
+<li><p>Chinese Simplified: Adobe Song Std L</p></li>
+<li><p>Chinese Traditional: Kozuka Mincho Pr6N R</p></li>
+<li><p>Japanese: Kozuka Mincho Pr6N R</p></li>
+<li><p>Korean: Adobe Myugjo Std M</p></li>
+<li><p>Other languages: Helvetica</p></li>
+</ul>
+</td>
+<td><p>No</p></td>
+</tr>
 </tbody>
 </table>
 <p>If the annotation is a comment on the PDF, then the value of the <code class="docutils literal notranslate"><span class="pre">target</span></code> parameter is <em>target-node</em> as follows:</p>
@@ -567,6 +602,7 @@ The basic commenting features supported by Embed API include:</p>
    <span class="s2">&quot;strokeColor&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">COLOR_HEX_CODE</span><span class="o">&gt;</span><span class="p">,</span>
    <span class="s2">&quot;strokeWidth&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">FLOAT</span><span class="o">&gt;</span><span class="p">,</span>
    <span class="s2">&quot;opacity&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">FLOAT</span> <span class="kn">from</span> <span class="mf">0.0</span> <span class="n">to</span> <span class="mf">1.0</span><span class="o">&gt;</span><span class="p">,</span>
+   <span class="s2">&quot;styleClass&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">STRING</span><span class="o">&gt;</span>
  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -608,6 +644,7 @@ The basic commenting features supported by Embed API include:</p>
 <li><p><em>shape</em></p></li>
 <li><p><em>underline</em></p></li>
 <li><p><em>strikeout</em></p></li>
+<li><p><em>freetext</em></p></li>
 </ul>
 </div></blockquote>
 </td>
@@ -643,6 +680,10 @@ The basic commenting features supported by Embed API include:</p>
 </tr>
 <tr class="row-even"><td><p>selector.opacity</p></td>
 <td><p>Float value between 0.0 and 1.0 specifying the opacity of the annotation.</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p>styleClass</p></td>
+<td><p>Contains the CSS class specified in stylesheet.value. The style will be applied to the add text annotation.</p></td>
 <td><p>No</p></td>
 </tr>
 </tbody>
@@ -730,6 +771,48 @@ The basic commenting features supported by Embed API include:</p>
    <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-02-02T14:45:37Z&quot;</span><span class="p">,</span>
    <span class="s2">&quot;modified&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-02-02T07:57:03Z&quot;</span>
 <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="add-text-annotation-data">
+<h4>Add text annotation data<a class="headerlink" href="#add-text-annotation-data" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+      <span class="s2">&quot;@context&quot;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="s2">&quot;https://www.w3.org/ns/anno.jsonld&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;https://comments.acrobat.com/ns/anno.jsonld&quot;</span>
+      <span class="p">],</span>
+      <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Annotation&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;02dcf931-d1cb-49c1-a8bc-d047892a06bc&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;bodyValue&quot;</span><span class="p">:</span> <span class="s2">&quot;I added a text annotation&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;motivation&quot;</span><span class="p">:</span> <span class="s2">&quot;commenting&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;stylesheet&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CssStylesheet&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;body-value-css { font: 13px Helvetica; color: #0000FF; }&quot;</span>
+      <span class="p">},</span>
+      <span class="s2">&quot;target&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;77c6fa5d-6d74-4104-8349-657c8411a834&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;selector&quot;</span><span class="p">:</span> <span class="p">{</span>
+              <span class="s2">&quot;node&quot;</span><span class="p">:</span> <span class="p">{</span>
+                  <span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="mi">1</span>
+              <span class="p">},</span>
+              <span class="s2">&quot;subtype&quot;</span><span class="p">:</span> <span class="s2">&quot;freetext&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;boundingBox&quot;</span><span class="p">:</span> <span class="p">[</span>
+                  <span class="mf">306.41829735235586</span><span class="p">,</span>
+                  <span class="mf">339.01199687491595</span><span class="p">,</span>
+                  <span class="mf">475.729044456285</span><span class="p">,</span>
+                  <span class="mf">357.0653042030006</span>
+              <span class="p">],</span>
+              <span class="s2">&quot;styleClass&quot;</span><span class="p">:</span> <span class="s2">&quot;body-value-css&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;AdobeAnnoSelector&quot;</span>
+          <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="s2">&quot;creator&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Person&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;John Smith&quot;</span>
+      <span class="p">},</span>
+      <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2021-01-15T14:45:37Z&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;modified&quot;</span><span class="p">:</span> <span class="s2">&quot;2021-01-15T14:45:37Z&quot;</span>
+ <span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -973,8 +1056,8 @@ The basic commenting features supported by Embed API include:</p>
 </div>
 <div class="section" id="updateannotation-api">
 <h3>updateAnnotation API<a class="headerlink" href="#updateannotation-api" title="Permalink to this headline">¶</a></h3>
-<p>This API updates a single existing PDF annotation in the PDF, including the parameters <code class="docutils literal notranslate"><span class="pre">bodyValue</span></code> as well as other parameters under <code class="docutils literal notranslate"><span class="pre">selector</span></code> such as, <code class="docutils literal notranslate"><span class="pre">strokeColor</span></code>, <code class="docutils literal notranslate"><span class="pre">strokeWidth</span></code>, <code class="docutils literal notranslate"><span class="pre">boundingBox</span></code>, <code class="docutils literal notranslate"><span class="pre">quadPoints</span></code> and <code class="docutils literal notranslate"><span class="pre">inkList</span></code>.
-This API takes the annotation data containing the updated parameters, finds the annotation with the ID present in the input data, and applies the update to that annotation. The annotation data must be in the format as described in the <a class="reference internal" href="#schema"><span class="std std-ref">Annotation schema</span></a>.</p>
+<p>This API updates a single existing PDF annotation in the PDF, including the parameters <code class="docutils literal notranslate"><span class="pre">bodyValue</span></code>, <code class="docutils literal notranslate"><span class="pre">font</span></code> and <code class="docutils literal notranslate"><span class="pre">color</span></code> under <code class="docutils literal notranslate"><span class="pre">stylesheet</span></code> as well as other parameters under <code class="docutils literal notranslate"><span class="pre">selector</span></code> such as, <code class="docutils literal notranslate"><span class="pre">strokeColor</span></code>, <code class="docutils literal notranslate"><span class="pre">strokeWidth</span></code>, <code class="docutils literal notranslate"><span class="pre">boundingBox</span></code>, <code class="docutils literal notranslate"><span class="pre">quadPoints</span></code> and <code class="docutils literal notranslate"><span class="pre">inkList</span></code>.</p>
+<p>This API takes the annotation data containing the updated parameters, finds the annotation with the ID present in the input data, and applies the update to that annotation. The annotation data must be in the format as described in theAnnotation schema.</p>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 20%" />
@@ -1195,7 +1278,7 @@ This API takes the annotation data containing the updated parameters, finds the 
 <p><code class="docutils literal notranslate"><span class="pre">setConfig</span></code> allows you to set special UI configurations, including hiding the commenting tools from the top bar, hiding the right-hand comments pane, hiding the toolbar on text selection, and enabling the downloaded and printed PDF to contain annotations even when unsaved to the PDF buffer.</p>
 <p>The API supports the following flags. You can pass 1-N flags to the API as needed:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">showToolbar</span></code>: This flag shows or hides the sticky note, highlight and drawing annotation tools in the top bar. The default value is <em>true</em>, and these annotation tools are visible. Set this flag to false if these tools need to be hidden from the top bar.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">showToolbar</span></code>: This flag shows or hides the add text, sticky note, highlight, drawing and eraser tools in the top bar. The default value is <em>true</em>, and these annotation tools are visible. Set this flag to false if these tools need to be hidden from the top bar.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">showCommentsPanel</span></code>: This flag shows or hides the right-hand comments pane. The default value is <em>true</em>, and the comments pane is visible. Set to <em>false</em> to hide the right-hand comments pane.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">showToolsOnTextSelection</span></code>: This flag shows or hides the toolbar available on text selection. The default value is <em>true</em>, and the toolbar is visible. Set to <em>false</em> to hide the toolbar.</p></li>
 </ul>
@@ -1337,10 +1420,11 @@ This API takes the annotation data containing the updated parameters, finds the 
 </div>
 <div class="section" id="startannotationmode-api">
 <h3>startAnnotationMode API<a class="headerlink" href="#startannotationmode-api" title="Permalink to this headline">¶</a></h3>
-<p>This API starts a particular annotation mode so that annotations of that type can be added to the PDF. This API takes a single annotation mode as input. The annotation mode can be any one of the supported annotation types in PDF Embed API, and it supports the following optional paramaters:</p>
+<p>This API starts a particular annotation mode so that you can annotations of that type or use the eraser tool. The API takes a single annotation mode as input. The annotation mode can be any one of the supported annotation types in PDF Embed API, and it supports the following optional parameters:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">defaultColor</span></code>: A hex code specifying the annotation color.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cursor</span></code>: A <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/CSS/cursor">CSS standards-based</a> string value to denote the cursor style on annotation start.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">defaultColor</span></code>: A hex code specifying the annotation color. This parameter is applicable for all annotation types.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cursor</span></code>: A <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/CSS/cursor">CSS standards-based</a> string value to denote the cursor style on annotation start. This parameter is applicable for all annotation types.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fontSize</span></code>: Font size within the range of 6-24px. This parameter is applicable only in case of freehand text annotations.</p></li>
 </ul>
 <table class="colwidths-given docutils align-default">
 <colgroup>
@@ -1351,13 +1435,13 @@ This API takes the annotation data containing the updated parameters, finds the 
 <tr class="row-odd"><td><p><strong>Input parameters</strong></p></td>
 <td><p>There are two parameters which accept the following values:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">mode</span></code>: note, highlight, shape, underline, strikeout</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">options</span></code>: defaultColor: &lt;COLOR_HEX_CODE&gt;, cursor: &lt;CURSOR_TYPE&gt;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mode</span></code>: Permissible values include: <em>note</em>, <em>highlight</em>, <em>shape</em>, <em>underline</em>, <em>strikeout</em>, <em>freetext</em> or <em>eraser</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">options</span></code>: defaultColor: &lt;COLOR_HEX_CODE&gt;, cursor: &lt;CURSOR_TYPE&gt;, fontSize: &lt;FONT_SIZE&gt;</p></li>
 </ul>
 </td>
 </tr>
 <tr class="row-even"><td><p><strong>API output</strong></p></td>
-<td><p>Returns a Promise which,</p>
+<td><p>Returns a Promise which:</p>
 <ul class="simple">
 <li><p>Resolves on successful start annotation mode operation</p></li>
 <li><p>Rejects with an error object including a code and message</p></li>
@@ -1365,10 +1449,11 @@ This API takes the annotation data containing the updated parameters, finds the 
 </td>
 </tr>
 <tr class="row-odd"><td><p><strong>API signature</strong></p></td>
-<td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">const</span> <span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;note&quot;</span><span class="p">;</span>
+<td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">const</span> <span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;freetext&quot;</span><span class="p">;</span>
 <span class="n">const</span> <span class="n">options</span> <span class="o">=</span> <span class="p">{</span>
-<span class="n">defaultColor</span><span class="p">:</span> <span class="s2">&quot;#b80000&quot;</span><span class="p">,</span>
-<span class="n">cursor</span><span class="p">:</span> <span class="s2">&quot;crosshair&quot;</span>
+  <span class="n">defaultColor</span><span class="p">:</span> <span class="s2">&quot;#b80000&quot;</span><span class="p">,</span>
+  <span class="n">cursor</span><span class="p">:</span> <span class="s2">&quot;crosshair&quot;</span><span class="p">,</span>
+  <span class="n">fontSize</span><span class="p">:</span> <span class="s2">&quot;15px&quot;</span>
 <span class="p">};</span>
 
 <span class="n">previewFilePromise</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">adobeViewer</span> <span class="o">=&gt;</span> <span class="p">{</span>
@@ -1435,7 +1520,7 @@ This API takes the annotation data containing the updated parameters, finds the 
       
     </p>
     <p>
-       Last updated Dec 07, 2020 <br/>
+       Last updated Mar 09, 2021 <br/>
     </p>	
   </div>
   </footer>

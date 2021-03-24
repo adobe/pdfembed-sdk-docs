@@ -18,7 +18,7 @@
     <script src="_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Analytics" href="howtodata.html" />
+    <link rel="prev" title="Handle search engine indexing" href="searchengineindexing.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -239,7 +239,14 @@ img {
 <li class="toctree-l2"><a class="reference internal" href="howtodata.html#annotation-events">Annotation events</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="searchengineindexing.html">Handle search engine indexing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="searchengineindexing.html#sitemap">Sitemap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="searchengineindexing.html#alternative-approaches">Alternative approaches</a></li>
+</ul>
+</li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#march-2021">March, 2021</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#january-2021">January, 2021</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#november-2020">November, 2020</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#september-2020">September, 2020</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#august-2020">August, 2020</a></li>
@@ -268,6 +275,59 @@ img {
   <div class="section" id="release-notes">
 <span id="rnotes"></span><h1>Release Notes<a class="headerlink" href="#release-notes" title="Permalink to this headline">¶</a></h1>
 <p>In addition to general bug fixes, and performance enhancements, refer to the changes below for each release.</p>
+<div class="section" id="march-2021">
+<h2>March, 2021<a class="headerlink" href="#march-2021" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 78%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Change</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>New</p></td>
+<td><p>Added support for eraser annotation tool to erase parts of drawing annotations.</p></td>
+</tr>
+<tr class="row-odd"><td><p>New</p></td>
+<td><p>New viewer API to fetch and open bookmarks in the PDF programmatically.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="january-2021">
+<h2>January, 2021<a class="headerlink" href="#january-2021" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 78%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Change</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>New</p></td>
+<td><p>Added support for add text annotation in annotation APIs.</p></td>
+</tr>
+<tr class="row-odd"><td><p>New</p></td>
+<td><p>New viewer APIs to perform zoom and search operations on the PDF programmatically.</p></td>
+</tr>
+<tr class="row-even"><td><p>New</p></td>
+<td><p>Enhancements in the mobile view experience of PDF files displayed using PDF Embed API.</p></td>
+</tr>
+<tr class="row-odd"><td><p>New</p></td>
+<td><p>Added a new event for “UNSUPPORTED_FEATURE_FOUND” which will be generated when any unsupported feature is used by the end-user.</p></td>
+</tr>
+<tr class="row-even"><td><p>New</p></td>
+<td><p>Added a new section in documentation about recommended approaches for search engine indexing of PDF files displayed using PDF Embed API.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 <div class="section" id="november-2020">
 <h2>November, 2020<a class="headerlink" href="#november-2020" title="Permalink to this headline">¶</a></h2>
 <table class="colwidths-given docutils align-default">
@@ -307,18 +367,15 @@ img {
 <td><p>Added support for the new “Add Text Comment”  annotation tool  which adds free text to PDFs.</p></td>
 </tr>
 <tr class="row-odd"><td><p>New</p></td>
-<td><p>Enhanced the commenting behavior for text markup tools: highlight, strikethrough and underline. Now the comment box will not open after adding these types of annotations, and a default comment will get saved.</p></td>
-</tr>
-<tr class="row-even"><td><p>New</p></td>
 <td><p>UI improvements in the right-hand comments panel.</p></td>
 </tr>
-<tr class="row-odd"><td><p>New</p></td>
+<tr class="row-even"><td><p>New</p></td>
 <td><p>Events for annotation actions.</p></td>
 </tr>
-<tr class="row-even"><td><p>New</p></td>
+<tr class="row-odd"><td><p>New</p></td>
 <td><p>Improvement in the PDF viewing experience in sized container embed mode by enabling fade-in and fade-out of page controls along with the top bar.</p></td>
 </tr>
-<tr class="row-odd"><td><p>Bug fix</p></td>
+<tr class="row-even"><td><p>Bug fix</p></td>
 <td><p>Previously, there was an issue in Embed API which caused the rendering of few PDFs to fail, and users would see an error message. This is now resolved and those PDFs render correctly in the web viewer.</p></td>
 </tr>
 </tbody>
@@ -385,7 +442,7 @@ img {
       
     </p>
     <p>
-       Last updated Dec 07, 2020 <br/>
+       Last updated Mar 09, 2021 <br/>
     </p>	
   </div>
   </footer>

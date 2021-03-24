@@ -240,7 +240,14 @@ img {
 <li class="toctree-l2"><a class="reference internal" href="howtodata.html#annotation-events">Annotation events</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="searchengineindexing.html">Handle search engine indexing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="searchengineindexing.html#sitemap">Sitemap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="searchengineindexing.html#alternative-approaches">Alternative approaches</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="releasenotes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#march-2021">March, 2021</a></li>
+<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#january-2021">January, 2021</a></li>
 <li class="toctree-l2"><a class="reference internal" href="releasenotes.html#november-2020">November, 2020</a></li>
 <li class="toctree-l2"><a class="reference internal" href="releasenotes.html#september-2020">September, 2020</a></li>
 <li class="toctree-l2"><a class="reference internal" href="releasenotes.html#august-2020">August, 2020</a></li>
@@ -343,8 +350,8 @@ img {
 <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </pre></div>
 </td></tr></table></div>
-<table class="colwidths-given docutils align-default" id="id1">
-<caption><span class="caption-text"><strong>Menu and tool options</strong></span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<table class="colwidths-given docutils align-default" id="id2">
+<caption><span class="caption-text"><strong>Menu and tool options</strong></span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 20%" />
@@ -375,7 +382,13 @@ img {
 </tr>
 <tr class="row-even"><td><p>defaultViewMode</p></td>
 <td><p>null</p></td>
-<td><p>This variable takes a string value of FIT_WIDTH or FIT_PAGE. FIT_WIDTH expands the page horizontally to the full width of the document pane. FIT_PAGE displays the entire page in the current view pane. Note that end users can toggle the mode via the Fit Width/Fit Page button on the page controls bar.</p></td>
+<td><p>This variable takes a string value of FIT_WIDTH or FIT_PAGE. FIT_WIDTH expands the page horizontally to the full width of the document pane. FIT_PAGE displays the entire page in the current view pane. Note that end users can toggle the mode via the Fit Width/Fit Page button on the page controls bar.</p>
+<p>In addition to these, there are two other view modes which are supported only in mobile browsers.</p>
+<ul class="simple">
+<li><p>CONTINUOUS: This mode displays all the document pages one after the other and users can easily navigate through the pages by scrolling up or down.</p></li>
+<li><p>SINGLE_PAGE: This mode displays only a single document page at a time and doesn’t show any adjoining page. Users can use the swipe gesture to navigate to other pages which will be displayed one at a time.</p></li>
+</ul>
+</td>
 </tr>
 <tr class="row-odd"><td><p>enableFormFilling</p></td>
 <td><p>true</p></td>
@@ -714,6 +727,10 @@ img {
 <h2>Forms handling<a class="headerlink" href="#forms-handling" title="Permalink to this headline">¶</a></h2>
 <p>The PDF Embed API supports live form editing by default. End users can add and edit text in text fields and interact with other form objects, including radio buttons, check boxes, lists, and drop downs (select lists). When users fill any form field, the Save button in the top menu is automatically enabled so that they can save their information to the PDF. The PDF Embed API renders forms so that they appear similar to forms viewed in the full Acrobat app:</p>
 <img alt="_images/form1.png" src="_images/form1.png" />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Form editing capability is supported only in Full Window embed mode.</p>
+</div>
 <p>Control form editing capability by simply toggling <code class="docutils literal notranslate"><span class="pre">enableFormFilling</span></code> on and off as needed. While the Embed API enables form editing by default, you can disable the feature by setting it to <em>false</em>.</p>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;adobe-dc-view&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://documentcloud.adobe.com/view-sdk/main.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
@@ -811,9 +828,520 @@ img {
 </pre></div>
 </td></tr></table></div>
 </div>
+<div class="section" id="zoom-apis">
+<h3>Zoom APIs<a class="headerlink" href="#zoom-apis" title="Permalink to this headline">¶</a></h3>
+<p>These APIs can be used to perform zoom operations on the PDF programmatically. These APIs are supported in all embed modes except in-line embed mode.</p>
+</div>
+<div class="section" id="getzoomlimits">
+<h3>getZoomLimits<a class="headerlink" href="#getzoomlimits" title="Permalink to this headline">¶</a></h3>
+<p>This API returns the minimum and maximum allowed zoom levels of the PDF.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Input parameters</strong></p></td>
+<td><p>N/A</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>API output</strong></p></td>
+<td><p>Returns a Promise which,</p>
+<ul class="simple">
+<li><p>Resolves with a JSON object including the minimum and maximum zoom level of the PDF.
+<code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">minZoom:</span> <span class="pre">&lt;MIN_ZOOM_LEVEL&gt;,</span> <span class="pre">maxZoom:</span> <span class="pre">&lt;MAX_ZOOM_LEVEL&gt;</span> <span class="pre">}</span></code></p></li>
+<li><p>Rejects with an error object that includes a code and message.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p><strong>API signature</strong></p></td>
+<td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">previewFilePromise</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">adobeViewer</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="n">adobeViewer</span><span class="o">.</span><span class="n">getAPIs</span><span class="p">()</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">apis</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                <span class="n">apis</span><span class="o">.</span><span class="n">getZoomAPIs</span><span class="p">()</span><span class="o">.</span><span class="n">getZoomLimits</span><span class="p">()</span>
+                        <span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">result</span> <span class="o">=&gt;</span> <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+                        <span class="o">.</span><span class="n">catch</span><span class="p">(</span><span class="n">error</span> <span class="o">=&gt;</span> <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">error</span><span class="p">));</span>
+        <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="zoomin">
+<h3>zoomIn<a class="headerlink" href="#zoomin" title="Permalink to this headline">¶</a></h3>
+<p>This API zooms in on the PDF and magnifies the PDF view to the next zoom level. The magnified zoom level will never exceed the maximum zoom level of the PDF.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Input parameters</strong></p></td>
+<td><p>N/A</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>API output</strong></p></td>
+<td><p>Returns a Promise which,</p>
+<ul class="simple">
+<li><p>Resolves with the updated zoom level.</p></li>
+<li><p>Rejects with an error object that includes a code and message.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p><strong>API signature</strong></p></td>
+<td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">previewFilePromise</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">adobeViewer</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="n">adobeViewer</span><span class="o">.</span><span class="n">getAPIs</span><span class="p">()</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">apis</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                <span class="n">apis</span><span class="o">.</span><span class="n">getZoomAPIs</span><span class="p">()</span><span class="o">.</span><span class="n">zoomIn</span><span class="p">()</span>
+                        <span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">result</span> <span class="o">=&gt;</span> <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+                        <span class="o">.</span><span class="n">catch</span><span class="p">(</span><span class="n">error</span> <span class="o">=&gt;</span> <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">error</span><span class="p">));</span>
+        <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="zoomout">
+<h3>zoomOut<a class="headerlink" href="#zoomout" title="Permalink to this headline">¶</a></h3>
+<p>This API zooms out of the PDF and reduces the PDF view to the previous zoom level. The reduced zoom level will never be less than the minimum zoom level of the PDF.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Input parameters</strong></p></td>
+<td><p>N/A</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>API output</strong></p></td>
+<td><p>Returns a Promise which,</p>
+<ul class="simple">
+<li><p>Resolves with the updated zoom level.</p></li>
+<li><p>Rejects with an error object that includes a code and message.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p><strong>API signature</strong></p></td>
+<td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">previewFilePromise</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">adobeViewer</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="n">adobeViewer</span><span class="o">.</span><span class="n">getAPIs</span><span class="p">()</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">apis</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                <span class="n">apis</span><span class="o">.</span><span class="n">getZoomAPIs</span><span class="p">()</span><span class="o">.</span><span class="n">zoomOut</span><span class="p">()</span>
+                        <span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">result</span> <span class="o">=&gt;</span> <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+                        <span class="o">.</span><span class="n">catch</span><span class="p">(</span><span class="n">error</span> <span class="o">=&gt;</span> <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">error</span><span class="p">));</span>
+        <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="setzoomlevel">
+<h3>setZoomLevel<a class="headerlink" href="#setzoomlevel" title="Permalink to this headline">¶</a></h3>
+<p>This API accepts a float value as input and sets the zoom level of the PDF to that value. The input must lie between the minimum and maximum allowed zoom levels of the PDF.</p>
+<p>If the input passed is less than the minimum zoom level, then the minimum zoom level is applied to the PDF. Similarly, if the input passed is greater than the maximum zoom level, then the maximum zoom level is applied.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Input parameters</strong></p></td>
+<td><p>&lt;Float&gt;</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>API output</strong></p></td>
+<td><p>Returns a Promise which,</p>
+<ul class="simple">
+<li><p>Resolves with the updated zoom level.</p></li>
+<li><p>Rejects with an error object that includes a code and message.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p><strong>API signature</strong></p></td>
+<td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">previewFilePromise</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">adobeViewer</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="n">adobeViewer</span><span class="o">.</span><span class="n">getAPIs</span><span class="p">()</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">apis</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                <span class="n">apis</span><span class="o">.</span><span class="n">getZoomAPIs</span><span class="p">()</span><span class="o">.</span><span class="n">setZoomLevel</span><span class="p">(</span><span class="o">&lt;</span><span class="n">Float</span><span class="o">&gt;</span><span class="p">)</span>
+                        <span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">result</span> <span class="o">=&gt;</span> <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+                        <span class="o">.</span><span class="n">catch</span><span class="p">(</span><span class="n">error</span> <span class="o">=&gt;</span> <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">error</span><span class="p">));</span>
+        <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Find the working code sample <a class="reference external" href="https://www.adobe.com/go/pdfembedapi_samples">here</a>  under <code class="docutils literal notranslate"><span class="pre">/More</span> <span class="pre">Samples/Viewer</span> <span class="pre">APIs/Zoom</span> <span class="pre">APIs</span></code>.</p>
+</div>
+</div>
+<div class="section" id="search-apis">
+<h3>Search APIs<a class="headerlink" href="#search-apis" title="Permalink to this headline">¶</a></h3>
+<p>This API can be used to search for a term in the PDF programmatically. This API is supported in all embed modes.</p>
+<p>In order to enable search APIs, the configuration variable <code class="docutils literal notranslate"><span class="pre">enableSearchAPIs</span></code> should be set to true and passed as a preview configuration to the <code class="docutils literal notranslate"><span class="pre">previewFile</span></code> API.</p>
+<div class="highlight-html notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28</pre></div></td><td class="code"><div class="highlight"><pre><span></span>     <span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+     <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Adobe Document Services PDF Embed API Sample<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">/&gt;</span>
+      <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">http-equiv</span><span class="o">=</span><span class="s">&quot;X-UA-Compatible&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;IE=edge,chrome=1&quot;</span><span class="p">/&gt;</span>
+      <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1&quot;</span><span class="p">/&gt;</span>
+     <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+     <span class="p">&lt;</span><span class="nt">body</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;margin: 0px&quot;</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;adobe-dc-view&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://documentcloud.adobe.com/view-sdk/main.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
+             <span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;adobe_dc_view_sdk.ready&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span>
+             <span class="p">{</span>
+                     <span class="kd">var</span> <span class="nx">adobeDCView</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AdobeDC</span><span class="p">.</span><span class="nx">View</span><span class="p">({</span><span class="nx">clientId</span><span class="o">:</span> <span class="s2">&quot;&lt;YOUR_CLIENT_ID&gt;&quot;</span><span class="p">,</span> <span class="nx">divId</span><span class="o">:</span> <span class="s2">&quot;adobe-dc-view&quot;</span><span class="p">});</span>
+                     <span class="kd">var</span> <span class="nx">previewFilePromise</span> <span class="o">=</span> <span class="nx">adobeDCView</span><span class="p">.</span><span class="nx">previewFile</span><span class="p">({</span>
+                        <span class="nx">content</span><span class="o">:</span>   <span class="p">{</span><span class="nx">location</span><span class="o">:</span> <span class="p">{</span><span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;https://documentcloud.adobe.com/view-sdk-demo/PDFs/Bodea Brochure.pdf&quot;</span><span class="p">}},</span>
+                        <span class="nx">metaData</span><span class="o">:</span>  <span class="p">{</span><span class="nx">fileName</span><span class="o">:</span> <span class="s2">&quot;Bodea Brochure.pdf&quot;</span><span class="p">}</span>
+<span class="hll">                <span class="p">},</span> <span class="p">{</span> <span class="nx">enableSearchAPIs</span><span class="o">:</span> <span class="kc">true</span> <span class="p">});</span>
+</span>
+                <span class="nx">previewFilePromise</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">adobeViewer</span> <span class="p">=&gt;</span> <span class="p">{</span>
+<span class="hll">                   <span class="nx">adobeViewer</span><span class="p">.</span><span class="nx">getAPIs</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="nx">apis</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span>                           <span class="c1">// All viewer APIs can be invoked here</span>
+                   <span class="p">});</span>
+                <span class="p">});</span>
+       <span class="p">});</span>
+      <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+     <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+     <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+</td></tr></table></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The document search option is not available in UI when search APIs are enabled.</p>
+</div>
+<p>The search API takes a search term of String value as input and searches for that term in the entire document. The first occurrence of the search term is highlighted in the PDF, starting from the current page in view.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Input parameters</strong></p></td>
+<td><p>&lt;SEARCH_STRING&gt;</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>API output</strong></p></td>
+<td><p>Returns a Promise which,</p>
+<ul>
+<li><p>Resolves with a JSON object containing the following interfaces:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">onResultsUpdate()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">next()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">previous()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">clear()</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Rejects with an error object that includes a code and message.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p><strong>API signature</strong></p></td>
+<td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">previewFilePromise</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">adobeViewer</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="n">adobeViewer</span><span class="o">.</span><span class="n">getAPIs</span><span class="p">()</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">apis</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                <span class="n">apis</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="o">&lt;</span><span class="n">SEARCH_STRING</span><span class="o">&gt;</span><span class="p">)</span>
+                        <span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">searchObject</span> <span class="o">=&gt;</span> <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">searchObject</span><span class="p">))</span>
+                        <span class="o">.</span><span class="n">catch</span><span class="p">(</span><span class="n">error</span> <span class="o">=&gt;</span> <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">error</span><span class="p">));</span>
+        <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="onresultsupdate">
+<h3>onResultsUpdate<a class="headerlink" href="#onresultsupdate" title="Permalink to this headline">¶</a></h3>
+<p>Users can register a callback function and pass as an input to the <code class="docutils literal notranslate"><span class="pre">onResultsUpdate()</span></code> function. This callback function will be triggered every time a search operation takes place through the search API and the search result is highlighted in the PDF. The callback function will receive important information about the current search result in the form of a JSON. The JSON will include information such as, current page number, current search result index, total number of search results and status.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+        <span class="n">currentResult</span><span class="p">:</span> <span class="p">{</span>
+                <span class="n">pageNumber</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">INTEGER</span><span class="o">&gt;</span><span class="p">,</span>  <span class="o">//</span> <span class="n">Current</span> <span class="n">page</span> <span class="n">number</span> <span class="ow">in</span> <span class="n">view</span>
+                <span class="n">index</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">INTEGER</span><span class="o">&gt;</span><span class="p">,</span>       <span class="o">//</span> <span class="n">Index</span> <span class="n">of</span> <span class="n">the</span> <span class="n">current</span> <span class="n">highlighted</span> <span class="n">search</span> <span class="n">result</span>
+        <span class="p">},</span>
+        <span class="n">totalResults</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">INTEGER</span><span class="o">&gt;</span><span class="p">,</span>   <span class="o">//</span> <span class="n">Total</span> <span class="n">number</span> <span class="n">of</span> <span class="n">search</span> <span class="n">results</span> <span class="n">found</span> <span class="n">till</span> <span class="n">the</span> <span class="n">time</span> <span class="n">callback</span> <span class="n">function</span> <span class="ow">is</span> <span class="n">executed</span>
+        <span class="n">status</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">STRING</span><span class="o">&gt;</span>           <span class="o">//</span> <span class="n">Status</span> <span class="n">of</span> <span class="n">search</span> <span class="n">result</span> <span class="n">till</span> <span class="n">the</span> <span class="n">time</span> <span class="n">callback</span> <span class="n">function</span> <span class="ow">is</span> <span class="n">executed</span><span class="o">.</span> <span class="n">Values</span> <span class="n">can</span> <span class="n">be</span> <span class="s2">&quot;IN_PROGRESS&quot;</span> <span class="ow">or</span> <span class="s2">&quot;COMPLETED&quot;</span><span class="o">.</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Input parameters</strong></p></td>
+<td><p>N/A</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>API output</strong></p></td>
+<td><p>Returns a Promise which,</p>
+<ul class="simple">
+<li><p>Resolves to true on successful operation. When operation is successful, the callback function is executed and receives information about the search results in the form of a JSON. Resolves to false when <code class="docutils literal notranslate"><span class="pre">onResultsUpdate()</span></code> operation fails.</p></li>
+<li><p>Rejects with an error object that includes a code and message.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p><strong>API signature</strong></p></td>
+<td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">function</span> <span class="n">callbackFunction</span><span class="p">(</span><span class="n">searchResult</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Current search result: &quot;</span><span class="p">,</span> <span class="n">searchResult</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">previewFilePromise</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">adobeViewer</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="n">adobeViewer</span><span class="o">.</span><span class="n">getAPIs</span><span class="p">()</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">apis</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                <span class="n">apis</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="o">&lt;</span><span class="n">SEARCH_STRING</span><span class="o">&gt;</span><span class="p">)</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">searchObject</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                        <span class="n">searchObject</span><span class="o">.</span><span class="n">onResultsUpdate</span><span class="p">(</span><span class="n">callbackFunction</span><span class="p">)</span>
+                                <span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">result</span> <span class="o">=&gt;</span> <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+                                <span class="o">.</span><span class="n">catch</span><span class="p">(</span><span class="n">error</span> <span class="o">=&gt;</span> <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">error</span><span class="p">));</span>
+                <span class="p">})</span>
+                <span class="o">.</span><span class="n">catch</span><span class="p">(</span><span class="n">error</span> <span class="o">=&gt;</span> <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">error</span><span class="p">));</span>
+        <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="next">
+<h3>next<a class="headerlink" href="#next" title="Permalink to this headline">¶</a></h3>
+<p>This function will highlight and navigate to the next search result in the PDF.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Input parameters</strong></p></td>
+<td><p>N/A</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>API output</strong></p></td>
+<td><p>Returns a Promise which,</p>
+<ul class="simple">
+<li><p>Resolves to true on successful operation and the next search result is highlighted in the PDF. Resolves to false when <code class="docutils literal notranslate"><span class="pre">next()</span></code> operation fails.</p></li>
+<li><p>Rejects with an error object that includes a code and message.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p><strong>API signature</strong></p></td>
+<td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">previewFilePromise</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">adobeViewer</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="n">adobeViewer</span><span class="o">.</span><span class="n">getAPIs</span><span class="p">()</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">apis</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                <span class="n">apis</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="o">&lt;</span><span class="n">SEARCH_STRING</span><span class="o">&gt;</span><span class="p">)</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">searchObject</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                        <span class="n">searchObject</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+                                <span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">result</span> <span class="o">=&gt;</span> <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+                                <span class="o">.</span><span class="n">catch</span><span class="p">(</span><span class="n">error</span> <span class="o">=&gt;</span> <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">error</span><span class="p">));</span>
+                <span class="p">})</span>
+                <span class="o">.</span><span class="n">catch</span><span class="p">(</span><span class="n">error</span> <span class="o">=&gt;</span> <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">error</span><span class="p">));</span>
+        <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="previous">
+<h3>previous<a class="headerlink" href="#previous" title="Permalink to this headline">¶</a></h3>
+<p>This function will highlight and navigate to the previous search result in the PDF.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Input parameters</strong></p></td>
+<td><p>N/A</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>API output</strong></p></td>
+<td><p>Returns a Promise which,</p>
+<ul class="simple">
+<li><p>Resolves to true on successful operation and the previous search result is highlighted in the PDF. Resolves to false when <code class="docutils literal notranslate"><span class="pre">previous()</span></code> operation fails.</p></li>
+<li><p>Rejects with an error object that includes a code and message.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p><strong>API signature</strong></p></td>
+<td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">previewFilePromise</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">adobeViewer</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="n">adobeViewer</span><span class="o">.</span><span class="n">getAPIs</span><span class="p">()</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">apis</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                <span class="n">apis</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="o">&lt;</span><span class="n">SEARCH_STRING</span><span class="o">&gt;</span><span class="p">)</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">searchObject</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                        <span class="n">searchObject</span><span class="o">.</span><span class="n">previous</span><span class="p">()</span>
+                                <span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">result</span> <span class="o">=&gt;</span> <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+                                <span class="o">.</span><span class="n">catch</span><span class="p">(</span><span class="n">error</span> <span class="o">=&gt;</span> <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">error</span><span class="p">));</span>
+                <span class="p">})</span>
+                <span class="o">.</span><span class="n">catch</span><span class="p">(</span><span class="n">error</span> <span class="o">=&gt;</span> <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">error</span><span class="p">));</span>
+        <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="clear">
+<h3>clear<a class="headerlink" href="#clear" title="Permalink to this headline">¶</a></h3>
+<p>This function will cancel the ongoing search operation and clear the search results.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Input parameters</strong></p></td>
+<td><p>N/A</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>API output</strong></p></td>
+<td><p>Returns a Promise which,</p>
+<ul class="simple">
+<li><p>Resolves to true on successful operation. Stops ongoing search operation and clears the search results. Resolves to false when <code class="docutils literal notranslate"><span class="pre">clear()</span></code> operation fails.</p></li>
+<li><p>Rejects with an error object that includes a code and message.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p><strong>API signature</strong></p></td>
+<td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">previewFilePromise</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">adobeViewer</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="n">adobeViewer</span><span class="o">.</span><span class="n">getAPIs</span><span class="p">()</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">apis</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                <span class="n">apis</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="o">&lt;</span><span class="n">SEARCH_STRING</span><span class="o">&gt;</span><span class="p">)</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">searchObject</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                        <span class="n">searchObject</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+                                <span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">result</span> <span class="o">=&gt;</span> <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+                                <span class="o">.</span><span class="n">catch</span><span class="p">(</span><span class="n">error</span> <span class="o">=&gt;</span> <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">error</span><span class="p">));</span>
+                <span class="p">})</span>
+                <span class="o">.</span><span class="n">catch</span><span class="p">(</span><span class="n">error</span> <span class="o">=&gt;</span> <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">error</span><span class="p">));</span>
+        <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Find the working code sample <a class="reference external" href="https://www.adobe.com/go/pdfembedapi_samples">here</a>  under <code class="docutils literal notranslate"><span class="pre">/More</span> <span class="pre">Samples/Viewer</span> <span class="pre">APIs/Search</span> <span class="pre">APIs</span></code>.</p>
+</div>
+</div>
+<div class="section" id="bookmark-apis">
+<h3>Bookmark APIs<a class="headerlink" href="#bookmark-apis" title="Permalink to this headline">¶</a></h3>
+<p>These APIs programmatically access existing PDF bookmarks. Note that only the Full Window embed mode supports these APIs.</p>
+</div>
+<div class="section" id="getbookmarks">
+<h3>getBookmarks<a class="headerlink" href="#getbookmarks" title="Permalink to this headline">¶</a></h3>
+<p>This API returns the list of existing PDF bookmarks Each bookmark item in this list is represented as a JSON containing important information such as, ID, title and the list of nested bookmarks residing under this bookmark.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+        <span class="nb">id</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">NUMBER</span><span class="o">&gt;</span>      <span class="o">//</span> <span class="n">Unique</span> <span class="n">identifier</span> <span class="n">of</span> <span class="n">the</span> <span class="n">bookmark</span>
+        <span class="n">title</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">STRING</span><span class="o">&gt;</span><span class="p">,</span>  <span class="o">//</span> <span class="n">Title</span> <span class="n">of</span> <span class="n">the</span> <span class="n">bookmark</span>
+        <span class="n">children</span><span class="p">:</span> <span class="p">[</span> <span class="n">CHILD_BOOKMARK_1</span><span class="p">,</span> <span class="n">CHILD_BOOKMARK_2</span><span class="p">,</span> <span class="o">...</span> <span class="p">]</span>     <span class="o">//</span> <span class="n">List</span> <span class="n">of</span> <span class="n">nested</span> <span class="n">bookmarks</span> <span class="n">which</span> <span class="n">exists</span> <span class="n">under</span> <span class="n">this</span> <span class="n">bookmark</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Input parameters</strong></p></td>
+<td><p>N/A</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>API output</strong></p></td>
+<td><p>Returns a Promise which,</p>
+<ul class="simple">
+<li><p>Resolves with the list of bookmarks available in the PDF.
+<code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">Bookmark_1,</span> <span class="pre">Bookmark_2,</span> <span class="pre">...]</span></code></p></li>
+<li><p>Rejects with an error object that includes a code and message.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p><strong>API signature</strong></p></td>
+<td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">previewFilePromise</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">adobeViewer</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="n">adobeViewer</span><span class="o">.</span><span class="n">getAPIs</span><span class="p">()</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">apis</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                <span class="n">apis</span><span class="o">.</span><span class="n">getBookmarkAPIs</span><span class="p">()</span><span class="o">.</span><span class="n">getBookmarks</span><span class="p">()</span>
+                        <span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">result</span> <span class="o">=&gt;</span> <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+                        <span class="o">.</span><span class="n">catch</span><span class="p">(</span><span class="n">error</span> <span class="o">=&gt;</span> <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">error</span><span class="p">));</span>
+        <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="openbookmark">
+<h3>openBookmark<a class="headerlink" href="#openbookmark" title="Permalink to this headline">¶</a></h3>
+<p>This API accepts a bookmark ID as input and navigates to that particular PDF bookmark.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Input parameters</strong></p></td>
+<td><p>&lt;BOOKMARK_ID&gt;</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>API output</strong></p></td>
+<td><p>Returns a Promise which,</p>
+<ul class="simple">
+<li><p>Resolves to true on successful API execution and the user navigates to that particular bookmark. Resolves to <em>false</em> when the bookmark does not exist in the PDF.</p></li>
+<li><p>Rejects with an error object that includes a code and message.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p><strong>API signature</strong></p></td>
+<td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">const</span> <span class="n">bookmark_ID</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">BOOKMARK_ID</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="n">previewFilePromise</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">adobeViewer</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="n">adobeViewer</span><span class="o">.</span><span class="n">getAPIs</span><span class="p">()</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">apis</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                <span class="n">apis</span><span class="o">.</span><span class="n">getBookmarkAPIs</span><span class="p">()</span><span class="o">.</span><span class="n">openBookmark</span><span class="p">(</span><span class="n">bookmark_ID</span><span class="p">)</span>
+                        <span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">result</span> <span class="o">=&gt;</span> <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+                        <span class="o">.</span><span class="n">catch</span><span class="p">(</span><span class="n">error</span> <span class="o">=&gt;</span> <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">error</span><span class="p">));</span>
+        <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <div class="section" id="getpdfmetadata">
 <h3>getPDFMetadata<a class="headerlink" href="#getpdfmetadata" title="Permalink to this headline">¶</a></h3>
-<p>This API returns basic information about the PDF fetched from the PDF dictionary, such as the number of pages and title of the PDF.</p>
+<p>This API returns basic information about the PDF fetched from the PDF dictionary; for example, the PDF’s number of pages and title.</p>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 20%" />
@@ -837,8 +1365,7 @@ img {
                 <span class="n">apis</span><span class="o">.</span><span class="n">getPDFMetadata</span><span class="p">()</span>
                         <span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">result</span> <span class="o">=&gt;</span> <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
                         <span class="o">.</span><span class="n">catch</span><span class="p">(</span><span class="n">error</span> <span class="o">=&gt;</span> <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">error</span><span class="p">));</span>
-
-         <span class="p">});</span>
+        <span class="p">});</span>
 <span class="p">});</span>
 </pre></div>
 </div>
@@ -1182,7 +1709,7 @@ img {
       
     </p>
     <p>
-       Last updated Dec 07, 2020 <br/>
+       Last updated Mar 09, 2021 <br/>
     </p>	
   </div>
   </footer>

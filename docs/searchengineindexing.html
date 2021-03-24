@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Search &#8212; Document Cloud View SDK</title>
+    <title>Handle search engine indexing &#8212; Document Cloud View SDK</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -12,19 +12,14 @@
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/language_data.js"></script>
-    <script src="_static/searchtools.js"></script>
     <script src="_static/js/jquery-1.11.0.min.js"></script>
     <script src="_static/js/jquery-fix.js"></script>
     <script src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
     <script src="_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="#" />
-  <script type="text/javascript">
-    jQuery(function() { Search.loadIndex("searchindex.js"); });
-  </script>
-  
-  <script type="text/javascript" id="searchindexloader"></script>
-  
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Release Notes" href="releasenotes.html" />
+    <link rel="prev" title="Analytics" href="howtodata.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -186,7 +181,6 @@ img {
 }
 </style>
 
-
   </head><body>
 <div class="container">
 
@@ -196,14 +190,14 @@ img {
 <!-- removing the globaltoc class results in all heading2 (toctreel2) appearing in the left hand nav-->
 	 <ul class="removed_globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"><ul>
-<li class="toctree-l1"><a class="reference internal" href="index.html">Quickstarts</a><ul>
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Quickstarts</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="index.html#getting-credentials">Getting credentials</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#copy-it-run-it">Copy it. Run it.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#run-ready-samples">Run ready samples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#live-demo">Live demo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#mobile-support">Mobile support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#feedback-and-forum">Feedback and forum</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#feedback-and-forum">Feedback and forum</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="howtos.html">PDF Embed API basics</a><ul>
@@ -246,9 +240,9 @@ img {
 <li class="toctree-l2"><a class="reference internal" href="howtodata.html#annotation-events">Annotation events</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="searchengineindexing.html">Handle search engine indexing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="searchengineindexing.html#sitemap">Sitemap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="searchengineindexing.html#alternative-approaches">Alternative approaches</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Handle search engine indexing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#sitemap">Sitemap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#alternative-approaches">Alternative approaches</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="releasenotes.html">Release Notes</a><ul>
@@ -267,38 +261,52 @@ img {
 </li>
         </div>
       </div>
-    <div class="col-md-9 content"><br/>
+    <div class="col-md-9 content">
+<div>
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+</div><br/>
 
       
-  <h1 id="search-documentation">Search</h1>
-  <div id="fallback" class="admonition warning">
-  <script type="text/javascript">$('#fallback').hide();</script>
-  <p>
-    Please activate JavaScript to enable the search
-    functionality.
-  </p>
-  </div>
-  <p>
-    From here you can search these documents. Enter your search
-    words into the box below and click "search". Note that the search
-    function will automatically search for all of the words. Pages
-    containing fewer words won't appear in the result list.
-  </p>
+  <div class="section" id="handle-search-engine-indexing">
+<h1>Handle search engine indexing<a class="headerlink" href="#handle-search-engine-indexing" title="Permalink to this headline">¶</a></h1>
+<p>PDFs displayed using the PDF Embed API are not indexed and won’t appear in search engine results by default since the API doesn’t store a direct reference of the PDF URL in the DOM. In order to index the PDF so that text appears in a search result, the URL of the PDF must be available in the website DOM. Search engine bots start by reading the website content and navigate all the links in the DOM.</p>
+<p>Search engine indexing and optimisation of any website can only be controlled by the website developers. One <strong>approach</strong> which enables PDF indexing via the PDF Embed API involves using  sitemaps.</p>
+<div class="section" id="sitemap">
+<h2>Sitemap<a class="headerlink" href="#sitemap" title="Permalink to this headline">¶</a></h2>
+<p>A <em>sitemap</em> is a file which contains information about the pages and other files on the website and the relationships between them. A sitemap tells search engines which pages and files are important in the website and also provides valuable information about those files. It helps search engines find the content, crawl the website more efficiently, and index the content.</p>
+<p>In order to enable indexing of PDF files displayed using PDF Embed API, website developers can add the PDF URL to the sitemap. For example, so add an URL to an XML sitemap of a website:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">url</span><span class="o">&gt;</span>
+   <span class="o">&lt;</span><span class="n">loc</span><span class="o">&gt;</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">example</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">PDFs</span><span class="o">/</span><span class="n">example</span><span class="o">.</span><span class="n">pdf</span><span class="o">&lt;/</span><span class="n">loc</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">url</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Every <code class="docutils literal notranslate"><span class="pre">&lt;url&gt;</span></code> tag must contain a <code class="docutils literal notranslate"><span class="pre">&lt;loc&gt;</span></code> tag which would contain the URL of the PDF. You can have multiple <code class="docutils literal notranslate"><span class="pre">&lt;url&gt;</span></code> tags to add URLs of different PDF files.</p>
+<p>The search engines will crawl these links found in the sitemap and index the PDF content accordingly.</p>
+</div>
+<div class="section" id="alternative-approaches">
+<h2>Alternative approaches<a class="headerlink" href="#alternative-approaches" title="Permalink to this headline">¶</a></h2>
+<p>For developers who don’t wish to use sitemaps, there are alternative approaches to enable search engine PDF indexing. The URL of the PDF file should already be available in the website to enable indexing. Website developers can trap the click of the PDF link and open the PDF using PDF Embed API. Developers can create as many user experiences as possible with this approach using the different configurations provided by PDF Embed API.</p>
+<p>Here are some of the ways to implement this:</p>
+<ul class="simple">
+<li><p>Auto-click on the PDF link after the webpage loads completely and open the PDF in the desired embed mode.</p></li>
+<li><p>Create a separate webpage to display the PDFs in full window embed mode by passing the PDF reference.</p></li>
+<li><p>Open the PDF in line within the context of the webpage.</p></li>
+<li><p>Open the PDF on top of the webpage using the lightbox embed mode provided by PDF Embed API.</p></li>
+</ul>
+<p>Find the working code samples <a class="reference external" href="https://www.adobe.com/go/pdfembedapi_samples">here</a>  under <code class="docutils literal notranslate"><span class="pre">/More</span> <span class="pre">Samples/Handle</span> <span class="pre">Search</span> <span class="pre">Engine</span> <span class="pre">Indexing/</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These are only suggestions, and it is up to the website developer how they do the actual implementation depending on the design and structure of the website.</p>
+</div>
+</div>
+</div>
 
-  
-  <form class="form-inline" action="" method="get">
-    <div class="form-group">
-      <input type="text" class="form-control" name="q" value="" />
-    </div>
-    <input type="submit" class="btn btn-default" value="search" />
-    <span id="search-progress" style="padding-left: 10px"></span>
-  </form>  
-  
-  
-  
-  <div id="search-results">
-  
-  </div>
 
     </div>
       

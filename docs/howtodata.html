@@ -18,7 +18,7 @@
     <script src="_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Release Notes" href="releasenotes.html" />
+    <link rel="next" title="Handle search engine indexing" href="searchengineindexing.html" />
     <link rel="prev" title="Comments and Markup" href="howtos_comments.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -240,7 +240,14 @@ img {
 <li class="toctree-l2"><a class="reference internal" href="#annotation-events">Annotation events</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="searchengineindexing.html">Handle search engine indexing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="searchengineindexing.html#sitemap">Sitemap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="searchengineindexing.html#alternative-approaches">Alternative approaches</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="releasenotes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#march-2021">March, 2021</a></li>
+<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#january-2021">January, 2021</a></li>
 <li class="toctree-l2"><a class="reference internal" href="releasenotes.html#november-2020">November, 2020</a></li>
 <li class="toctree-l2"><a class="reference internal" href="releasenotes.html#september-2020">September, 2020</a></li>
 <li class="toctree-l2"><a class="reference internal" href="releasenotes.html#august-2020">August, 2020</a></li>
@@ -396,7 +403,7 @@ img {
  );
 </pre></div>
 </td></tr></table></div>
-<p>Find the working example in the <a class="reference external" href="https://www.adobe.com/go/pdfembedapi_samples">samples repo</a>  under <code class="docutils literal notranslate"><span class="pre">\More</span> <span class="pre">Samples\Capture</span> <span class="pre">PDF</span> <span class="pre">Embed</span> <span class="pre">API</span> <span class="pre">Events\</span></code>.</p>
+<p>Find the working example in the <a class="reference external" href="https://www.adobe.com/go/pdfembedapi_samples">samples repo</a>  under <code class="docutils literal notranslate"><span class="pre">/More</span> <span class="pre">Samples/Capture</span> <span class="pre">PDF</span> <span class="pre">Embed</span> <span class="pre">API</span> <span class="pre">Events/</span></code>.</p>
 <table class="colwidths-given docutils align-default" id="id1">
 <caption><span class="caption-text">Supported analytics events</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
 <colgroup>
@@ -575,6 +582,11 @@ img {
 <td><p>The page in view changes to a different page through scrolling or page navigation.</p></td>
 <td><p>{ startPage: { pageNumber: &lt;PAGE_NUMBER&gt;, fractionVisible &lt;PAGE_VISIBLE_FRACTION&gt; }, endPage: { pageNumber: &lt;PAGE_NUMBER&gt;, fractionVisible &lt;PAGE_VISIBLE_FRACTION&gt; }}</p></td>
 </tr>
+<tr class="row-odd"><td><p>UNSUPPORTED_FEATURE_FOUND</p></td>
+<td><p>When user tries to use an unsupported feature in PDF Embed API. The event data provides information about the type of unsupported feature in the featureName field and relevant metadata of PDF in the data field.
+For example, XFA form fields are not supported in PDF Embed API and this event is generated when a user tries to fill any such form field.</p></td>
+<td><p>{ featureName: &lt;FEATURE_NAME&gt;, data: {hasJS: &lt;BOOLEAN&gt;, hasUnsupportedActions: &lt;BOOLEAN, hasUnsupportedWidget: &lt;BOOLEAN&gt;, hasXFA: &lt;BOOLEAN&gt; }}</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -691,7 +703,7 @@ img {
       
     </p>
     <p>
-       Last updated Dec 07, 2020 <br/>
+       Last updated Mar 09, 2021 <br/>
     </p>	
   </div>
   </footer>

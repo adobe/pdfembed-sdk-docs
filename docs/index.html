@@ -239,7 +239,14 @@ img {
 <li class="toctree-l2"><a class="reference internal" href="howtodata.html#annotation-events">Annotation events</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="searchengineindexing.html">Handle search engine indexing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="searchengineindexing.html#sitemap">Sitemap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="searchengineindexing.html#alternative-approaches">Alternative approaches</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="releasenotes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#march-2021">March, 2021</a></li>
+<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#january-2021">January, 2021</a></li>
 <li class="toctree-l2"><a class="reference internal" href="releasenotes.html#november-2020">November, 2020</a></li>
 <li class="toctree-l2"><a class="reference internal" href="releasenotes.html#september-2020">September, 2020</a></li>
 <li class="toctree-l2"><a class="reference internal" href="releasenotes.html#august-2020">August, 2020</a></li>
@@ -279,7 +286,8 @@ img {
 </div>
 <div class="section" id="copy-it-run-it">
 <h2>Copy it. Run it.<a class="headerlink" href="#copy-it-run-it" title="Permalink to this headline">¶</a></h2>
-<p>The quickest way to get up and running is to copy the code below and run it locally. Simply copy the code to an index.html file, and open it in a browser. The example already points to an online PDF, and you do not need a client ID to run the viewer on your machine.</p>
+<p>The quickest way to get up and running is to simply copy the code below to an index.html file and open it in a browser. The example already points to an online PDF, and you do not need a client ID to run the viewer on your machine.</p>
+<p>If you wish to run it in a local web server (for example, localhost), then you need a valid client ID. You can generate a client ID from <a class="reference external" href="https://www.adobe.com/go/dcsdks_credentials">here</a>. Insert the client ID within the double quotes in line 16 in the code below and run the webpage from your server.</p>
 <p>There really are no environment setup steps or system requirements. Develop your web app using your preferred methods and tools.</p>
 <div class="highlight-html notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -360,6 +368,33 @@ img {
 <li><p>Print functionality is unsupported.</p></li>
 <li><p>PDF download is unsupported on iOS devices, but it is supported on Android.</p></li>
 </ul>
+<p>PDF Embed API provides some optimizations in order to enhance the mobile view experience. These optimizations are available only in mobile phone browsers.</p>
+<div class="section" id="view-modes-in-mobile-browsers">
+<h3>View modes in mobile browsers<a class="headerlink" href="#view-modes-in-mobile-browsers" title="Permalink to this headline">¶</a></h3>
+<p>PDF Embed API provides a couple of view modes on mobile phone browsers to enhance the viewing experience of the PDFs. Note that these modes are available only with Full Window embed mode.</p>
+<ul class="simple">
+<li><p>Continuous view mode: This mode displays all the document pages one after the other and users can easily navigate through the pages by scrolling up or down. This is the default view mode to render PDFs in mobile phone browsers.</p></li>
+<li><p>Single Page view mode: This mode displays only a single document page at a time and doesn’t show any adjoining page. Users can use the swipe gesture to navigate to other pages which will be displayed one at a time.</p></li>
+</ul>
+<p>The view mode toggle is available in the top bar. Click on the toggle and select the desired view mode from the dropdown.</p>
+<p><strong>Continuous view mode</strong></p>
+<img alt="_images/continuous_mode.png" src="_images/continuous_mode.png" />
+<p><strong>Single page view mode</strong></p>
+<img alt="_images/single_page_mode.png" src="_images/single_page_mode.png" />
+<p>These view modes can also be set using the configuration variable <code class="docutils literal notranslate"><span class="pre">defaultViewMode</span></code>. Set the appropriate value of the variable and pass it as a preview configuration to the <code class="docutils literal notranslate"><span class="pre">previewFile</span></code> API. For details, see <a class="reference internal" href="howtos_ui.html#menuoptions"><span class="std std-ref">Menu and tool options</span></a></p>
+</div>
+<div class="section" id="go-to-a-page">
+<h3>Go to a Page<a class="headerlink" href="#go-to-a-page" title="Permalink to this headline">¶</a></h3>
+<p>PDF Embed API provides a page handle for quick navigation to a specific page in the PDF. The page handle displays the current page number in view.
+The page handle appears on the right side for continuous view mode whereas it appears at the bottom for single page mode.</p>
+<p>Click on the page handle and a dialog appears asking to enter a page number. Enter the desired page number and user will be navigated to that particular page.</p>
+<p>Note that this functionality is available only with Full Window embed mode.</p>
+<img alt="_images/goto_page.png" src="_images/goto_page.png" />
+</div>
+<div class="section" id="zoom-in">
+<h3>Zoom in<a class="headerlink" href="#zoom-in" title="Permalink to this headline">¶</a></h3>
+<p>PDF Embed API also supports pinch zoom gesture and users can zoom-in to magnify the PDF content for better reading experience. This functionality is supported with all embed modes.</p>
+</div>
 </div>
 <div class="section" id="feedback-and-forum">
 <h2>Feedback and forum<a class="headerlink" href="#feedback-and-forum" title="Permalink to this headline">¶</a></h2>
@@ -381,7 +416,7 @@ img {
       
     </p>
     <p>
-       Last updated Dec 07, 2020 <br/>
+       Last updated Mar 09, 2021 <br/>
     </p>	
   </div>
   </footer>
