@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>UI customization &#8212; Document Cloud Embed SDK</title>
+    <title>UI customization &#8212; Document Cloud View SDK</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -203,6 +203,7 @@ img {
 <li class="toctree-l1"><a class="reference internal" href="howtos.html">PDF Embed API basics</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="howtos.html#embed-a-pdf-viewer">Embed a PDF viewer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="howtos.html#passing-file-content">Passing file content</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#pdf-linearization">PDF Linearization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="howtos.html#embed-modes">Embed modes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="howtos.html#language-support">Language support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="howtos.html#troubleshooting">Troubleshooting</a></li>
@@ -246,6 +247,7 @@ img {
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="releasenotes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#april-2021">April, 2021</a></li>
 <li class="toctree-l2"><a class="reference internal" href="releasenotes.html#march-2021">March, 2021</a></li>
 <li class="toctree-l2"><a class="reference internal" href="releasenotes.html#january-2021">January, 2021</a></li>
 <li class="toctree-l2"><a class="reference internal" href="releasenotes.html#november-2020">November, 2020</a></li>
@@ -254,7 +256,7 @@ img {
 <li class="toctree-l2"><a class="reference internal" href="releasenotes.html#july-2020">July, 2020</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference external" href="https://opensource.adobe.com/pdftools-sdk-docs/release/latest/index.html#://">Go to the PDF Tools API</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.adobe.com/go/docsvcs_doc_pdftools#://">Go to the PDF Tools API</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://www.adobe.com/go/pdftoolsapi_forum#://">Community forum</a></li>
 </ul>
 </ul>
@@ -350,8 +352,8 @@ img {
 <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </pre></div>
 </td></tr></table></div>
-<table class="colwidths-given docutils align-default" id="id2">
-<caption><span class="caption-text"><strong>Menu and tool options</strong></span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<table class="colwidths-given docutils align-default" id="id3">
+<caption><span class="caption-text"><strong>Menu and tool options</strong></span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 20%" />
@@ -378,7 +380,7 @@ img {
 </tr>
 <tr class="row-odd"><td><p>showLeftHandPanel</p></td>
 <td><p>true</p></td>
-<td><p>If true, the left-hand pane in file preview displays. The pane allows user to toggle thumbnails on and off.</p></td>
+<td><p>By default, the left-hand pane is always displayed in the file preview. Set this variable to false if you wish to hide the left-hand pane. The pane allows users to view the PDF thumbnails. If the PDF contains bookmarks and file attachments, then those are also displayed in this pane.</p></td>
 </tr>
 <tr class="row-even"><td><p>defaultViewMode</p></td>
 <td><p>null</p></td>
@@ -949,7 +951,7 @@ img {
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><strong>Input parameters</strong></p></td>
-<td><p>&lt;Float&gt;</p></td>
+<td><p>&lt;ZOOM_LEVEL: Float&gt;</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>API output</strong></p></td>
 <td><p>Returns a Promise which,</p>
@@ -962,7 +964,7 @@ img {
 <tr class="row-odd"><td><p><strong>API signature</strong></p></td>
 <td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">previewFilePromise</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">adobeViewer</span> <span class="o">=&gt;</span> <span class="p">{</span>
         <span class="n">adobeViewer</span><span class="o">.</span><span class="n">getAPIs</span><span class="p">()</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">apis</span> <span class="o">=&gt;</span> <span class="p">{</span>
-                <span class="n">apis</span><span class="o">.</span><span class="n">getZoomAPIs</span><span class="p">()</span><span class="o">.</span><span class="n">setZoomLevel</span><span class="p">(</span><span class="o">&lt;</span><span class="n">Float</span><span class="o">&gt;</span><span class="p">)</span>
+                <span class="n">apis</span><span class="o">.</span><span class="n">getZoomAPIs</span><span class="p">()</span><span class="o">.</span><span class="n">setZoomLevel</span><span class="p">(</span><span class="o">&lt;</span><span class="n">ZOOM_LEVEL</span><span class="o">&gt;</span><span class="p">)</span>
                         <span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">result</span> <span class="o">=&gt;</span> <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
                         <span class="o">.</span><span class="n">catch</span><span class="p">(</span><span class="n">error</span> <span class="o">=&gt;</span> <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">error</span><span class="p">));</span>
         <span class="p">});</span>
@@ -973,10 +975,6 @@ img {
 </tr>
 </tbody>
 </table>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Find the working code sample <a class="reference external" href="https://www.adobe.com/go/pdfembedapi_samples">here</a>  under <code class="docutils literal notranslate"><span class="pre">/More</span> <span class="pre">Samples/Viewer</span> <span class="pre">APIs/Zoom</span> <span class="pre">APIs</span></code>.</p>
-</div>
 </div>
 <div class="section" id="search-apis">
 <h3>Search APIs<a class="headerlink" href="#search-apis" title="Permalink to this headline">¶</a></h3>
@@ -1051,7 +1049,7 @@ img {
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><strong>Input parameters</strong></p></td>
-<td><p>&lt;SEARCH_STRING&gt;</p></td>
+<td><p>&lt;SEARCH_STRING: String&gt;</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>API output</strong></p></td>
 <td><p>Returns a Promise which,</p>
@@ -1090,11 +1088,11 @@ img {
 <p>Users can register a callback function and pass as an input to the <code class="docutils literal notranslate"><span class="pre">onResultsUpdate()</span></code> function. This callback function will be triggered every time a search operation takes place through the search API and the search result is highlighted in the PDF. The callback function will receive important information about the current search result in the form of a JSON. The JSON will include information such as, current page number, current search result index, total number of search results and status.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
         <span class="n">currentResult</span><span class="p">:</span> <span class="p">{</span>
-                <span class="n">pageNumber</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">INTEGER</span><span class="o">&gt;</span><span class="p">,</span>  <span class="o">//</span> <span class="n">Current</span> <span class="n">page</span> <span class="n">number</span> <span class="ow">in</span> <span class="n">view</span>
-                <span class="n">index</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">INTEGER</span><span class="o">&gt;</span><span class="p">,</span>       <span class="o">//</span> <span class="n">Index</span> <span class="n">of</span> <span class="n">the</span> <span class="n">current</span> <span class="n">highlighted</span> <span class="n">search</span> <span class="n">result</span>
+                <span class="n">pageNumber</span><span class="p">:</span> <span class="n">Integer</span><span class="p">,</span>  <span class="o">//</span> <span class="n">Current</span> <span class="n">page</span> <span class="n">number</span> <span class="ow">in</span> <span class="n">view</span>
+                <span class="n">index</span><span class="p">:</span> <span class="n">Integer</span><span class="p">,</span>       <span class="o">//</span> <span class="n">Index</span> <span class="n">of</span> <span class="n">the</span> <span class="n">current</span> <span class="n">highlighted</span> <span class="n">search</span> <span class="n">result</span>
         <span class="p">},</span>
-        <span class="n">totalResults</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">INTEGER</span><span class="o">&gt;</span><span class="p">,</span>   <span class="o">//</span> <span class="n">Total</span> <span class="n">number</span> <span class="n">of</span> <span class="n">search</span> <span class="n">results</span> <span class="n">found</span> <span class="n">till</span> <span class="n">the</span> <span class="n">time</span> <span class="n">callback</span> <span class="n">function</span> <span class="ow">is</span> <span class="n">executed</span>
-        <span class="n">status</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">STRING</span><span class="o">&gt;</span>           <span class="o">//</span> <span class="n">Status</span> <span class="n">of</span> <span class="n">search</span> <span class="n">result</span> <span class="n">till</span> <span class="n">the</span> <span class="n">time</span> <span class="n">callback</span> <span class="n">function</span> <span class="ow">is</span> <span class="n">executed</span><span class="o">.</span> <span class="n">Values</span> <span class="n">can</span> <span class="n">be</span> <span class="s2">&quot;IN_PROGRESS&quot;</span> <span class="ow">or</span> <span class="s2">&quot;COMPLETED&quot;</span><span class="o">.</span>
+        <span class="n">totalResults</span><span class="p">:</span> <span class="n">Integer</span><span class="p">,</span>   <span class="o">//</span> <span class="n">Total</span> <span class="n">number</span> <span class="n">of</span> <span class="n">search</span> <span class="n">results</span> <span class="n">found</span> <span class="n">till</span> <span class="n">the</span> <span class="n">time</span> <span class="n">callback</span> <span class="n">function</span> <span class="ow">is</span> <span class="n">executed</span>
+        <span class="n">status</span><span class="p">:</span> <span class="n">String</span>           <span class="o">//</span> <span class="n">Status</span> <span class="n">of</span> <span class="n">search</span> <span class="n">result</span> <span class="n">till</span> <span class="n">the</span> <span class="n">time</span> <span class="n">callback</span> <span class="n">function</span> <span class="ow">is</span> <span class="n">executed</span><span class="o">.</span> <span class="n">Values</span> <span class="n">can</span> <span class="n">be</span> <span class="s2">&quot;IN_PROGRESS&quot;</span> <span class="ow">or</span> <span class="s2">&quot;COMPLETED&quot;</span><span class="o">.</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1252,7 +1250,7 @@ img {
 </table>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Find the working code sample <a class="reference external" href="https://www.adobe.com/go/pdfembedapi_samples">here</a>  under <code class="docutils literal notranslate"><span class="pre">/More</span> <span class="pre">Samples/Viewer</span> <span class="pre">APIs/Search</span> <span class="pre">APIs</span></code>.</p>
+<p>Find the working code sample for search and zoom APIs <a class="reference external" href="https://www.adobe.com/go/pdfembedapi_samples">here</a>  under <code class="docutils literal notranslate"><span class="pre">/More</span> <span class="pre">Samples/Viewer</span> <span class="pre">APIs/Search</span> <span class="pre">and</span> <span class="pre">Zoom</span> <span class="pre">APIs</span></code></p>
 </div>
 </div>
 <div class="section" id="bookmark-apis">
@@ -1263,8 +1261,8 @@ img {
 <h3>getBookmarks<a class="headerlink" href="#getbookmarks" title="Permalink to this headline">¶</a></h3>
 <p>This API returns the list of existing PDF bookmarks Each bookmark item in this list is represented as a JSON containing important information such as, ID, title and the list of nested bookmarks residing under this bookmark.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-        <span class="nb">id</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">NUMBER</span><span class="o">&gt;</span>      <span class="o">//</span> <span class="n">Unique</span> <span class="n">identifier</span> <span class="n">of</span> <span class="n">the</span> <span class="n">bookmark</span>
-        <span class="n">title</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">STRING</span><span class="o">&gt;</span><span class="p">,</span>  <span class="o">//</span> <span class="n">Title</span> <span class="n">of</span> <span class="n">the</span> <span class="n">bookmark</span>
+        <span class="nb">id</span><span class="p">:</span> <span class="n">Number</span>      <span class="o">//</span> <span class="n">Unique</span> <span class="n">identifier</span> <span class="n">of</span> <span class="n">the</span> <span class="n">bookmark</span>
+        <span class="n">title</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span>  <span class="o">//</span> <span class="n">Title</span> <span class="n">of</span> <span class="n">the</span> <span class="n">bookmark</span>
         <span class="n">children</span><span class="p">:</span> <span class="p">[</span> <span class="n">CHILD_BOOKMARK_1</span><span class="p">,</span> <span class="n">CHILD_BOOKMARK_2</span><span class="p">,</span> <span class="o">...</span> <span class="p">]</span>     <span class="o">//</span> <span class="n">List</span> <span class="n">of</span> <span class="n">nested</span> <span class="n">bookmarks</span> <span class="n">which</span> <span class="n">exists</span> <span class="n">under</span> <span class="n">this</span> <span class="n">bookmark</span>
 <span class="p">}</span>
 </pre></div>
@@ -1338,6 +1336,101 @@ img {
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Find the working code sample <a class="reference external" href="https://www.adobe.com/go/pdfembedapi_samples">here</a>  under <code class="docutils literal notranslate"><span class="pre">/More</span> <span class="pre">Samples/Viewer</span> <span class="pre">APIs/Bookmark</span> <span class="pre">APIs</span></code></p>
+</div>
+</div>
+<div class="section" id="attachment-apis">
+<h3>Attachment APIs<a class="headerlink" href="#attachment-apis" title="Permalink to this headline">¶</a></h3>
+<p>These APIs access the existing attachments in the PDF programmatically.</p>
+</div>
+<div class="section" id="getattachments">
+<h3>getAttachments<a class="headerlink" href="#getattachments" title="Permalink to this headline">¶</a></h3>
+<p>This API returns the list of existing attachments in the PDF. Each attachment item in this list is represented as a JSON containing important information such as, name, mime type, description, creation date and modified date.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+        <span class="n">name</span><span class="p">:</span> <span class="n">String</span>         <span class="o">//</span> <span class="n">Name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">attachment</span> <span class="n">file</span>
+        <span class="n">description</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="o">//</span> <span class="n">Description</span> <span class="n">of</span> <span class="n">the</span> <span class="n">attachment</span>
+        <span class="n">mimeType</span><span class="p">:</span> <span class="n">String</span>     <span class="o">//</span> <span class="n">Mime</span> <span class="nb">type</span> <span class="n">of</span> <span class="n">the</span> <span class="n">attachment</span> <span class="n">file</span>
+        <span class="n">created</span><span class="p">:</span> <span class="n">Date</span>        <span class="o">//</span> <span class="n">Date</span> <span class="n">when</span> <span class="n">the</span> <span class="n">attachment</span> <span class="n">was</span> <span class="n">created</span>
+        <span class="n">modified</span><span class="p">:</span> <span class="n">Date</span>       <span class="o">//</span> <span class="n">Date</span> <span class="n">when</span> <span class="n">the</span> <span class="n">attachment</span> <span class="n">was</span> <span class="n">modified</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Input parameters</strong></p></td>
+<td><p>N/A</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>API output</strong></p></td>
+<td><p>Returns a Promise which,</p>
+<ul>
+<li><p>Resolves with the list of attachments available in the PDF:
+<code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">Attachment_1,</span> <span class="pre">Attachment_2,...]</span></code></p>
+<p>Every attachment item in this list will contain information, such as, <code class="docutils literal notranslate"><span class="pre">name</span></code>, <code class="docutils literal notranslate"><span class="pre">description</span></code>, <code class="docutils literal notranslate"><span class="pre">mimeType</span></code>, <code class="docutils literal notranslate"><span class="pre">created</span></code> and <code class="docutils literal notranslate"><span class="pre">modifed</span></code>.</p>
+</li>
+<li><p>Rejects with an error object that includes a code and message.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p><strong>API signature</strong></p></td>
+<td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">previewFilePromise</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">adobeViewer</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="n">adobeViewer</span><span class="o">.</span><span class="n">getAPIs</span><span class="p">()</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">apis</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                <span class="n">apis</span><span class="o">.</span><span class="n">getAttachmentAPIs</span><span class="p">()</span><span class="o">.</span><span class="n">getAttachments</span><span class="p">()</span>
+                        <span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">result</span> <span class="o">=&gt;</span> <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+                        <span class="o">.</span><span class="n">catch</span><span class="p">(</span><span class="n">error</span> <span class="o">=&gt;</span> <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">error</span><span class="p">));</span>
+        <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="getattachmentbuffer">
+<h3>getAttachmentBuffer<a class="headerlink" href="#getattachmentbuffer" title="Permalink to this headline">¶</a></h3>
+<p>This API accepts the name of an attachment as input and returns the ArrayBuffer of the attachment content.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Input parameters</strong></p></td>
+<td><p>&lt;ATTACHMENT_NAME: String&gt;</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>API output</strong></p></td>
+<td><p>Returns a Promise which,</p>
+<ul class="simple">
+<li><p>Resolves with the ArrayBuffer of the attachment file:
+<code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">buffer:</span> <span class="pre">Int8Array</span> <span class="pre">}</span></code></p></li>
+<li><p>Rejects with an error object that includes a code and message.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p><strong>API signature</strong></p></td>
+<td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">previewFilePromise</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">adobeViewer</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="n">adobeViewer</span><span class="o">.</span><span class="n">getAPIs</span><span class="p">()</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">apis</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                <span class="n">apis</span><span class="o">.</span><span class="n">getAttachmentAPIs</span><span class="p">()</span><span class="o">.</span><span class="n">getAttachmentBuffer</span><span class="p">(</span><span class="o">&lt;</span><span class="n">ATTACHMENT_NAME</span><span class="o">&gt;</span><span class="p">)</span>
+                        <span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">result</span> <span class="o">=&gt;</span> <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+                        <span class="o">.</span><span class="n">catch</span><span class="p">(</span><span class="n">error</span> <span class="o">=&gt;</span> <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">error</span><span class="p">));</span>
+        <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Find the working code sample <a class="reference external" href="https://www.adobe.com/go/pdfembedapi_samples">here</a>  under <code class="docutils literal notranslate"><span class="pre">/More</span> <span class="pre">Samples/Viewer</span> <span class="pre">APIs/Attachment</span> <span class="pre">APIs</span></code></p>
+</div>
 </div>
 <div class="section" id="other-apis">
 <h3>Other APIs<a class="headerlink" href="#other-apis" title="Permalink to this headline">¶</a></h3>
@@ -1670,7 +1763,7 @@ img {
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><strong>Input parameters</strong></p></td>
-<td><p>&lt;Boolean&gt;</p></td>
+<td><p>Boolean</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>API output</strong></p></td>
 <td><p>Returns a Promise which,</p>
@@ -1712,7 +1805,7 @@ img {
       
     </p>
     <p>
-       Last updated Mar 30, 2021    &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; (Github version)<br/>
+       Last updated Apr 23, 2021 <br/>
     </p>	
   </div>
   </footer>

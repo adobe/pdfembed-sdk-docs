@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Analytics &#8212; Document Cloud Embed SDK</title>
+    <title>Analytics &#8212; Document Cloud View SDK</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -203,6 +203,7 @@ img {
 <li class="toctree-l1"><a class="reference internal" href="howtos.html">PDF Embed API basics</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="howtos.html#embed-a-pdf-viewer">Embed a PDF viewer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="howtos.html#passing-file-content">Passing file content</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#pdf-linearization">PDF Linearization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="howtos.html#embed-modes">Embed modes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="howtos.html#language-support">Language support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="howtos.html#troubleshooting">Troubleshooting</a></li>
@@ -246,6 +247,7 @@ img {
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="releasenotes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#april-2021">April, 2021</a></li>
 <li class="toctree-l2"><a class="reference internal" href="releasenotes.html#march-2021">March, 2021</a></li>
 <li class="toctree-l2"><a class="reference internal" href="releasenotes.html#january-2021">January, 2021</a></li>
 <li class="toctree-l2"><a class="reference internal" href="releasenotes.html#november-2020">November, 2020</a></li>
@@ -254,7 +256,7 @@ img {
 <li class="toctree-l2"><a class="reference internal" href="releasenotes.html#july-2020">July, 2020</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference external" href="https://opensource.adobe.com/pdftools-sdk-docs/release/latest/index.html#://">Go to the PDF Tools API</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.adobe.com/go/docsvcs_doc_pdftools#://">Go to the PDF Tools API</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://www.adobe.com/go/pdftoolsapi_forum#://">Community forum</a></li>
 </ul>
 </ul>
@@ -458,7 +460,7 @@ img {
 </table>
 </div>
 <div class="section" id="basic-events">
-<h2>Basic events<a class="headerlink" href="#basic-events" title="Permalink to this headline">¶</a></h2>
+<span id="basicevents"></span><h2>Basic events<a class="headerlink" href="#basic-events" title="Permalink to this headline">¶</a></h2>
 <p>In addition to the PDF analytics events, the PDF Embed API supports events which provide insight into user actions taken related to file preview. These events can be received through the events callback. After registering the events callback, the following file preview events are generated:-</p>
 <table class="colwidths-given docutils align-default" id="id2">
 <caption><span class="caption-text">title</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
@@ -478,12 +480,12 @@ img {
 <td><p>When the PDF starts to render in the viewer.</p></td>
 <td><p>None</p></td>
 </tr>
-<tr class="row-odd"><td><p>APP_RENDERING_FAILED</p></td>
-<td><p>When the PDF fails to render because of an unexpected error.</p></td>
+<tr class="row-odd"><td><p>APP_RENDERING_DONE</p></td>
+<td><p>When the first page of the PDF is displayed in the viewer..</p></td>
 <td><p>None</p></td>
 </tr>
-<tr class="row-even"><td><p>APP_RENDERING_DONE</p></td>
-<td><p>When the PDF is rendered completely and first page is displayed.</p></td>
+<tr class="row-even"><td><p>APP_RENDERING_FAILED</p></td>
+<td><p>When the PDF fails to render because of an unexpected error.</p></td>
 <td><p>None</p></td>
 </tr>
 <tr class="row-odd"><td><p>PDF_VIEWER_OPEN</p></td>
@@ -492,6 +494,10 @@ img {
 </tr>
 <tr class="row-even"><td><p>PDF_VIEWER_CLOSE</p></td>
 <td><p>When the PDF viewer closes.</p></td>
+<td><p>None</p></td>
+</tr>
+<tr class="row-odd"><td><p>PDF_VIEWER_READY</p></td>
+<td><p>When the PDF is rendered completely and the PDF viewer is ready to perform functionalities, such as, annotations and form-filling. This event is especially useful in case of linearized PDFs to check when the PDF gets fully downloaded. To know more about linearization, see the section <a class="reference internal" href="howtos.html#linearization"><span class="std std-ref">PDF Linearization</span></a>.</p></td>
 <td><p>None</p></td>
 </tr>
 </tbody>
@@ -703,7 +709,7 @@ For example, XFA form fields are not supported in PDF Embed API and this event i
       
     </p>
     <p>
-       Last updated Mar 30, 2021    &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; (Github version)<br/>
+       Last updated Apr 23, 2021 <br/>
     </p>	
   </div>
   </footer>

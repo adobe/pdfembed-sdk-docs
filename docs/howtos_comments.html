@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Comments and Markup &#8212; Document Cloud Embed SDK</title>
+    <title>Comments and Markup &#8212; Document Cloud View SDK</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -203,6 +203,7 @@ img {
 <li class="toctree-l1"><a class="reference internal" href="howtos.html">PDF Embed API basics</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="howtos.html#embed-a-pdf-viewer">Embed a PDF viewer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="howtos.html#passing-file-content">Passing file content</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos.html#pdf-linearization">PDF Linearization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="howtos.html#embed-modes">Embed modes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="howtos.html#language-support">Language support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="howtos.html#troubleshooting">Troubleshooting</a></li>
@@ -246,6 +247,7 @@ img {
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="releasenotes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#april-2021">April, 2021</a></li>
 <li class="toctree-l2"><a class="reference internal" href="releasenotes.html#march-2021">March, 2021</a></li>
 <li class="toctree-l2"><a class="reference internal" href="releasenotes.html#january-2021">January, 2021</a></li>
 <li class="toctree-l2"><a class="reference internal" href="releasenotes.html#november-2020">November, 2020</a></li>
@@ -254,7 +256,7 @@ img {
 <li class="toctree-l2"><a class="reference internal" href="releasenotes.html#july-2020">July, 2020</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference external" href="https://opensource.adobe.com/pdftools-sdk-docs/release/latest/index.html#://">Go to the PDF Tools API</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.adobe.com/go/docsvcs_doc_pdftools#://">Go to the PDF Tools API</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://www.adobe.com/go/pdftoolsapi_forum#://">Community forum</a></li>
 </ul>
 </ul>
@@ -488,8 +490,8 @@ img {
    <span class="p">],</span>
   <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Annotation&quot;</span><span class="p">,</span>
   <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">ANNOTATION_ID</span><span class="o">&gt;</span><span class="p">,</span>
-  <span class="s2">&quot;bodyValue&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">STRING</span><span class="o">&gt;</span><span class="p">,</span>
-  <span class="s2">&quot;motivation&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">STRING</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="s2">&quot;bodyValue&quot;</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span>
+  <span class="s2">&quot;motivation&quot;</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span>
   <span class="s2">&quot;stylesheet&quot;</span><span class="p">:</span> <span class="p">{</span>
      <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CssStylesheet&quot;</span><span class="p">,</span>
      <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">CSS_DEFINITION</span><span class="o">&gt;</span><span class="p">,</span>
@@ -497,10 +499,10 @@ img {
   <span class="s2">&quot;target&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">target</span><span class="o">-</span><span class="n">node</span><span class="o">&gt;</span> <span class="n">OR</span> <span class="o">&lt;</span><span class="n">target</span><span class="o">-</span><span class="n">reply</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="s2">&quot;creator&quot;</span><span class="p">:</span> <span class="p">{</span>
      <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Person&quot;</span><span class="p">,</span>
-     <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">STRING</span><span class="o">&gt;</span><span class="p">,</span>
+     <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span>
    <span class="p">},</span>
-  <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">DATE_TIME</span><span class="o">&gt;</span><span class="p">,</span>
-  <span class="s2">&quot;modified&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">DATE_TIME</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="n">DateTime</span><span class="p">,</span>
+  <span class="s2">&quot;modified&quot;</span><span class="p">:</span> <span class="n">DateTime</span><span class="p">,</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -579,7 +581,7 @@ img {
 <li><p>Chinese Simplified: Adobe Song Std L</p></li>
 <li><p>Chinese Traditional: Kozuka Mincho Pr6N R</p></li>
 <li><p>Japanese: Kozuka Mincho Pr6N R</p></li>
-<li><p>Korean: Adobe Myugjo Std M</p></li>
+<li><p>Korean: Adobe Myungjo Std M</p></li>
 <li><p>Other languages: Helvetica</p></li>
 </ul>
 </td>
@@ -600,9 +602,9 @@ img {
    <span class="s2">&quot;quadPoints&quot;</span> <span class="p">:</span> <span class="p">[</span> <span class="o">....</span> <span class="p">],</span>
    <span class="s2">&quot;inkList&quot;</span> <span class="p">:</span> <span class="p">[</span> <span class="p">[</span><span class="o">...</span><span class="p">],</span> <span class="p">[</span><span class="o">...</span><span class="p">],</span> <span class="o">...</span> <span class="p">],</span>
    <span class="s2">&quot;strokeColor&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">COLOR_HEX_CODE</span><span class="o">&gt;</span><span class="p">,</span>
-   <span class="s2">&quot;strokeWidth&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">FLOAT</span><span class="o">&gt;</span><span class="p">,</span>
-   <span class="s2">&quot;opacity&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">FLOAT</span> <span class="kn">from</span> <span class="mf">0.0</span> <span class="n">to</span> <span class="mf">1.0</span><span class="o">&gt;</span><span class="p">,</span>
-   <span class="s2">&quot;styleClass&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">STRING</span><span class="o">&gt;</span>
+   <span class="s2">&quot;strokeWidth&quot;</span><span class="p">:</span> <span class="n">Float</span><span class="p">,</span>
+   <span class="s2">&quot;opacity&quot;</span><span class="p">:</span> <span class="n">Float</span> <span class="p">(</span><span class="kn">from</span> <span class="mf">0.0</span> <span class="n">to</span> <span class="mf">1.0</span><span class="p">),</span>
+   <span class="s2">&quot;styleClass&quot;</span><span class="p">:</span> <span class="n">String</span>
  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -1240,7 +1242,7 @@ img {
 <tr class="row-even"><td><p><strong>API output</strong></p></td>
 <td><p>Returns a Promise which:</p>
 <ul class="simple">
-<li><p>Resolves with both a list of added annotations as well as an updated PDF buffer if the operation succeeds</p></li>
+<li><p>Resolves with the updated PDF buffer if the operation succeeds.</p></li>
 <li><p>Rejects with an error object that includes both an error code and message on operation failure.</p></li>
 </ul>
 </td>
@@ -1520,7 +1522,7 @@ img {
       
     </p>
     <p>
-       Last updated Mar 30, 2021    &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; (Github version)<br/>
+       Last updated Apr 23, 2021 <br/>
     </p>	
   </div>
   </footer>

@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PDF Embed API basics &#8212; Document Cloud Embed SDK</title>
+    <title>PDF Embed API basics &#8212; Document Cloud View SDK</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -203,6 +203,7 @@ img {
 <li class="toctree-l1 current"><a class="current reference internal" href="#">PDF Embed API basics</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#embed-a-pdf-viewer">Embed a PDF viewer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#passing-file-content">Passing file content</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pdf-linearization">PDF Linearization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#embed-modes">Embed modes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#language-support">Language support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
@@ -246,6 +247,7 @@ img {
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="releasenotes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#april-2021">April, 2021</a></li>
 <li class="toctree-l2"><a class="reference internal" href="releasenotes.html#march-2021">March, 2021</a></li>
 <li class="toctree-l2"><a class="reference internal" href="releasenotes.html#january-2021">January, 2021</a></li>
 <li class="toctree-l2"><a class="reference internal" href="releasenotes.html#november-2020">November, 2020</a></li>
@@ -254,7 +256,7 @@ img {
 <li class="toctree-l2"><a class="reference internal" href="releasenotes.html#july-2020">July, 2020</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference external" href="https://opensource.adobe.com/pdftools-sdk-docs/release/latest/index.html#://">Go to the PDF Tools API</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.adobe.com/go/docsvcs_doc_pdftools#://">Go to the PDF Tools API</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://www.adobe.com/go/pdftoolsapi_forum#://">Community forum</a></li>
 </ul>
 </ul>
@@ -424,16 +426,178 @@ img {
 </div>
 </div>
 </div>
+<div class="section" id="pdf-linearization">
+<span id="linearization"></span><h2>PDF Linearization<a class="headerlink" href="#pdf-linearization" title="Permalink to this headline">¶</a></h2>
+<p>Linearization is an approach to optimize PDFs for faster viewing by displaying the first page as quickly as possible before the entire PDF gets downloaded. Linearized PDFs contain information so that pages can be streamed one at a time via byte range requests from a server. Linearization is extremely useful for displaying large-sized documents as well as displaying documents on slow networks, thus providing an overall faster PDF viewing experience.</p>
+<p>PDF Embed API supports the rendering of linearized PDFs which are hosted on servers with byte-range support.</p>
+<p>For details, see <a class="reference internal" href="#enablebytestream"><span class="std std-ref">Enabling byte-streaming on a server</span></a>.</p>
+<div class="section" id="display-linearized-pdfs">
+<h3>Display linearized PDFs<a class="headerlink" href="#display-linearized-pdfs" title="Permalink to this headline">¶</a></h3>
+<p>In order to display linearized PDFs using PDF Embed API, set the variable <code class="docutils literal notranslate"><span class="pre">enableLinearization</span></code> to true (default value is false) and pass it as a preview configuration to the <code class="docutils literal notranslate"><span class="pre">previewFile</span></code> API.</p>
+<p>As described in the section <a class="reference internal" href="#passing"><span class="std std-ref">Passing file content</span></a>, the linearized PDF can be passed as a file URL or file Promise.</p>
+</div>
+<div class="section" id="id1">
+<h3>File URL<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Pass the URL of the linearized PDF in the <code class="docutils literal notranslate"><span class="pre">content</span></code> field and invoke the <code class="docutils literal notranslate"><span class="pre">previewFile</span></code> API.</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;adobe-dc-view&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://documentcloud.adobe.com/view-sdk/main.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;adobe_dc_view_sdk.ready&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">adobeDCView</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AdobeDC</span><span class="p">.</span><span class="nx">View</span><span class="p">({</span><span class="nx">clientId</span><span class="o">:</span> <span class="s2">&quot;&lt;YOUR_CLIENT_ID&gt;&quot;</span><span class="p">,</span> <span class="nx">divId</span><span class="o">:</span> <span class="s2">&quot;adobe-dc-view&quot;</span><span class="p">});</span>
+    <span class="kd">var</span> <span class="nx">previewFilePromise</span> <span class="o">=</span> <span class="nx">adobeDCView</span><span class="p">.</span><span class="nx">previewFile</span><span class="p">({</span>
+<span class="hll">      <span class="nx">content</span><span class="o">:</span>   <span class="p">{</span><span class="nx">location</span><span class="o">:</span> <span class="p">{</span><span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;&lt;URL_OF_LINEARIZED_PDF&gt;&quot;</span><span class="p">}},</span>
+</span>      <span class="nx">metaData</span><span class="o">:</span>  <span class="p">{</span><span class="nx">fileName</span><span class="o">:</span> <span class="s2">&quot;&lt;FILE_NAME&gt;&quot;</span><span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+<span class="hll">      <span class="nx">enableLinearization</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span>    <span class="p">});</span>
+  <span class="p">});</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h3>File Promise<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>If the file content is available as an ArrayBuffer, then it can be passed directly as a Promise resolving to the ArrayBuffer of the file content.</p>
+<p>Pass this file promise in the <code class="docutils literal notranslate"><span class="pre">content</span></code> field. Along with this, it is <strong>mandatory</strong> to pass an object called the <code class="docutils literal notranslate"><span class="pre">linearizationInfo</span></code> in the <code class="docutils literal notranslate"><span class="pre">content</span></code> field.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">linearizationInfo</span></code> object will contain the following three functions:</p>
+<p><strong>getInfo()</strong></p>
+<p>Returns a Promise which,</p>
+<ul class="simple">
+<li><p>Resolves with an object containing the file size. For instance, the size of a PDF file can be obtained by making a HEAD call to the PDF URL which will return the content length.</p></li>
+<li><p>Reject the Promise if the content length is invalid and the PDF rendering automatically falls back to the non-linearized flow.</p></li>
+</ul>
+<p><strong>getInitialBuffer()</strong></p>
+<p>Returns a Promise which,</p>
+<ul class="simple">
+<li><p>Resolves with an object containing the initial array buffer of the file. The initial buffer is defined as 0 - 1024 bytes which is required to render the first page of the linearized PDF.</p></li>
+<li><p>Reject the Promise if this call fails due to an unexpected error and the PDF rendering automatically falls back to the non-linearized flow.</p></li>
+</ul>
+<p><strong>getFileBufferRanges()</strong></p>
+<p>Returns a Promise which,</p>
+<ul class="simple">
+<li><p>Resolves with an object containing the list of desired array buffers of the file using the <code class="docutils literal notranslate"><span class="pre">ranges</span></code> parameter provided by PDF Embed API at run time. The <code class="docutils literal notranslate"><span class="pre">ranges</span></code> parameter is an array of <code class="docutils literal notranslate"><span class="pre">start</span></code> and <code class="docutils literal notranslate"><span class="pre">end</span></code> file ranges.</p></li>
+</ul>
+<p>If the <code class="docutils literal notranslate"><span class="pre">ranges</span></code> array contains more than one object, then there are two ways to fetch the file buffers:</p>
+<ol class="arabic simple">
+<li><p>Make separate calls for each range object present in <code class="docutils literal notranslate"><span class="pre">ranges</span></code> array and return the combined result.</p></li>
+<li><p>Make a single call with <strong>Range</strong> header value set to comma separated start-end values for each range object (for example: “bytes=0-1024, 1024-2048”).</p></li>
+</ol>
+<ul class="simple">
+<li><p>Reject the Promise when any range call fails or the range call returns the entire PDF buffer. In this case, PDF rendering will fall back to the non-linearized flow.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>If you pass both a file URL and file promise for a linearized PDF, the promise is used and the URL value is ignored.</p></li>
+<li><p>If you use file promise, then it is mandatory to pass the <code class="docutils literal notranslate"><span class="pre">linearizationInfo</span></code> object. The <code class="docutils literal notranslate"><span class="pre">linearizationInfo</span></code> object should contain all the 3 functions: <code class="docutils literal notranslate"><span class="pre">getInfo()</span></code>, <code class="docutils literal notranslate"><span class="pre">getInitialBuffer()</span></code> and <code class="docutils literal notranslate"><span class="pre">getFileBufferRanges()</span></code>.</p></li>
+</ul>
+</div>
+<p>Note that the website developer can provide their custom implementation of these functions and pass it to the <code class="docutils literal notranslate"><span class="pre">linearizationInfo</span></code> object.</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;adobe-dc-view&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://documentcloud.adobe.com/view-sdk/main.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;adobe_dc_view_sdk.ready&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">linearizationInfoObject</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="nx">getInfo</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">getInfo</span><span class="p">(),</span>
+      <span class="nx">getInitialBuffer</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">getInitialBuffer</span><span class="p">(),</span>
+      <span class="nx">getFileBufferRanges</span><span class="o">:</span> <span class="nx">ranges</span> <span class="p">=&gt;</span> <span class="nx">getFileBufferRanges</span><span class="p">(</span><span class="nx">ranges</span><span class="p">)</span>
+    <span class="p">};</span>
+
+    <span class="kd">var</span> <span class="nx">adobeDCView</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AdobeDC</span><span class="p">.</span><span class="nx">View</span><span class="p">({</span><span class="nx">clientId</span><span class="o">:</span> <span class="s2">&quot;&lt;YOUR_CLIENT_ID&gt;&quot;</span><span class="p">,</span> <span class="nx">divId</span><span class="o">:</span> <span class="s2">&quot;adobe-dc-view&quot;</span><span class="p">});</span>
+    <span class="kd">var</span> <span class="nx">previewFilePromise</span> <span class="o">=</span> <span class="nx">adobeDCView</span><span class="p">.</span><span class="nx">previewFile</span><span class="p">({</span>
+      <span class="nx">content</span><span class="o">:</span>   <span class="p">{</span>
+<span class="hll">        <span class="nx">promise</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">FILE_PROMISE</span><span class="o">&gt;</span><span class="p">,</span>
+</span><span class="hll">        <span class="nx">linearizationInfo</span><span class="o">:</span> <span class="nx">linearizationInfoObject</span>
+</span>      <span class="p">},</span>
+      <span class="nx">metaData</span><span class="o">:</span>  <span class="p">{</span><span class="nx">fileName</span><span class="o">:</span> <span class="s2">&quot;&lt;FILE_NAME&gt;&quot;</span><span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+<span class="hll">      <span class="nx">enableLinearization</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span>    <span class="p">});</span>
+
+    <span class="kd">function</span> <span class="nx">getInfo</span><span class="p">()</span> <span class="p">{</span>
+      <span class="cm">/* Write down your own implementation here */</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="nx">resolve</span><span class="p">({</span>
+          <span class="nx">fileSize</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">FILE_SIZE</span><span class="o">&gt;</span>
+        <span class="p">});</span>
+      <span class="p">});</span>
+    <span class="p">}</span>
+
+    <span class="kd">function</span> <span class="nx">getInitialBuffer</span><span class="p">()</span> <span class="p">{</span>
+      <span class="cm">/* Write down your own implementation here */</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="nx">resolve</span><span class="p">({</span>
+          <span class="nx">buffer</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">ARRAY_BUFFER</span><span class="o">&gt;</span>
+        <span class="p">});</span>
+      <span class="p">});</span>
+    <span class="p">}</span>
+
+    <span class="kd">function</span> <span class="nx">getFileBufferRanges</span><span class="p">(</span><span class="nx">ranges</span><span class="p">)</span> <span class="p">{</span>
+      <span class="cm">/* Write down your own implementation here */</span>
+      <span class="cm">/* Ranges parameter</span>
+<span class="cm">         ranges: [{ start: NUMBER, end: NUMBER}, { start: NUMBER, end: NUMBER}, . . .]</span>
+<span class="cm">      */</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="nx">resolve</span><span class="p">({</span>
+          <span class="nx">bufferList</span><span class="o">:</span> <span class="p">[</span>
+            <span class="o">&lt;</span><span class="nx">ARRAY_BUFFER</span><span class="o">&gt;</span><span class="p">,</span>
+            <span class="o">&lt;</span><span class="nx">ARRAY_BUFFER</span><span class="o">&gt;</span><span class="p">,</span>
+             <span class="p">.</span> <span class="p">.</span> <span class="p">.</span>
+          <span class="p">]</span>
+        <span class="p">});</span>
+      <span class="p">});</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Find the working code sample <a class="reference external" href="https://www.adobe.com/go/pdfembedapi_samples">here</a>  under <code class="docutils literal notranslate"><span class="pre">/More</span> <span class="pre">Samples/Linearization</span></code></p>
+</div>
+</div>
+<div class="section" id="supported-browsers-and-platforms">
+<h3>Supported browsers and platforms<a class="headerlink" href="#supported-browsers-and-platforms" title="Permalink to this headline">¶</a></h3>
+<p>Displaying linearized PDFs using PDF Embed API will work in browsers which support SharedArrayBuffer, such as Chrome and Chromium-based Microsoft Edge desktop browsers.
+In case of other desktop browsers and mobile browsers, it will automatically fall back to the normal behaviour (non-linearized flow) of downloading the entire PDF before file preview.</p>
+</div>
+<div class="section" id="other-supported-functionalities">
+<h3>Other supported functionalities<a class="headerlink" href="#other-supported-functionalities" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Support for linearized PDF is currently available only in Full window embed mode. In all other embed modes, it will automatically fall back to the normal file rendering approach.</p></li>
+<li><p>As the main focus here is to enable fast rendering of PDFs, certain functionalities which depend on the complete PDF buffer are not available immediately. These functionalities (for example, annotation tools and APIs, print and download PDF, document search, etc.) will be available once the PDF is fully downloaded and website developers will be notified through the PDF_VIEWER_READY event. To know more about this event, see the section <a class="reference internal" href="howtodata.html#basicevents"><span class="std std-ref">Basic events</span></a> under Analytics.</p></li>
+</ul>
+</div>
+<div class="section" id="enabling-byte-streaming-on-a-server">
+<span id="enablebytestream"></span><h3>Enabling byte-streaming on a server<a class="headerlink" href="#enabling-byte-streaming-on-a-server" title="Permalink to this headline">¶</a></h3>
+<p>The server where the linearized PDFs are hosted should have support of byte-streaming to be able to send partial file content via HTTP 206 calls.</p>
+<p>For example, you can follow these steps to enable byte-streaming in an Apache 2.4 server:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span>Open httpd.conf and make below changes:
+1. Uncomment this line: LoadModule headers_module modules/mod_headers.so
+2. In your respective &lt;Directory&gt;, set headers
+     &lt;Directory &quot;${SRVROOT}/htdocs/&lt;__location_of_PDFs_____&gt;&quot;&gt;
+       &lt;IfModule mod_headers.c&gt;
+         # To allow byte-streaming and range support
+         Header set Access-Control-Allow-Headers &quot;Range&quot;
+       &lt;/IfModule&gt;
+    &lt;/Directory&gt;
+</pre></div>
+</div>
+<p>Please see this <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Headers">article</a> to know more about Access-Control-Allow-Headers.</p>
+</div>
+</div>
 <div class="section" id="embed-modes">
 <h2>Embed modes<a class="headerlink" href="#embed-modes" title="Permalink to this headline">¶</a></h2>
-<p>The PDF Embed API’s embed modes govern the PDF viewing area’s size and position within a web page. Available options allow you to control the viewing experience and layout much like you would an image, video, or any other web content. In order to use any of the available modes, pass the mode name along with other preview configurations in the <code class="docutils literal notranslate"><span class="pre">previewFile</span></code> API. For example, you could set FULL_WINDOW as the <code class="docutils literal notranslate"><span class="pre">embedMode</span></code> value (line 5):</p>
+<p>The PDF Embed API’s embed modes govern the PDF viewing area’s size and position within a web page. Available options allow you to control the viewing experience and layout much like you would an image, video, or any other web content. In order to use any of the available modes, pass the mode name along with other preview configurations in the <code class="docutils literal notranslate"><span class="pre">previewFile</span></code> API. For example, you could set IN_LINE as the <code class="docutils literal notranslate"><span class="pre">embedMode</span></code> value (line 5):</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">adobeDCView</span><span class="p">.</span><span class="nx">previewFile</span><span class="p">({</span>
    <span class="nx">content</span><span class="o">:</span> <span class="p">{</span> <span class="p">...</span> <span class="p">},</span>
    <span class="nx">metaData</span><span class="o">:</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
       <span class="p">},</span>
-<span class="hll">  <span class="p">{</span><span class="nx">embedMode</span><span class="o">:</span> <span class="s2">&quot;&lt;some value such as: FULL_WINDOW&quot;</span><span class="o">&gt;</span><span class="p">,</span>
-</span>   <span class="nx">showAnnotationTools</span><span class="o">:</span> <span class="p">...,</span>
-   <span class="nx">showPageControls</span><span class="o">:</span> <span class="p">...</span>
+<span class="hll">  <span class="p">{</span><span class="nx">embedMode</span><span class="o">:</span> <span class="s2">&quot;&lt;some value such as: IN_LINE&quot;</span><span class="o">&gt;</span><span class="p">,</span>
+</span>   <span class="nx">showDownloadPDF</span><span class="o">:</span> <span class="p">...,</span>
+   <span class="nx">showPrintPDF</span><span class="o">:</span> <span class="p">...</span>
       <span class="p">}</span>
 <span class="p">);</span>
 </pre></div>
@@ -442,8 +606,8 @@ img {
 <p class="admonition-title">Tip</p>
 <p>To view the code in action, see the <a class="reference external" href="https://dc.acrobat.com/view-sdk-demo/index.html">online demo</a> or run the <a class="reference external" href="https://www.adobe.com/go/pdfembedapi_samples">embed mode samples</a> on your machine.</p>
 </div>
-<table class="colwidths-given docutils align-default" id="id2">
-<caption><span class="caption-text">Embed mode overview</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<table class="colwidths-given docutils align-default" id="id4">
+<caption><span class="caption-text">Embed mode overview</span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 40%" />
@@ -495,7 +659,8 @@ img {
 </div>
 <ul class="simple">
 <li><p><strong>Commenting</strong>: By default, all commenting tools (add text comment, sticky notes, highlight, drawing tool, strikethrough and underline) along with the eraser tool are available with this mode. Users can add and save annotations to the PDF. If desired, disable commenting feature by setting the <code class="docutils literal notranslate"><span class="pre">showAnnotationTools</span></code> variable to <em>false</em>.</p></li>
-<li><p><strong>Print and download</strong>: This mode supports options to download and print the PDF (<code class="docutils literal notranslate"><span class="pre">showDownloadPDF</span></code> and <code class="docutils literal notranslate"><span class="pre">showPrintPDF</span></code>) as well as view the left hand panel to toggle page thumbnails on and off (<code class="docutils literal notranslate"><span class="pre">showLeftHandPanel</span></code>).</p></li>
+<li><p><strong>Print and download</strong>: This mode supports options to download and print the PDF (<code class="docutils literal notranslate"><span class="pre">showDownloadPDF</span></code> and <code class="docutils literal notranslate"><span class="pre">showPrintPDF</span></code>).</p></li>
+<li><p><strong>Left-hand pane</strong>: The left-hand pane is available by default (<code class="docutils literal notranslate"><span class="pre">showLeftHandPanel</span></code>) to display the page thumbnails, view existing bookmarks and access the file attachments available in the PDF.</p></li>
 <li><p><strong>Page controls</strong>: Show or hide the page control options in the bottom toolbar, such as, zoom level, fit page, fit width, dock/undock page controls and navigation controls. (<code class="docutils literal notranslate"><span class="pre">showPageControls</span></code> and <code class="docutils literal notranslate"><span class="pre">dockPageControls</span></code>).</p></li>
 <li><p><strong>View mode</strong>: Set the default page view to either fit page or fit width (<code class="docutils literal notranslate"><span class="pre">defaultViewMode</span></code>).</p></li>
 </ul>
@@ -575,7 +740,7 @@ img {
 <img alt="_images/inline_search.png" src="_images/inline_search.png" />
 </div>
 <div class="section" id="lightbox">
-<span id="id1"></span><h3>Lightbox<a class="headerlink" href="#lightbox" title="Permalink to this headline">¶</a></h3>
+<span id="id3"></span><h3>Lightbox<a class="headerlink" href="#lightbox" title="Permalink to this headline">¶</a></h3>
 <p>Lightbox mode renders the PDF in the foreground at top of the page. The background remains visible, but the focus is on the previewed PDF. This view mode also provides configurable <strong>Close</strong> and <strong>Back</strong> buttons in the top bar. The <strong>Close</strong> button appears by default. (<a class="reference external" href="https://documentcloud.adobe.com/view-sdk-demo/index.html#/view/LIGHT_BOX">View Demo</a>)</p>
 <p>To use this mode:</p>
 <ul class="simple">
@@ -619,8 +784,8 @@ img {
 <span class="hll">    locale: &quot;ja-JP&quot;,
 </span></pre></div>
 </td></tr></table></div>
-<table class="colwidths-given docutils align-default" id="id3">
-<caption><span class="caption-text">Supported languages</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
+<table class="colwidths-given docutils align-default" id="id5">
+<caption><span class="caption-text">Supported languages</span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 50%" />
 <col style="width: 50%" />
@@ -718,7 +883,7 @@ img {
       
     </p>
     <p>
-       Last updated Mar 30, 2021    &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; (Github version)<br/>
+       Last updated Apr 23, 2021 <br/>
     </p>	
   </div>
   </footer>
