@@ -247,13 +247,7 @@ img {
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="releasenotes.html">Release Notes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#april-2021">April, 2021</a></li>
-<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#march-2021">March, 2021</a></li>
-<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#january-2021">January, 2021</a></li>
-<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#november-2020">November, 2020</a></li>
-<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#september-2020">September, 2020</a></li>
-<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#august-2020">August, 2020</a></li>
-<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#july-2020">July, 2020</a></li>
+<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#change-history">Change history</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference external" href="https://www.adobe.com/go/docsvcs_doc_pdftools#://">Go to the PDF Tools API</a></li>
@@ -589,7 +583,7 @@ In case of other desktop browsers and mobile browsers, it will automatically fal
 </div>
 </div>
 <div class="section" id="embed-modes">
-<h2>Embed modes<a class="headerlink" href="#embed-modes" title="Permalink to this headline">¶</a></h2>
+<span id="embedmodes"></span><h2>Embed modes<a class="headerlink" href="#embed-modes" title="Permalink to this headline">¶</a></h2>
 <p>The PDF Embed API’s embed modes govern the PDF viewing area’s size and position within a web page. Available options allow you to control the viewing experience and layout much like you would an image, video, or any other web content. In order to use any of the available modes, pass the mode name along with other preview configurations in the <code class="docutils literal notranslate"><span class="pre">previewFile</span></code> API. For example, you could set IN_LINE as the <code class="docutils literal notranslate"><span class="pre">embedMode</span></code> value (line 5):</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">adobeDCView</span><span class="p">.</span><span class="nx">previewFile</span><span class="p">({</span>
    <span class="nx">content</span><span class="o">:</span> <span class="p">{</span> <span class="p">...</span> <span class="p">},</span>
@@ -658,12 +652,13 @@ In case of other desktop browsers and mobile browsers, it will automatically fal
 <p>Note that the full window embed mode applies by default, and there is no need to pass any <code class="docutils literal notranslate"><span class="pre">embedMode</span></code> value. Configuring  <a class="reference internal" href="howtos_ui.html#menuoptions"><span class="std std-ref">Menu and tool options</span></a> is optional.</p>
 </div>
 <ul class="simple">
-<li><p><strong>Commenting</strong>: By default, all commenting tools (add text comment, sticky notes, highlight, drawing tool, strikethrough and underline) along with the eraser tool are available with this mode. Users can add and save annotations to the PDF. If desired, disable commenting feature by setting the <code class="docutils literal notranslate"><span class="pre">showAnnotationTools</span></code> variable to <em>false</em>.</p></li>
+<li><p><strong>Commenting</strong>: By default, all commenting tools (add text comment, sticky notes, highlight, drawing tool, strikethrough and underline), eraser tool and the undo/redo tools are available with this mode. Users can add and save annotations to the PDF. If desired, disable commenting feature by setting the <code class="docutils literal notranslate"><span class="pre">showAnnotationTools</span></code> variable to <em>false</em>.</p></li>
 <li><p><strong>Print and download</strong>: This mode supports options to download and print the PDF (<code class="docutils literal notranslate"><span class="pre">showDownloadPDF</span></code> and <code class="docutils literal notranslate"><span class="pre">showPrintPDF</span></code>).</p></li>
 <li><p><strong>Left-hand pane</strong>: The left-hand pane is available by default (<code class="docutils literal notranslate"><span class="pre">showLeftHandPanel</span></code>) to display the page thumbnails, view existing bookmarks and access the file attachments available in the PDF.</p></li>
-<li><p><strong>Page controls</strong>: Show or hide the page control options in the bottom toolbar, such as, zoom level, fit page, fit width, dock/undock page controls and navigation controls. (<code class="docutils literal notranslate"><span class="pre">showPageControls</span></code> and <code class="docutils literal notranslate"><span class="pre">dockPageControls</span></code>).</p></li>
 <li><p><strong>View mode</strong>: Set the default page view to either fit page or fit width (<code class="docutils literal notranslate"><span class="pre">defaultViewMode</span></code>).</p></li>
+<li><p><strong>Page controls</strong>: Show or hide the page control toolbar at the bottom containing various options, such as, zoom level, fit page, fit width, dock/undock page controls and navigation controls. (<code class="docutils literal notranslate"><span class="pre">showPageControls</span></code> and <code class="docutils literal notranslate"><span class="pre">dockPageControls</span></code>).</p></li>
 </ul>
+<p>The bottom toolbar also contains the Adobe Acrobat logo in docked as well as undocked state. When the toolbar is hidden, the logo displays along with a floating label “Powered by Adobe Acrobat” and appears at the bottom right-side.</p>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;adobe-dc-view&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://documentcloud.adobe.com/view-sdk/main.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
@@ -689,8 +684,8 @@ In case of other desktop browsers and mobile browsers, it will automatically fal
 <li><p>Optional: Configure the page and tool options</p>
 <blockquote>
 <div><ul class="simple">
-<li><p><strong>Page controls</strong>: The page control toolbar with navigation options is docked but can be undocked by setting <code class="docutils literal notranslate"><span class="pre">dockPageControls</span></code> to false. A full screen mode button appears in the page control toolbar (<code class="docutils literal notranslate"><span class="pre">showFullScreen</span></code>).</p></li>
 <li><p><strong>Print and download</strong>: This mode supports options to download and print the PDF (<code class="docutils literal notranslate"><span class="pre">showDownloadPDF</span></code> and <code class="docutils literal notranslate"><span class="pre">showPrintPDF</span></code>) as well as document search.</p></li>
+<li><p><strong>Page controls</strong>: The page control toolbar containing the Adobe Acrobat logo and navigation options is docked but can be undocked by setting <code class="docutils literal notranslate"><span class="pre">dockPageControls</span></code> to false. A full screen mode button also appears in the page control toolbar (<code class="docutils literal notranslate"><span class="pre">showFullScreen</span></code>).</p></li>
 </ul>
 </div></blockquote>
 </li>
@@ -722,7 +717,7 @@ In case of other desktop browsers and mobile browsers, it will automatically fal
 <ul class="simple">
 <li><p>Specify the viewer width attribute in the enclosing <code class="docutils literal notranslate"><span class="pre">div</span></code> tag of the PDF viewer.</p></li>
 <li><p>Pass <code class="docutils literal notranslate"><span class="pre">embedMode:</span> <span class="pre">&quot;IN_LINE&quot;</span></code></p></li>
-<li><p>Optional: By default, the page control toolbar only displays when a user scrolls pages. The toolbar displays basic navigation controls and document search along with options to download and print the PDF. You can toggle both <code class="docutils literal notranslate"><span class="pre">showDownloadPDF</span></code> and <code class="docutils literal notranslate"><span class="pre">showPrintPDF</span></code> on and off.</p></li>
+<li><p>Optional: By default, the page control toolbar only displays when a user scrolls pages. The toolbar displays the Adobe Acrobat logo, basic navigation controls and document search along with options to download and print the PDF. You can toggle both <code class="docutils literal notranslate"><span class="pre">showDownloadPDF</span></code> and <code class="docutils literal notranslate"><span class="pre">showPrintPDF</span></code> on and off.</p></li>
 </ul>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="hll"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;adobe-dc-view&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;width: 800px;&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 </span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://documentcloud.adobe.com/view-sdk/main.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
@@ -741,15 +736,15 @@ In case of other desktop browsers and mobile browsers, it will automatically fal
 </div>
 <div class="section" id="lightbox">
 <span id="id3"></span><h3>Lightbox<a class="headerlink" href="#lightbox" title="Permalink to this headline">¶</a></h3>
-<p>Lightbox mode renders the PDF in the foreground at top of the page. The background remains visible, but the focus is on the previewed PDF. This view mode also provides configurable <strong>Close</strong> and <strong>Back</strong> buttons in the top bar. The <strong>Close</strong> button appears by default. (<a class="reference external" href="https://documentcloud.adobe.com/view-sdk-demo/index.html#/view/LIGHT_BOX">View Demo</a>)</p>
+<p>Lightbox mode renders the PDF in the foreground at top of the page. The background remains visible, but the focus is on the previewed PDF. The top bar displays the Adobe Acrobat logo and also provides configurable <strong>Close</strong> and <strong>Back</strong> buttons. The <strong>Close</strong> button appears by default. (<a class="reference external" href="https://documentcloud.adobe.com/view-sdk-demo/index.html#/view/LIGHT_BOX">View Demo</a>)</p>
 <p>To use this mode:</p>
 <ul class="simple">
 <li><p>Pass <code class="docutils literal notranslate"><span class="pre">embedMode:</span> <span class="pre">&quot;LIGHT_BOX&quot;</span></code>.</p></li>
 <li><p>Optional: Configure the page, tool, and exit PDF Viewer options</p>
 <ul>
 <li><p><strong>Print and download</strong>: This mode supports options to download and print the PDF (<code class="docutils literal notranslate"><span class="pre">showDownloadPDF</span></code> and <code class="docutils literal notranslate"><span class="pre">showPrintPDF</span></code>).</p></li>
-<li><p><strong>Page controls</strong>: Show or hide the page control options in the bottom toolbar, such as zoom level, fit page, fit width, dock/undock page controls, and navigation controls (<code class="docutils literal notranslate"><span class="pre">showPageControls</span></code>).The page control toolbar is undocked by default but can be docked by setting <code class="docutils literal notranslate"><span class="pre">dockPageControls</span></code> to <em>true</em>.</p></li>
 <li><p><strong>View mode</strong>: Set the default page view to either fit page or fit width (<code class="docutils literal notranslate"><span class="pre">defaultViewMode</span></code>).</p></li>
+<li><p><strong>Page controls</strong>: Show or hide the page control options in the bottom toolbar, such as zoom level, fit page, fit width, dock/undock page controls, and navigation controls (<code class="docutils literal notranslate"><span class="pre">showPageControls</span></code>).The page control toolbar is undocked by default but can be docked by setting <code class="docutils literal notranslate"><span class="pre">dockPageControls</span></code> to <em>true</em>.</p></li>
 <li><p><strong>Exit PDF Viewer</strong>: The top bar contains the Close button by default to close the PDF preview which can be configured to Back button by setting <code class="docutils literal notranslate"><span class="pre">exitPDFViewerType</span></code> to RETURN (<code class="docutils literal notranslate"><span class="pre">exitPDFViewerType:</span> <span class="pre">&quot;RETURN&quot;</span></code>).</p></li>
 </ul>
 </li>
@@ -883,7 +878,7 @@ In case of other desktop browsers and mobile browsers, it will automatically fal
       
     </p>
     <p>
-       Last updated Apr 23, 2021 <br/>
+       Last updated May 28, 2021 <br/>
     </p>	
   </div>
   </footer>

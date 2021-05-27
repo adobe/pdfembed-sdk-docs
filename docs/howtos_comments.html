@@ -247,13 +247,7 @@ img {
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="releasenotes.html">Release Notes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#april-2021">April, 2021</a></li>
-<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#march-2021">March, 2021</a></li>
-<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#january-2021">January, 2021</a></li>
-<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#november-2020">November, 2020</a></li>
-<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#september-2020">September, 2020</a></li>
-<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#august-2020">August, 2020</a></li>
-<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#july-2020">July, 2020</a></li>
+<li class="toctree-l2"><a class="reference internal" href="releasenotes.html#change-history">Change history</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference external" href="https://www.adobe.com/go/docsvcs_doc_pdftools#://">Go to the PDF Tools API</a></li>
@@ -277,13 +271,7 @@ img {
       
   <div class="section" id="comments-and-markup">
 <span id="annotsapi"></span><h1>Comments and Markup<a class="headerlink" href="#comments-and-markup" title="Permalink to this headline">¶</a></h1>
-<p>The Embed API provides the capability to add comments to PDF documents using the commenting and markup tools. You can add comments with add text comment tool, sticky notes, highlights, drawing tool, strikethrough and underline text.  In addition to these tools, there is also an eraser tool which can be used to erase parts of drawing annotations. The basic commenting features supported by Embed API include:</p>
-<ul class="simple">
-<li><p>Adding text comments, sticky notes, highlights, underlines, strikethroughs, drawing markups, etc.</p></li>
-<li><p>Updating annotations</p></li>
-<li><p>Removing annotations</p></li>
-<li><p>Replying to annotations</p></li>
-</ul>
+<p>The Embed API provides the capability to add comments to PDF documents using the commenting and markup tools. You can add comments with add text comment tool, sticky notes, highlights, drawing tool, strikethrough and underline text.  In addition to these tools, there is also an eraser tool which can be used to erase parts of drawing annotations. In addition to these, there are undo and redo tools available in the top bar.</p>
 <img alt="_images/annotstoolsoverview.png" src="_images/annotstoolsoverview.png" />
 <img alt="_images/commentpane.png" src="_images/commentpane.png" />
 <div class="section" id="single-line-implementation">
@@ -317,8 +305,14 @@ img {
 </div>
 <div class="section" id="commenting-feature-overview">
 <h2>Commenting feature overview<a class="headerlink" href="#commenting-feature-overview" title="Permalink to this headline">¶</a></h2>
-<p>The PDF Embed API provides several annotation types, including freehand text comments, sticky notes, text markup, and freehand drawing. It also provides an eraser tool to remove parts of freehand drawings.</p>
-<p>All of these types deliver the following functionality:</p>
+<p>The basic commenting features supported by Embed API include:</p>
+<ul class="simple">
+<li><p>Adding text comments, sticky notes, highlights, underlines, strikethroughs, drawing markups, etc.</p></li>
+<li><p>Updating annotations</p></li>
+<li><p>Removing annotations</p></li>
+<li><p>Replying to annotations</p></li>
+</ul>
+<p>All the annotation types provided by PDF Embed API deliver the following functionality:</p>
 <ul class="simple">
 <li><p>Support for adding replies to annotations so that document recipients can respond to the author’s original markup. All comments appear in the right-hand comments panel.</p></li>
 <li><p>Adding or updating any annotation enables the <strong>Save</strong> button.</p></li>
@@ -437,6 +431,12 @@ img {
 <li><p>If the entire drawing is erased, then that particular drawing annotation gets removed from the PDF.</p></li>
 </ul>
 <img alt="_images/eraser.png" src="_images/eraser.png" />
+</div>
+<div class="section" id="undo-or-redo-changes">
+<h3>Undo or Redo changes<a class="headerlink" href="#undo-or-redo-changes" title="Permalink to this headline">¶</a></h3>
+<p>You can reverse the previous action by using the Undo tool in the top bar. Each undo command reverses one action. Continue clicking Undo to remove as many of the previous actions as necessary.</p>
+<p>Use the Redo tool to reverse the action of the undo command.</p>
+<img alt="_images/undo_redo.png" src="_images/undo_redo.png" />
 </div>
 </div>
 <div class="section" id="annotations-api-overview">
@@ -1058,8 +1058,12 @@ img {
 </div>
 <div class="section" id="updateannotation-api">
 <h3>updateAnnotation API<a class="headerlink" href="#updateannotation-api" title="Permalink to this headline">¶</a></h3>
-<p>This API updates a single existing PDF annotation in the PDF, including the parameters <code class="docutils literal notranslate"><span class="pre">bodyValue</span></code>, <code class="docutils literal notranslate"><span class="pre">font</span></code> and <code class="docutils literal notranslate"><span class="pre">color</span></code> under <code class="docutils literal notranslate"><span class="pre">stylesheet</span></code> as well as other parameters under <code class="docutils literal notranslate"><span class="pre">selector</span></code> such as, <code class="docutils literal notranslate"><span class="pre">strokeColor</span></code>, <code class="docutils literal notranslate"><span class="pre">strokeWidth</span></code>, <code class="docutils literal notranslate"><span class="pre">boundingBox</span></code>, <code class="docutils literal notranslate"><span class="pre">quadPoints</span></code> and <code class="docutils literal notranslate"><span class="pre">inkList</span></code>.</p>
-<p>This API takes the annotation data containing the updated parameters, finds the annotation with the ID present in the input data, and applies the update to that annotation. The annotation data must be in the format as described in theAnnotation schema.</p>
+<p>This API updates a single existing annotation in the PDF, including the parameter <code class="docutils literal notranslate"><span class="pre">bodyValue</span></code>, parameters <code class="docutils literal notranslate"><span class="pre">font</span></code> and <code class="docutils literal notranslate"><span class="pre">color</span></code> under <code class="docutils literal notranslate"><span class="pre">stylesheet</span></code>, as well as other parameters under <code class="docutils literal notranslate"><span class="pre">selector</span></code> such as, <code class="docutils literal notranslate"><span class="pre">strokeColor</span></code>, <code class="docutils literal notranslate"><span class="pre">strokeWidth</span></code>, <code class="docutils literal notranslate"><span class="pre">boundingBox</span></code> and <code class="docutils literal notranslate"><span class="pre">inkList</span></code>.</p>
+<p>This API takes the annotation data containing the updated parameters, finds the annotation with the ID present in the input data, and applies the update to that annotation. The annotation data must be in the same format as described in the Annotation schema.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can update the <code class="docutils literal notranslate"><span class="pre">boundingBox</span></code> parameter only for note, add text and drawing annotations using this API.</p>
+</div>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 20%" />
@@ -1427,6 +1431,7 @@ img {
 <li><p><code class="docutils literal notranslate"><span class="pre">defaultColor</span></code>: A hex code specifying the annotation color. This parameter is applicable for all annotation types.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">cursor</span></code>: A <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/CSS/cursor">CSS standards-based</a> string value to denote the cursor style on annotation start. This parameter is applicable for all annotation types.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">fontSize</span></code>: Font size within the range of 6-24px. This parameter is applicable only in case of freehand text annotations.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">strokeWidth</span></code>: Stroke width within the range of 1-12, to set the line thickness of the drawing annotation.</p></li>
 </ul>
 <table class="colwidths-given docutils align-default">
 <colgroup>
@@ -1438,7 +1443,7 @@ img {
 <td><p>There are two parameters which accept the following values:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">mode</span></code>: Permissible values include: <em>note</em>, <em>highlight</em>, <em>shape</em>, <em>underline</em>, <em>strikeout</em>, <em>freetext</em> or <em>eraser</em></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">options</span></code>: defaultColor: &lt;COLOR_HEX_CODE&gt;, cursor: &lt;CURSOR_TYPE&gt;, fontSize: &lt;FONT_SIZE&gt;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">options</span></code>: defaultColor: &lt;COLOR_HEX_CODE&gt;, cursor: &lt;CURSOR_TYPE&gt;, fontSize: &lt;FONT_SIZE&gt;, strokeWidth: &lt;STROKE_WIDTH&gt;</p></li>
 </ul>
 </td>
 </tr>
@@ -1451,12 +1456,21 @@ img {
 </td>
 </tr>
 <tr class="row-odd"><td><p><strong>API signature</strong></p></td>
-<td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">const</span> <span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;freetext&quot;</span><span class="p">;</span>
+<td><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">Add</span> <span class="n">text</span> <span class="n">annotation</span>
+<span class="n">const</span> <span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;freetext&quot;</span><span class="p">;</span>
 <span class="n">const</span> <span class="n">options</span> <span class="o">=</span> <span class="p">{</span>
   <span class="n">defaultColor</span><span class="p">:</span> <span class="s2">&quot;#b80000&quot;</span><span class="p">,</span>
   <span class="n">cursor</span><span class="p">:</span> <span class="s2">&quot;crosshair&quot;</span><span class="p">,</span>
   <span class="n">fontSize</span><span class="p">:</span> <span class="s2">&quot;15px&quot;</span>
 <span class="p">};</span>
+
+<span class="o">//</span> <span class="n">Drawing</span> <span class="n">annotation</span>
+<span class="o">/*</span> <span class="n">const</span> <span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;shape&quot;</span><span class="p">;</span>
+<span class="n">const</span> <span class="n">options</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="n">defaultColor</span><span class="p">:</span> <span class="s2">&quot;#b80000&quot;</span><span class="p">,</span>
+  <span class="n">cursor</span><span class="p">:</span> <span class="s2">&quot;crosshair&quot;</span><span class="p">,</span>
+  <span class="n">strokeWidth</span><span class="p">:</span> <span class="mi">5</span>
+<span class="p">};</span> <span class="o">*/</span>
 
 <span class="n">previewFilePromise</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">adobeViewer</span> <span class="o">=&gt;</span> <span class="p">{</span>
         <span class="n">adobeViewer</span><span class="o">.</span><span class="n">getAnnotationManager</span><span class="p">()</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">annotationManager</span> <span class="o">=&gt;</span> <span class="p">{</span>
@@ -1522,7 +1536,7 @@ img {
       
     </p>
     <p>
-       Last updated Apr 23, 2021 <br/>
+       Last updated May 28, 2021 <br/>
     </p>	
   </div>
   </footer>
