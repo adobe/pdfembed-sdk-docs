@@ -196,6 +196,7 @@ img {
 <li class="toctree-l2"><a class="reference internal" href="index.html#copy-it-run-it">Copy it. Run it.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#run-ready-samples">Run ready samples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#live-demo">Live demo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#supported-browsers">Supported browsers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#mobile-support">Mobile support</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html#feedback-and-forum">Feedback and forum</a></li>
 </ul>
@@ -346,8 +347,8 @@ img {
 <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </pre></div>
 </td></tr></table></div>
-<table class="colwidths-given docutils align-default" id="id3">
-<caption><span class="caption-text"><strong>Menu and tool options</strong></span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
+<table class="colwidths-given docutils align-default" id="id5">
+<caption><span class="caption-text"><strong>Menu and tool options</strong></span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 20%" />
@@ -471,18 +472,25 @@ img {
 </div>
 </div>
 <div class="section" id="user-settings">
-<h2>User settings<a class="headerlink" href="#user-settings" title="Permalink to this headline">¶</a></h2>
-<p>The callbacks for user settings enables storing user preferences. For example, you could store the user’s color choice for any annotation tool. In that case, new annotations subsequently receive the updated color.</p>
-<p>By default, if you do not register these callbacks, then application preferences derive from the browser’s local storage and are not specific to any user. There are two callbacks involved:</p>
+<span id="id1"></span><h2>User settings<a class="headerlink" href="#user-settings" title="Permalink to this headline">¶</a></h2>
+<p>Users can update the colour of an annotation by clicking on the PDF annotation and changing the colour from the toolbar. The updated colour is applied to all new annotations of that type added to the PDF.
+Also, when any annotation tool is selected from the top bar for the first time, there is a coach mark displayed to educate users about the annotation tool which goes away after a few seconds.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Previously, the default implementation of these user preferences was that the browser used to remember the updated annotation colour and also whether the coach mark for a selected annotation tool has been displayed or not. This was achieved by storing this data in the local storage of the PDF Embed API domain. This is now deprecated and PDF Embed API does not store this data.</p>
+</div>
+<p>By default, these preferences are lost when the PDF reloads. As a result, the updated annotation colour is not remembered (default annotation colour will be applied in this case) and users will see annotation tool coach marks again when the PDF reloads.</p>
+<p>Website developers can improve this experience by registering the user setting callbacks. There are two callbacks involved:</p>
 <ul class="simple">
 <li><p>SET_USER_SETTING_API: This callback saves user-specific settings.</p></li>
 <li><p>GET_USER_SETTING_API: This callback fetches the current user setting.</p></li>
 </ul>
+<p>Developers can provide their own implementation using these callbacks and save the user preferences wherever they like.</p>
 <p><strong>User settings callback signature</strong></p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">adobeDCView</span><span class="p">.</span><span class="nx">registerCallback</span><span class="p">(</span>
    <span class="nx">AdobeDC</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">Enum</span><span class="p">.</span><span class="nx">CallbackType</span><span class="p">.</span><span class="nx">SET_USER_SETTING_API</span><span class="p">,</span>
    <span class="kd">function</span><span class="p">(</span><span class="nx">setting</span><span class="p">)</span> <span class="p">{</span>
-      <span class="cm">/* Save the user setting */</span>
+      <span class="cm">/* Add your custom implementation here to save the user setting */</span>
       <span class="p">...</span>
       <span class="p">...</span>
       <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
@@ -497,11 +505,12 @@ img {
 <span class="nx">adobeDCView</span><span class="p">.</span><span class="nx">registerCallback</span><span class="p">(</span>
    <span class="nx">AdobeDC</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">Enum</span><span class="p">.</span><span class="nx">CallbackType</span><span class="p">.</span><span class="nx">GET_USER_SETTING_API</span><span class="p">,</span>
    <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="cm">/* Fetch the user setting */</span>
       <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
          <span class="nx">resolve</span><span class="p">({</span>
             <span class="nx">code</span><span class="o">:</span> <span class="nx">AdobeDC</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">Enum</span><span class="p">.</span><span class="nx">ApiResponseCode</span><span class="p">.</span><span class="nx">SUCCESS</span><span class="p">,</span>
             <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
-               <span class="nx">setting</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">User</span> <span class="nx">stored</span> <span class="nx">setting</span><span class="o">&gt;</span>
+               <span class="nx">setting</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">USER_STORED_SETTING</span><span class="o">&gt;</span>
             <span class="p">}</span>
          <span class="p">});</span>
       <span class="p">});</span>
@@ -509,8 +518,9 @@ img {
 <span class="p">{});</span>
 </pre></div>
 </div>
-<p>In the example above, GET_USER_SETTING_API gets the current user setting selection (in this case annotation color). The SET_USER_SETTING_API callback saves the user changes to annotation tool color and stores it as part of the user preferences.</p>
-<img alt="_images/usersettings.png" src="_images/usersettings.png" />
+<p>Find the working code sample <a class="reference external" href="https://www.adobe.com/go/pdfembedapi_samples">here</a>  under <code class="docutils literal notranslate"><span class="pre">/More</span> <span class="pre">Samples/Save</span> <span class="pre">User</span> <span class="pre">Preferences/</span></code>.
+In this code sample, the user setting callbacks are used to save the user preferences in the local storage of the website domain. Using this implementation, the browser remembers the updated annotation colour and also shows the coach mark only once for every annotation tool in the current browser.</p>
+<p>This is only an example and it is up to the website developer how they do the actual implementation of saving the user preferences.</p>
 </div>
 <div class="section" id="save-a-pdf">
 <h2>Save a PDF<a class="headerlink" href="#save-a-pdf" title="Permalink to this headline">¶</a></h2>
@@ -1799,7 +1809,7 @@ img {
       
     </p>
     <p>
-       Last updated Jun 08, 2021 <br/>
+       Last updated Jun 25, 2021 <br/>
     </p>	
   </div>
   </footer>
