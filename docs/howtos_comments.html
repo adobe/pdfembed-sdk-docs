@@ -3,15 +3,15 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Comments and Markup &#8212; Document Cloud View SDK</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
     <script src="_static/js/jquery-1.11.0.min.js"></script>
     <script src="_static/js/jquery-fix.js"></script>
     <script src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
@@ -270,41 +270,30 @@ img {
 </div><br/>
 
       
-  <div class="section" id="comments-and-markup">
+  <section id="comments-and-markup">
 <span id="annotsapi"></span><h1>Comments and Markup<a class="headerlink" href="#comments-and-markup" title="Permalink to this headline">¶</a></h1>
 <p>The Embed API provides the capability to add comments to PDF documents using the commenting and markup tools. You can add comments with add text comment tool, sticky notes, highlights, drawing tool, strikethrough and underline text.  In addition to these tools, there is also an eraser tool which can be used to erase parts of drawing annotations. In addition to these, there are undo and redo tools available in the top bar.</p>
 <img alt="_images/annotstoolsoverview.png" src="_images/annotstoolsoverview.png" />
 <img alt="_images/commentpane.png" src="_images/commentpane.png" />
-<div class="section" id="single-line-implementation">
+<section id="single-line-implementation">
 <span id="comment"></span><h2>Single line implementation<a class="headerlink" href="#single-line-implementation" title="Permalink to this headline">¶</a></h2>
 <p>You can enable/disable commenting tools with a single line. Commenting is enabled by <em>default</em> with the Embed API and the commenting tools are displayed in the top bar. You can disable commenting by adding <code class="docutils literal notranslate"><span class="pre">showAnnotationTools:</span> <span class="pre">false</span></code> (line 9) to the previewConfig object in the embedded JavaScript.</p>
-<div class="highlight-html notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;adobe-dc-view&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://documentcloud.adobe.com/view-sdk/main.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
-<span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;adobe_dc_view_sdk.ready&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-   <span class="kd">var</span> <span class="nx">adobeDCView</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AdobeDC</span><span class="p">.</span><span class="nx">View</span><span class="p">({</span><span class="nx">clientId</span><span class="o">:</span> <span class="s2">&quot;&lt;YOUR_CLIENT_ID&gt;&quot;</span><span class="p">,</span> <span class="nx">divId</span><span class="o">:</span> <span class="s2">&quot;adobe-dc-view&quot;</span><span class="p">});</span>
-   <span class="nx">adobeDCView</span><span class="p">.</span><span class="nx">previewFile</span><span class="p">({</span>
-     <span class="nx">content</span><span class="o">:</span><span class="p">{</span><span class="nx">location</span><span class="o">:</span> <span class="p">{</span><span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;https://documentcloud.adobe.com/view-sdk-demo/PDFs/Bodea Brochure.pdf&quot;</span><span class="p">}},</span>
-     <span class="nx">metaData</span><span class="o">:</span><span class="p">{</span><span class="nx">fileName</span><span class="o">:</span> <span class="s2">&quot;Bodea Brochure.pdf&quot;</span><span class="p">}</span>
-<span class="hll">   <span class="p">},</span> <span class="p">{</span><span class="nx">showAnnotationTools</span><span class="o">:</span> <span class="kc">false</span><span class="p">});</span>
-</span><span class="p">});</span>
-<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="c">&lt;!--Get the samples from https://www.adobe.com/go/pdfembedapi_samples--&gt;</span>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;adobe-dc-view&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="linenos"> 2</span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://documentcloud.adobe.com/view-sdk/main.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="linenos"> 3</span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
+<span class="linenos"> 4</span><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;adobe_dc_view_sdk.ready&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+<span class="linenos"> 5</span>   <span class="kd">var</span> <span class="nx">adobeDCView</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AdobeDC</span><span class="p">.</span><span class="nx">View</span><span class="p">({</span><span class="nx">clientId</span><span class="o">:</span> <span class="s2">&quot;&lt;YOUR_CLIENT_ID&gt;&quot;</span><span class="p">,</span> <span class="nx">divId</span><span class="o">:</span> <span class="s2">&quot;adobe-dc-view&quot;</span><span class="p">});</span>
+<span class="linenos"> 6</span>   <span class="nx">adobeDCView</span><span class="p">.</span><span class="nx">previewFile</span><span class="p">({</span>
+<span class="linenos"> 7</span>     <span class="nx">content</span><span class="o">:</span><span class="p">{</span><span class="nx">location</span><span class="o">:</span> <span class="p">{</span><span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;https://documentcloud.adobe.com/view-sdk-demo/PDFs/Bodea Brochure.pdf&quot;</span><span class="p">}},</span>
+<span class="linenos"> 8</span>     <span class="nx">metaData</span><span class="o">:</span><span class="p">{</span><span class="nx">fileName</span><span class="o">:</span> <span class="s2">&quot;Bodea Brochure.pdf&quot;</span><span class="p">}</span>
+<span class="hll"><span class="linenos"> 9</span>   <span class="p">},</span> <span class="p">{</span><span class="nx">showAnnotationTools</span><span class="o">:</span> <span class="kc">false</span><span class="p">});</span>
+</span><span class="linenos">10</span><span class="p">});</span>
+<span class="linenos">11</span><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="linenos">12</span><span class="c">&lt;!--Get the samples from https://www.adobe.com/go/pdfembedapi_samples--&gt;</span>
 </pre></div>
-</td></tr></table></div>
 </div>
-<div class="section" id="commenting-feature-overview">
+</section>
+<section id="commenting-feature-overview">
 <h2>Commenting feature overview<a class="headerlink" href="#commenting-feature-overview" title="Permalink to this headline">¶</a></h2>
 <p>The basic commenting features supported by Embed API include:</p>
 <ul class="simple">
@@ -320,7 +309,7 @@ img {
 <li><p>Once saved, the annotation is added to the PDF and becomes part of the PDF buffer.</p></li>
 </ul>
 <img alt="_images/viewerui1.png" src="_images/viewerui1.png" />
-<div class="section" id="freehand-text-comments">
+<section id="freehand-text-comments">
 <h3>Freehand text comments<a class="headerlink" href="#freehand-text-comments" title="Permalink to this headline">¶</a></h3>
 <p>Users can add freehand text anywhere on a PDF page as follows: select the Add Text tool in the top bar, click on the page to place the cursor and type in your desired text. Click outside the text box to add the annotation. A comment with the same text also appears in the right-hand comments panel. Features include:</p>
 <ul class="simple">
@@ -334,8 +323,8 @@ img {
 <li><p>Moving or resizing free text annotation: Place the cursor on an existing add text annotation and move the free text to a different location on the same PDF page. You can also drag one of the corner circles of the text box to resize.</p></li>
 </ul>
 <img alt="_images/addtext_menu.png" src="_images/addtext_menu.png" />
-</div>
-<div class="section" id="sticky-notes">
+</section>
+<section id="sticky-notes">
 <h3>Sticky notes<a class="headerlink" href="#sticky-notes" title="Permalink to this headline">¶</a></h3>
 <p>Use the sticky note to add a text message and place it anywhere on the PDF. There is no support for resizing. Features include:</p>
 <ul class="simple">
@@ -360,8 +349,8 @@ img {
 <li><p>Moving a sticky note: Place the cursor over an existing sticky note and drag to move it to some other location.</p></li>
 </ul>
 <img alt="_images/stickynote1.png" src="_images/stickynote1.png" />
-</div>
-<div class="section" id="text-markup-annotations">
+</section>
+<section id="text-markup-annotations">
 <h3>Text markup annotations<a class="headerlink" href="#text-markup-annotations" title="Permalink to this headline">¶</a></h3>
 <p>Embed API supports the following highlighting, strikethrough, and underlining. Features include:</p>
 <img alt="_images/textselectiontool.png" src="_images/textselectiontool.png" />
@@ -391,8 +380,8 @@ img {
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="drawing-tool">
+</section>
+<section id="drawing-tool">
 <h3>Drawing tool<a class="headerlink" href="#drawing-tool" title="Permalink to this headline">¶</a></h3>
 <p>Use this tool to create any freehand drawing or shape. Features include:</p>
 <ul class="simple">
@@ -422,8 +411,8 @@ img {
 </li>
 </ul>
 <img alt="_images/drawing_menu.png" src="_images/drawing_menu.png" />
-</div>
-<div class="section" id="eraser-tool">
+</section>
+<section id="eraser-tool">
 <h3>Eraser tool<a class="headerlink" href="#eraser-tool" title="Permalink to this headline">¶</a></h3>
 <p>This tool can be used to erase parts of freehand drawing annotations you added via the drawing tool.</p>
 <p>Select the eraser tool in the top bar and drag it across the areas of the drawing annotation that you wish to remove. The updated drawing annotation is saved to the PDF.</p>
@@ -432,15 +421,15 @@ img {
 <li><p>If the entire drawing is erased, then that particular drawing annotation gets removed from the PDF.</p></li>
 </ul>
 <img alt="_images/eraser.png" src="_images/eraser.png" />
-</div>
-<div class="section" id="undo-or-redo-changes">
+</section>
+<section id="undo-or-redo-changes">
 <h3>Undo or Redo changes<a class="headerlink" href="#undo-or-redo-changes" title="Permalink to this headline">¶</a></h3>
 <p>You can reverse the previous action by using the Undo tool in the top bar. Each undo command reverses one action. Continue clicking Undo to remove as many of the previous actions as necessary.</p>
 <p>Use the Redo tool to reverse the action of the undo command.</p>
 <img alt="_images/undo_redo.png" src="_images/undo_redo.png" />
-</div>
-</div>
-<div class="section" id="annotations-api-overview">
+</section>
+</section>
+<section id="annotations-api-overview">
 <h2>Annotations API overview<a class="headerlink" href="#annotations-api-overview" title="Permalink to this headline">¶</a></h2>
 <p>The annotations API supports  programmatic importing, creating, deleting, updating, and exporting both comments (sticky notes) and other types of markup such as underlines and highlight. The PDF Embed API provides two configuration variables to enable and control annotations:</p>
 <ul class="simple">
@@ -479,8 +468,8 @@ img {
 <li><p>Any annotation added or updated from UI or API is saved to the PDF buffer, and the Save button is enabled when the PDF has unsaved changes.</p></li>
 </ul>
 </div></blockquote>
-</div>
-<div class="section" id="annotation-schema">
+</section>
+<section id="annotation-schema">
 <span id="schema"></span><h2>Annotation schema<a class="headerlink" href="#annotation-schema" title="Permalink to this headline">¶</a></h2>
 <p>Annotation data passed to or sent from any API should exist in a well known and widely accepted standard format. In support of standards and global adoption then, the PDF Embed API supports a strict subset of the <a class="reference external" href="https://www.w3.org/TR/annotation-model/">Web Annotations Data Model</a> (a W3C recommendation). The Web Annotations Data Model specification provides comprehensive information about a resource or associations between resources.</p>
 <p>The PDF Embed API’s annotation model therefore requires the following key fields:</p>
@@ -711,10 +700,10 @@ img {
 </tr>
 </tbody>
 </table>
-<div class="section" id="annotation-data-examples">
+<section id="annotation-data-examples">
 <h3>Annotation data examples<a class="headerlink" href="#annotation-data-examples" title="Permalink to this headline">¶</a></h3>
 <p>You can find addtional samples and examples code in the <a class="reference external" href="https://www.adobe.com/go/pdfembedapi_samples">samples repo</a>.</p>
-<div class="section" id="note-annotation-data">
+<section id="note-annotation-data">
 <h4>Note annotation data<a class="headerlink" href="#note-annotation-data" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
       <span class="s2">&quot;@context&quot;</span><span class="p">:</span> <span class="p">[</span>
@@ -752,8 +741,8 @@ img {
  <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="reply-annotation-data">
+</section>
+<section id="reply-annotation-data">
 <h4>Reply annotation data<a class="headerlink" href="#reply-annotation-data" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
    <span class="s2">&quot;@context&quot;</span><span class="p">:</span> <span class="p">[</span>
@@ -776,8 +765,8 @@ img {
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="add-text-annotation-data">
+</section>
+<section id="add-text-annotation-data">
 <h4>Add text annotation data<a class="headerlink" href="#add-text-annotation-data" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
       <span class="s2">&quot;@context&quot;</span><span class="p">:</span> <span class="p">[</span>
@@ -818,78 +807,47 @@ img {
  <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="annotations-interface">
+</section>
+</section>
+</section>
+<section id="annotations-interface">
 <h2>Annotations interface<a class="headerlink" href="#annotations-interface" title="Permalink to this headline">¶</a></h2>
 <p>In order to invoke any annotations API, the PDF Embed API provides the <code class="docutils literal notranslate"><span class="pre">AnnotationManager</span></code> interface. You can invoke all the APIs from this interface. Before using this interface, you must set <code class="docutils literal notranslate"><span class="pre">enableAnnotationAPIs</span></code> to <em>true</em> and pass it as a preview configuration to the <code class="docutils literal notranslate"><span class="pre">previewFile</span></code> API.</p>
 <p>Invoke the APIs with the <code class="docutils literal notranslate"><span class="pre">annotationManager</span></code> as follows:</p>
-<div class="highlight-html notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
- <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Adobe Document Cloud PDF Embed API Sample<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
- <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">/&gt;</span>
- <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">http-equiv</span><span class="o">=</span><span class="s">&quot;X-UA-Compatible&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;IE=edge,chrome=1&quot;</span><span class="p">/&gt;</span>
- <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1&quot;</span><span class="p">/&gt;</span>
-<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
-
-<span class="p">&lt;</span><span class="nt">body</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;margin: 0px&quot;</span><span class="p">&gt;</span>
- <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;adobe-dc-view&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
- <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://documentcloud.adobe.com/view-sdk/main.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
- <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
- <span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;adobe_dc_view_sdk.ready&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span>
- <span class="p">{</span>
-  <span class="kd">var</span> <span class="nx">adobeDCView</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AdobeDC</span><span class="p">.</span><span class="nx">View</span><span class="p">({</span><span class="nx">clientId</span><span class="o">:</span> <span class="s2">&quot;&lt;YOUR_CLIENT_ID&gt;&quot;</span><span class="p">,</span> <span class="nx">divId</span><span class="o">:</span> <span class="s2">&quot;adobe-dc-view&quot;</span><span class="p">});</span>
-  <span class="kd">var</span> <span class="nx">previewFilePromise</span> <span class="o">=</span> <span class="nx">adobeDCView</span><span class="p">.</span><span class="nx">previewFile</span><span class="p">({</span>
-   <span class="nx">content</span><span class="o">:</span>   <span class="p">{</span><span class="nx">location</span><span class="o">:</span> <span class="p">{</span><span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;https://documentcloud.adobe.com/view-sdk-demo/PDFs/Bodea Brochure.pdf&quot;</span><span class="p">}},</span>
-   <span class="nx">metaData</span><span class="o">:</span>  <span class="p">{</span><span class="nx">fileName</span><span class="o">:</span> <span class="s2">&quot;Bodea Brochure.pdf&quot;</span><span class="p">,</span> <span class="nx">id</span><span class="o">:</span> <span class="s2">&quot;77c6fa5d-6d74-4104-8349-657c8411a834&quot;</span><span class="p">}</span>
-  <span class="p">},</span>
-  <span class="p">{</span>
-<span class="hll">   <span class="nx">enableAnnotationAPIs</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-</span>  <span class="p">});</span>
-
-  <span class="nx">previewFilePromise</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">adobeViewer</span> <span class="p">=&gt;</span> <span class="p">{</span>
-<span class="hll">   <span class="nx">adobeViewer</span><span class="p">.</span><span class="nx">getAnnotationManager</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="nx">annotationManager</span> <span class="p">=&gt;</span> <span class="p">{</span>
-</span>    <span class="c1">// All annotation APIs can be invoked here</span>
-   <span class="p">});</span>
-  <span class="p">});</span>
- <span class="p">});</span>
- <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+<span class="linenos"> 2</span><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="linenos"> 3</span> <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Adobe Document Cloud PDF Embed API Sample<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+<span class="linenos"> 4</span> <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">/&gt;</span>
+<span class="linenos"> 5</span> <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">http-equiv</span><span class="o">=</span><span class="s">&quot;X-UA-Compatible&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;IE=edge,chrome=1&quot;</span><span class="p">/&gt;</span>
+<span class="linenos"> 6</span> <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1&quot;</span><span class="p">/&gt;</span>
+<span class="linenos"> 7</span><span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span><span class="p">&lt;</span><span class="nt">body</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;margin: 0px&quot;</span><span class="p">&gt;</span>
+<span class="linenos">10</span> <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;adobe-dc-view&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="linenos">11</span> <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://documentcloud.adobe.com/view-sdk/main.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="linenos">12</span> <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
+<span class="linenos">13</span> <span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;adobe_dc_view_sdk.ready&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span>
+<span class="linenos">14</span> <span class="p">{</span>
+<span class="linenos">15</span>  <span class="kd">var</span> <span class="nx">adobeDCView</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AdobeDC</span><span class="p">.</span><span class="nx">View</span><span class="p">({</span><span class="nx">clientId</span><span class="o">:</span> <span class="s2">&quot;&lt;YOUR_CLIENT_ID&gt;&quot;</span><span class="p">,</span> <span class="nx">divId</span><span class="o">:</span> <span class="s2">&quot;adobe-dc-view&quot;</span><span class="p">});</span>
+<span class="linenos">16</span>  <span class="kd">var</span> <span class="nx">previewFilePromise</span> <span class="o">=</span> <span class="nx">adobeDCView</span><span class="p">.</span><span class="nx">previewFile</span><span class="p">({</span>
+<span class="linenos">17</span>   <span class="nx">content</span><span class="o">:</span>   <span class="p">{</span><span class="nx">location</span><span class="o">:</span> <span class="p">{</span><span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;https://documentcloud.adobe.com/view-sdk-demo/PDFs/Bodea Brochure.pdf&quot;</span><span class="p">}},</span>
+<span class="linenos">18</span>   <span class="nx">metaData</span><span class="o">:</span>  <span class="p">{</span><span class="nx">fileName</span><span class="o">:</span> <span class="s2">&quot;Bodea Brochure.pdf&quot;</span><span class="p">,</span> <span class="nx">id</span><span class="o">:</span> <span class="s2">&quot;77c6fa5d-6d74-4104-8349-657c8411a834&quot;</span><span class="p">}</span>
+<span class="linenos">19</span>  <span class="p">},</span>
+<span class="linenos">20</span>  <span class="p">{</span>
+<span class="hll"><span class="linenos">21</span>   <span class="nx">enableAnnotationAPIs</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span><span class="linenos">22</span>  <span class="p">});</span>
+<span class="linenos">23</span>
+<span class="linenos">24</span>  <span class="nx">previewFilePromise</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">adobeViewer</span> <span class="p">=&gt;</span> <span class="p">{</span>
+<span class="hll"><span class="linenos">25</span>   <span class="nx">adobeViewer</span><span class="p">.</span><span class="nx">getAnnotationManager</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="nx">annotationManager</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span><span class="linenos">26</span>    <span class="c1">// All annotation APIs can be invoked here</span>
+<span class="linenos">27</span>   <span class="p">});</span>
+<span class="linenos">28</span>  <span class="p">});</span>
+<span class="linenos">29</span> <span class="p">});</span>
+<span class="linenos">30</span> <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="linenos">31</span><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="linenos">32</span><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>When you enabled the annotation APIs, you must pass a PDF ID in the metadata field when invoking the <code class="docutils literal notranslate"><span class="pre">previewFile</span></code> API. This ID uniquely identifies the PDF so that annotations can be added.</p>
@@ -900,11 +858,11 @@ img {
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="basic-apis-for-commenting">
+</section>
+<section id="basic-apis-for-commenting">
 <h2>Basic APIs for commenting<a class="headerlink" href="#basic-apis-for-commenting" title="Permalink to this headline">¶</a></h2>
 <p>The PDF Embed API offers several APIs which allow you to programatically add, import, export, delete, and update annotations.</p>
-<div class="section" id="addannotations-api">
+<section id="addannotations-api">
 <h3>addAnnotations API<a class="headerlink" href="#addannotations-api" title="Permalink to this headline">¶</a></h3>
 <p>This API adds or imports (only) supported annotations. It takes a JSON array as input which contains the annotation data. The annotation data must be in the specified in the <a class="reference internal" href="#schema"><span class="std std-ref">Annotation schema</span></a>. Either a single annotation or multiple annotations can be added.</p>
 <table class="colwidths-given docutils align-default">
@@ -940,8 +898,8 @@ img {
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="getannotations-api">
+</section>
+<section id="getannotations-api">
 <h3>getAnnotations API<a class="headerlink" href="#getannotations-api" title="Permalink to this headline">¶</a></h3>
 <p>This API exports and receives PDF annotation data based on the filter provided by the client. The annotations are returned in the form of a JSON array, and the annotation data will be in the format as described in the <a class="reference internal" href="#schema"><span class="std std-ref">Annotation schema</span></a>.</p>
 <table class="colwidths-given docutils align-default">
@@ -1001,8 +959,8 @@ img {
 <p class="admonition-title">Note</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">includePDFAnnotations</span></code> is set to <em>true</em>, then any existing annotation in PDF which the PDF Embed API supports is accessible through the annotation APIs. The data for these annotations can be received through the GET API. Note that the ID of such annotations received in the GET API output will be different for every browser session.</p>
 </div>
-</div>
-<div class="section" id="deleteannotations-api">
+</section>
+<section id="deleteannotations-api">
 <h3>deleteAnnotations API<a class="headerlink" href="#deleteannotations-api" title="Permalink to this headline">¶</a></h3>
 <p>This API deletes PDF annotations based on the filter provided by the client.</p>
 <table class="colwidths-given docutils align-default">
@@ -1056,8 +1014,8 @@ img {
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="updateannotation-api">
+</section>
+<section id="updateannotation-api">
 <h3>updateAnnotation API<a class="headerlink" href="#updateannotation-api" title="Permalink to this headline">¶</a></h3>
 <p>This API updates a single existing annotation in the PDF, including the parameter <code class="docutils literal notranslate"><span class="pre">bodyValue</span></code>, parameters <code class="docutils literal notranslate"><span class="pre">font</span></code> and <code class="docutils literal notranslate"><span class="pre">color</span></code> under <code class="docutils literal notranslate"><span class="pre">stylesheet</span></code>, as well as other parameters under <code class="docutils literal notranslate"><span class="pre">selector</span></code> such as, <code class="docutils literal notranslate"><span class="pre">strokeColor</span></code>, <code class="docutils literal notranslate"><span class="pre">strokeWidth</span></code>, <code class="docutils literal notranslate"><span class="pre">boundingBox</span></code> and <code class="docutils literal notranslate"><span class="pre">inkList</span></code>.</p>
 <p>This API takes the annotation data containing the updated parameters, finds the annotation with the ID present in the input data, and applies the update to that annotation. The annotation data must be in the same format as described in the Annotation schema.</p>
@@ -1098,18 +1056,18 @@ img {
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-<div class="section" id="annotation-events">
+</section>
+</section>
+<section id="annotation-events">
 <h2>Annotation events<a class="headerlink" href="#annotation-events" title="Permalink to this headline">¶</a></h2>
 <p>Website developers can receive events when a user action interacts with an annotation. These events are generated for annotation actions performed through the UI as well as through the annotation APIs.</p>
 <p>There are two ways to capture these events: use either the Events callback or the <code class="docutils literal notranslate"><span class="pre">annotationManager</span></code> interface.</p>
-<div class="section" id="events-callback-usage">
+<section id="events-callback-usage">
 <h3>Events callback usage<a class="headerlink" href="#events-callback-usage" title="Permalink to this headline">¶</a></h3>
 <p>Register the events callback and enable the flag <code class="docutils literal notranslate"><span class="pre">enableAnnotationEvents</span></code> to receive these events.</p>
 <p>For details, see <a class="reference internal" href="howtodata.html#annotevents"><span class="std std-ref">Annotation events</span></a></p>
-</div>
-<div class="section" id="annotationmanager-interface">
+</section>
+<section id="annotationmanager-interface">
 <h3>annotationManager interface<a class="headerlink" href="#annotationmanager-interface" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">annotationManager</span></code> interface listens for events via the <code class="docutils literal notranslate"><span class="pre">registerEventListener</span></code> API. To receive specific event types, pass the list of event types in the <code class="docutils literal notranslate"><span class="pre">listenOn</span></code> parameter. If nothing is passed to <code class="docutils literal notranslate"><span class="pre">listenOn</span></code>, then all the annotation events return.</p>
 <p>Note that the events are generated through this interface only when annotation APIs are enabled.</p>
@@ -1192,12 +1150,12 @@ img {
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-<div class="section" id="handling-existing-annotations">
+</section>
+</section>
+<section id="handling-existing-annotations">
 <h2>Handling existing annotations<a class="headerlink" href="#handling-existing-annotations" title="Permalink to this headline">¶</a></h2>
 <p>The PDF Embed API provides two additional APIs that remove existing annotations or save new  annotations. These APIs only function when <code class="docutils literal notranslate"><span class="pre">includePDFAnnotations</span></code> is <em>true</em>.</p>
-<div class="section" id="removeannotationsfrompdf-api">
+<section id="removeannotationsfrompdf-api">
 <h3>removeAnnotationsFromPDF API<a class="headerlink" href="#removeannotationsfrompdf-api" title="Permalink to this headline">¶</a></h3>
 <p>This API deletes all annotations and returns both a list of the removed annotations as well as the PDF buffer as output. Note that the API can only remove supported annotations.</p>
 <table class="colwidths-given docutils align-default">
@@ -1231,8 +1189,8 @@ img {
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="addannotationsinpdf-api">
+</section>
+<section id="addannotationsinpdf-api">
 <h3>addAnnotationsInPDF API<a class="headerlink" href="#addannotationsinpdf-api" title="Permalink to this headline">¶</a></h3>
 <p>This API takes a list of supported annotations as input and saves those annotations to the PDF buffer. The updated PDF buffer is returned as API output.</p>
 <table class="colwidths-given docutils align-default">
@@ -1268,9 +1226,9 @@ img {
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-<div class="section" id="apis-to-control-ui-configurations">
+</section>
+</section>
+<section id="apis-to-control-ui-configurations">
 <h2>APIs to control UI configurations<a class="headerlink" href="#apis-to-control-ui-configurations" title="Permalink to this headline">¶</a></h2>
 <p>UI control is available through the following APIs:</p>
 <ul class="simple">
@@ -1280,7 +1238,7 @@ img {
 <li><p><code class="docutils literal notranslate"><span class="pre">startAnnotationMode</span></code>: Enter annotation mode</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">endAnnotationMode</span></code>: Exit from annotation mode</p></li>
 </ul>
-<div class="section" id="setconfig-api">
+<section id="setconfig-api">
 <h3>setConfig API<a class="headerlink" href="#setconfig-api" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">setConfig</span></code> allows you to set special UI configurations, including hiding the commenting tools from the top bar, hiding the right-hand comments pane, hiding the toolbar on text selection, and enabling the downloaded and printed PDF to contain annotations even when unsaved to the PDF buffer.</p>
 <p>The API supports the following flags. You can pass 1-N flags to the API as needed:</p>
@@ -1359,8 +1317,8 @@ img {
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="selectannotation-api">
+</section>
+<section id="selectannotation-api">
 <h3>selectAnnotation API<a class="headerlink" href="#selectannotation-api" title="Permalink to this headline">¶</a></h3>
 <p>This API selects any existing annotation and shifts the focus to the selected annotation. It applies the select operation to the annotation specified by the annotation ID.</p>
 <table class="colwidths-given docutils align-default">
@@ -1396,8 +1354,8 @@ img {
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="unselectannotation-api">
+</section>
+<section id="unselectannotation-api">
 <h3>unselectAnnotation API<a class="headerlink" href="#unselectannotation-api" title="Permalink to this headline">¶</a></h3>
 <p>This API unselects the last selected annotation.</p>
 <table class="colwidths-given docutils align-default">
@@ -1424,8 +1382,8 @@ img {
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="startannotationmode-api">
+</section>
+<section id="startannotationmode-api">
 <h3>startAnnotationMode API<a class="headerlink" href="#startannotationmode-api" title="Permalink to this headline">¶</a></h3>
 <p>This API starts a particular annotation mode so that you can annotations of that type or use the eraser tool. The API takes a single annotation mode as input. The annotation mode can be any one of the supported annotation types in PDF Embed API, and it supports the following optional parameters:</p>
 <ul class="simple">
@@ -1486,8 +1444,8 @@ img {
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="endannotationmode-api">
+</section>
+<section id="endannotationmode-api">
 <h3>endAnnotationMode API<a class="headerlink" href="#endannotationmode-api" title="Permalink to this headline">¶</a></h3>
 <p>This API ends the last started annotation mode.</p>
 <table class="colwidths-given docutils align-default">
@@ -1514,16 +1472,16 @@ img {
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-<div class="section" id="code-samples">
+</section>
+</section>
+<section id="code-samples">
 <h2>Code Samples<a class="headerlink" href="#code-samples" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><a class="reference external" href="https://www.adobe.com/go/pdfembedapi_samples">Working code samples reside in Github.</a></p>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
     </div>
@@ -1537,7 +1495,7 @@ img {
       
     </p>
     <p>
-       Last updated Jun 25, 2021 <br/>
+       Last updated Jul 29, 2021 <br/>
     </p>	
   </div>
   </footer>

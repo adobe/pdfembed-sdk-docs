@@ -3,15 +3,15 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Analytics &#8212; Document Cloud View SDK</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
     <script src="_static/js/jquery-1.11.0.min.js"></script>
     <script src="_static/js/jquery-fix.js"></script>
     <script src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
@@ -270,12 +270,12 @@ img {
 </div><br/>
 
       
-  <div class="section" id="analytics">
+  <section id="analytics">
 <h1>Analytics<a class="headerlink" href="#analytics" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="adobe-analytics">
+<section id="adobe-analytics">
 <h2>Adobe Analytics<a class="headerlink" href="#adobe-analytics" title="Permalink to this headline">¶</a></h2>
 <p>If your organization already subscribes to Adobe Analytics, rich PDF analytics is yours by default. You should use Analytics as you normally would; however, there are a few setup steps required to correctly map the incoming data to Adobe Analytics variables.</p>
-<div class="section" id="set-up-the-pdf-viewer">
+<section id="set-up-the-pdf-viewer">
 <h3>Set up the PDF Viewer<a class="headerlink" href="#set-up-the-pdf-viewer" title="Permalink to this headline">¶</a></h3>
 <p>Since you want to track user interaction with the PDF viewer, you need to make sure events appear in the correct report suites. To automatically receive PDF analytics events, pass the Analytics report suite ID when creating the AdobeDC.View instance. You must ensure that Adobe Analytics is instrumented using the same <code class="docutils literal notranslate"><span class="pre">reportSuiteId</span></code> for the website where you are embedding the PDF Viewer.</p>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span>var adobeDCView = new AdobeDC.View({
@@ -286,8 +286,8 @@ img {
 })
 </pre></div>
 </div>
-</div>
-<div class="section" id="configure-adobe-analytics">
+</section>
+<section id="configure-adobe-analytics">
 <h3>Configure Adobe Analytics<a class="headerlink" href="#configure-adobe-analytics" title="Permalink to this headline">¶</a></h3>
 <p>The current release requires a few configuration steps to correctly map PDF Embed API data collected from your PDF viewer to your report suite. Once you’ve logged in to Analytics, do the following:</p>
 <p>Once you’ve logged in to Analytics, do the following:</p>
@@ -306,7 +306,7 @@ img {
 <li><p>Click the <strong>Processing Rules</strong> tab. You’ll need to create two rules and configure them so that you can map collected events and event attributes to Analytics variables.</p></li>
 </ol>
 <img alt="_images/aemprocessingrules.png" src="_images/aemprocessingrules.png" />
-<div class="section" id="mapping-event-attibutes">
+<section id="mapping-event-attibutes">
 <h4>Mapping event attibutes<a class="headerlink" href="#mapping-event-attibutes" title="Permalink to this headline">¶</a></h4>
 <p>You’ll need to create a new rule and map event attributes sent by the PDF Embed API to an Adobe Analytics variable. For example, an event attribute might be something like a page number or title. There could be many events with the same attribute (one for each event happening on a specific page). The following attributes eventually become dimensions in your reports:</p>
 <ul class="simple">
@@ -326,8 +326,8 @@ img {
 <li><p>Repeat the above steps for each incoming event attribute you track.</p></li>
 </ol>
 <img alt="_images/aemdimmap.png" src="_images/aemdimmap.png" />
-</div>
-<div class="section" id="mapping-events">
+</section>
+<section id="mapping-events">
 <h4>Mapping events<a class="headerlink" href="#mapping-events" title="Permalink to this headline">¶</a></h4>
 <p>Create another new rule and map events sent by the PDF Embed API to an Adobe Analytics variable. Note that Analytics uses “metrics” and “events” interchangeably. An event is any user interaction your JavaScript event listener captures; for example, clicking on a button or commenting on a PDF. The following events eventually become metrics displayed in your reports:</p>
 <ul class="simple">
@@ -351,55 +351,42 @@ img {
 <li><p>Repeat the above steps for each metric (incoming event).</p></li>
 </ol>
 <img alt="_images/aemsection3.png" src="_images/aemsection3.png" />
-</div>
-</div>
-<div class="section" id="viewing-your-data">
+</section>
+</section>
+<section id="viewing-your-data">
 <h3>Viewing your data<a class="headerlink" href="#viewing-your-data" title="Permalink to this headline">¶</a></h3>
 <p>Set up your reporting as usual, and view the dimensions and metrics in your workspace.</p>
 <img alt="_images/aemreport.png" src="_images/aemreport.png" />
-</div>
-<div class="section" id="help-support-forum">
+</section>
+<section id="help-support-forum">
 <h3>Help, support, forum<a class="headerlink" href="#help-support-forum" title="Permalink to this headline">¶</a></h3>
 <p>For more detail about using this Adobe Analytics UI, refer to the <a class="reference external" href="https://docs.adobe.com/content/help/en/analytics/implementation/analytics-basics/ref-processing-rules.html">help docs</a>. You can also ask questions and get help here:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://forums.adobe.com/community/experience-cloud/analytics-cloud/analytics">Community forum</a></p></li>
 <li><p><a class="reference external" href="https://helpx.adobe.com/support/analytics.html">Analytics Support</a></p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="default-analytics">
+</section>
+</section>
+<section id="default-analytics">
 <h2>Default analytics<a class="headerlink" href="#default-analytics" title="Permalink to this headline">¶</a></h2>
 <p>If you are not subscribed to Adobe Analytics, you can still collect PDF analytics events as users interact with PDFs. You enable PDF analytics events by registering a callback with the API to listen the events. Tracking PDF events provides insight into user actions and thereby helps you manage and evolve the PDF experience you’re delivering to customers.</p>
 <p>As always, initialize the AdobeDC View object with your client ID, and then invoke the <code class="docutils literal notranslate"><span class="pre">previewFile</span></code> API on AdobeDC.View object as usual. Finally, register the callback to receive the events and set <code class="docutils literal notranslate"><span class="pre">enablePDFAnalytics</span></code> to <em>true</em>:</p>
-<div class="highlight-html notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14</pre></div></td><td class="code"><div class="highlight"><pre><span></span> const eventOptions = {
-   //Pass the PDF analytics events to receive.
-   //If no event is passed in listenOn, then all PDF analytics events will be received.
-   listenOn: [ AdobeDC.View.Enum.PDFAnalyticsEvents.PAGE_VIEW, AdobeDC.View.Enum.PDFAnalyticsEvents.DOCUMENT_DOWNLOAD],
-<span class="hll">   enablePDFAnalytics: true
-</span> }
-
- adobeDCView.registerCallback(
-   AdobeDC.View.Enum.CallbackType.EVENT_LISTENER,
-   function(event) {
-     console.log(&quot;Type &quot; + event.type);
-     console.log(&quot;Data &quot; + event.data);
-   }, eventOptions
- );
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span> const eventOptions = {
+<span class="linenos"> 2</span>   //Pass the PDF analytics events to receive.
+<span class="linenos"> 3</span>   //If no event is passed in listenOn, then all PDF analytics events will be received.
+<span class="linenos"> 4</span>   listenOn: [ AdobeDC.View.Enum.PDFAnalyticsEvents.PAGE_VIEW, AdobeDC.View.Enum.PDFAnalyticsEvents.DOCUMENT_DOWNLOAD],
+<span class="hll"><span class="linenos"> 5</span>   enablePDFAnalytics: true
+</span><span class="linenos"> 6</span> }
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span> adobeDCView.registerCallback(
+<span class="linenos"> 9</span>   AdobeDC.View.Enum.CallbackType.EVENT_LISTENER,
+<span class="linenos">10</span>   function(event) {
+<span class="linenos">11</span>     console.log(&quot;Type &quot; + event.type);
+<span class="linenos">12</span>     console.log(&quot;Data &quot; + event.data);
+<span class="linenos">13</span>   }, eventOptions
+<span class="linenos">14</span> );
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>Find the working example in the <a class="reference external" href="https://www.adobe.com/go/pdfembedapi_samples">samples repo</a>  under <code class="docutils literal notranslate"><span class="pre">/More</span> <span class="pre">Samples/Capture</span> <span class="pre">PDF</span> <span class="pre">Embed</span> <span class="pre">API</span> <span class="pre">Events/</span></code>.</p>
 <table class="colwidths-given docutils align-default" id="id1">
 <caption><span class="caption-text">Supported analytics events</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
@@ -453,8 +440,8 @@ img {
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="basic-events">
+</section>
+<section id="basic-events">
 <span id="basicevents"></span><h2>Basic events<a class="headerlink" href="#basic-events" title="Permalink to this headline">¶</a></h2>
 <p>In addition to the PDF analytics events, the PDF Embed API supports events which provide insight into user actions taken related to file preview. These events can be received through the events callback. After registering the events callback, the following file preview events are generated:-</p>
 <table class="colwidths-given docutils align-default" id="id2">
@@ -498,33 +485,21 @@ img {
 </tbody>
 </table>
 <p>In order to receive additional file preview events, set <code class="docutils literal notranslate"><span class="pre">enableFilePreviewEvents</span></code> to <em>true</em> and pass it to the events callback. To receive specific events, pass the list of event types in the <code class="docutils literal notranslate"><span class="pre">listenOn</span></code> parameter. If nothing is passed to <code class="docutils literal notranslate"><span class="pre">listenOn</span></code>, then the API returns all the file preview events.</p>
-<div class="highlight-html notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13</pre></div></td><td class="code"><div class="highlight"><pre><span></span>     const eventOptions = {
-              //Pass the events to receive.
-              //If no event is passed in listenOn, then all file preview events will be received.
-              listenOn: [ AdobeDC.View.Enum.Events.APP_RENDERING_START, AdobeDC.View.Enum.FilePreviewEvents.PREVIEW_KEY_DOWN,  AdobeDC.View.Enum.FilePreviewEvents.PREVIEW_PAGE_VIEW_SCROLLED ],
-<span class="hll">              enableFilePreviewEvents: true
-</span>     }
-
-     adobeDCView.registerCallback(
-              AdobeDC.View.Enum.CallbackType.EVENT_LISTENER,
-              function(event) {
-                     console.log(event)
-              }, eventOptions
-     );
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>     const eventOptions = {
+<span class="linenos"> 2</span>              //Pass the events to receive.
+<span class="linenos"> 3</span>              //If no event is passed in listenOn, then all file preview events will be received.
+<span class="linenos"> 4</span>              listenOn: [ AdobeDC.View.Enum.Events.APP_RENDERING_START, AdobeDC.View.Enum.FilePreviewEvents.PREVIEW_KEY_DOWN,  AdobeDC.View.Enum.FilePreviewEvents.PREVIEW_PAGE_VIEW_SCROLLED ],
+<span class="hll"><span class="linenos"> 5</span>              enableFilePreviewEvents: true
+</span><span class="linenos"> 6</span>     }
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span>     adobeDCView.registerCallback(
+<span class="linenos"> 9</span>              AdobeDC.View.Enum.CallbackType.EVENT_LISTENER,
+<span class="linenos">10</span>              function(event) {
+<span class="linenos">11</span>                     console.log(event)
+<span class="linenos">12</span>              }, eventOptions
+<span class="linenos">13</span>     );
 </pre></div>
-</td></tr></table></div>
+</div>
 <table class="colwidths-given docutils align-default" id="id3">
 <caption><span class="caption-text"><strong>List of file preview events</strong></span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
 <colgroup>
@@ -590,38 +565,26 @@ For example, XFA form fields are not supported in PDF Embed API and this event i
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="annotation-events">
+</section>
+<section id="annotation-events">
 <span id="annotevents"></span><h2>Annotation events<a class="headerlink" href="#annotation-events" title="Permalink to this headline">¶</a></h2>
 <p>Web developers can receive events when a user interacts with an annotation. These events are generated for annotation actions performed through the UI.</p>
 <p>To register the events callback, set <code class="docutils literal notranslate"><span class="pre">enableAnnotationEvents</span></code> to <em>true</em> and pass it to the callback. To receive specific events, pass the list of annotation event types in the <code class="docutils literal notranslate"><span class="pre">listenOn</span></code> parameter. If nothing is passed to <code class="docutils literal notranslate"><span class="pre">listenOn</span></code>, then the API returns all the annotation events.</p>
-<div class="highlight-html notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13</pre></div></td><td class="code"><div class="highlight"><pre><span></span>const eventOptions = {
-   //Pass the events to receive.
-   //If no event is passed in listenOn, then all annotation events will be received.
-   listenOn: [ AdobeDC.View.Enum.AnnotationEvents.ANNOTATION_ADDED, AdobeDC.View.Enum.AnnotationEvents.ANNOTATION_UPDATED ],
-<span class="hll">   enableAnnotationEvents: true
-</span> }
-
- adobeDCView.registerCallback(
-   AdobeDC.View.Enum.CallbackType.EVENT_LISTENER,
-   function(event) {
-     console.log(event.type, event.data)
-   }, eventOptions
- );
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>const eventOptions = {
+<span class="linenos"> 2</span>   //Pass the events to receive.
+<span class="linenos"> 3</span>   //If no event is passed in listenOn, then all annotation events will be received.
+<span class="linenos"> 4</span>   listenOn: [ AdobeDC.View.Enum.AnnotationEvents.ANNOTATION_ADDED, AdobeDC.View.Enum.AnnotationEvents.ANNOTATION_UPDATED ],
+<span class="hll"><span class="linenos"> 5</span>   enableAnnotationEvents: true
+</span><span class="linenos"> 6</span> }
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span> adobeDCView.registerCallback(
+<span class="linenos"> 9</span>   AdobeDC.View.Enum.CallbackType.EVENT_LISTENER,
+<span class="linenos">10</span>   function(event) {
+<span class="linenos">11</span>     console.log(event.type, event.data)
+<span class="linenos">12</span>   }, eventOptions
+<span class="linenos">13</span> );
 </pre></div>
-</td></tr></table></div>
+</div>
 <table class="colwidths-given docutils align-default" id="id4">
 <caption><span class="caption-text"><strong>List of annotation events</strong></span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
 <colgroup>
@@ -689,8 +652,8 @@ For example, XFA form fields are not supported in PDF Embed API and this event i
 <li><p>If annotation APIs are enabled, the event data contains the data of the annotation in JSON format on which the event gets triggered.</p></li>
 </ul>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
     </div>
@@ -704,7 +667,7 @@ For example, XFA form fields are not supported in PDF Embed API and this event i
       
     </p>
     <p>
-       Last updated Jun 25, 2021 <br/>
+       Last updated Jul 29, 2021 <br/>
     </p>	
   </div>
   </footer>

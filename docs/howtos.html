@@ -3,15 +3,15 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>PDF Embed API basics &#8212; Document Cloud View SDK</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
     <script src="_static/js/jquery-1.11.0.min.js"></script>
     <script src="_static/js/jquery-fix.js"></script>
     <script src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
@@ -270,13 +270,13 @@ img {
 </div><br/>
 
       
-  <div class="section" id="pdf-embed-api-basics">
+  <section id="pdf-embed-api-basics">
 <h1>PDF Embed API basics<a class="headerlink" href="#pdf-embed-api-basics" title="Permalink to this headline">¶</a></h1>
 <p>The samples and documentation provide an easy way to jump-start development. The sections below describe how to embed a customized PDF viewer in a web page.</p>
-<div class="figure align-default">
+<figure class="align-default">
 <img alt="_images/workflow.png" src="_images/workflow.png" />
-</div>
-<div class="section" id="embed-a-pdf-viewer">
+</figure>
+<section id="embed-a-pdf-viewer">
 <h2>Embed a PDF viewer<a class="headerlink" href="#embed-a-pdf-viewer" title="Permalink to this headline">¶</a></h2>
 <p>Once you’ve received your client ID, embedding the DC PDF viewer involves:</p>
 <ol class="arabic simple">
@@ -290,55 +290,33 @@ img {
 <li><p><strong>metaData</strong>: File metadata information. Note that <code class="docutils literal notranslate"><span class="pre">fileName</span></code> is mandatory.</p></li>
 </ul>
 <p>That’s it! View the page in a browser to see your fully functional PDF viewer.</p>
-<div class="highlight-html notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Your title<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">/&gt;</span>
-  <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">http-equiv</span><span class="o">=</span><span class="s">&quot;X-UA-Compatible&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;IE=edge,chrome=1&quot;</span><span class="p">/&gt;</span>
-<span class="hll">  <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://documentcloud.adobe.com/view-sdk/main.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-</span><span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
-<span class="hll">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;adobe-dc-view&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span>  <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
-   <span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;adobe_dc_view_sdk.ready&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span>
-   <span class="p">{</span>
-<span class="hll">      <span class="kd">var</span> <span class="nx">adobeDCView</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AdobeDC</span><span class="p">.</span><span class="nx">View</span><span class="p">({</span><span class="nx">clientId</span><span class="o">:</span> <span class="s2">&quot;&lt;YOUR_CLIENT_ID&gt;&quot;</span><span class="p">,</span> <span class="nx">divId</span><span class="o">:</span> <span class="s2">&quot;adobe-dc-view&quot;</span><span class="p">});</span>
-</span>      <span class="nx">adobeDCView</span><span class="p">.</span><span class="nx">previewFile</span><span class="p">(</span>
-     <span class="p">{</span>
-<span class="hll">         <span class="nx">content</span><span class="o">:</span>  <span class="p">{</span><span class="nx">location</span><span class="o">:</span> <span class="p">{</span><span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;(path to your PDF)/yourfilename.pdf&quot;</span><span class="p">}},</span>
-</span>         <span class="nx">metaData</span><span class="o">:</span> <span class="p">{</span><span class="nx">fileName</span><span class="o">:</span> <span class="s2">&quot;yourfilename.pdf&quot;</span><span class="p">}</span>
-     <span class="p">});</span>
-   <span class="p">});</span>
-  <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
-<span class="c">&lt;!--Get the samples from https://www.adobe.com/go/pdfembedapi_samples--&gt;</span>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+<span class="linenos"> 2</span><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="linenos"> 3</span>  <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Your title<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+<span class="linenos"> 4</span>  <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">/&gt;</span>
+<span class="linenos"> 5</span>  <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">http-equiv</span><span class="o">=</span><span class="s">&quot;X-UA-Compatible&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;IE=edge,chrome=1&quot;</span><span class="p">/&gt;</span>
+<span class="hll"><span class="linenos"> 6</span>  <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://documentcloud.adobe.com/view-sdk/main.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span><span class="linenos"> 7</span><span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="linenos"> 8</span><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="hll"><span class="linenos"> 9</span>  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;adobe-dc-view&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span><span class="linenos">10</span>  <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
+<span class="linenos">11</span>   <span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;adobe_dc_view_sdk.ready&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span>
+<span class="linenos">12</span>   <span class="p">{</span>
+<span class="hll"><span class="linenos">13</span>      <span class="kd">var</span> <span class="nx">adobeDCView</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AdobeDC</span><span class="p">.</span><span class="nx">View</span><span class="p">({</span><span class="nx">clientId</span><span class="o">:</span> <span class="s2">&quot;&lt;YOUR_CLIENT_ID&gt;&quot;</span><span class="p">,</span> <span class="nx">divId</span><span class="o">:</span> <span class="s2">&quot;adobe-dc-view&quot;</span><span class="p">});</span>
+</span><span class="linenos">14</span>      <span class="nx">adobeDCView</span><span class="p">.</span><span class="nx">previewFile</span><span class="p">(</span>
+<span class="linenos">15</span>     <span class="p">{</span>
+<span class="hll"><span class="linenos">16</span>         <span class="nx">content</span><span class="o">:</span>  <span class="p">{</span><span class="nx">location</span><span class="o">:</span> <span class="p">{</span><span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;(path to your PDF)/yourfilename.pdf&quot;</span><span class="p">}},</span>
+</span><span class="linenos">17</span>         <span class="nx">metaData</span><span class="o">:</span> <span class="p">{</span><span class="nx">fileName</span><span class="o">:</span> <span class="s2">&quot;yourfilename.pdf&quot;</span><span class="p">}</span>
+<span class="linenos">18</span>     <span class="p">});</span>
+<span class="linenos">19</span>   <span class="p">});</span>
+<span class="linenos">20</span>  <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="linenos">21</span><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="linenos">22</span><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+<span class="linenos">23</span><span class="c">&lt;!--Get the samples from https://www.adobe.com/go/pdfembedapi_samples--&gt;</span>
 </pre></div>
-</td></tr></table></div>
 </div>
-<div class="section" id="passing-file-content">
+</section>
+<section id="passing-file-content">
 <span id="passing"></span><h2>Passing file content<a class="headerlink" href="#passing-file-content" title="Permalink to this headline">¶</a></h2>
 <p>As shown above, you pass PDF data via the <code class="docutils literal notranslate"><span class="pre">content</span></code> field either as a file URL or file promise. The <code class="docutils literal notranslate"><span class="pre">metaData</span></code> field with a mandatory filename is required for both methods.</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">adobeDCView</span><span class="p">.</span><span class="na">previewFile</span><span class="p">({</span>
@@ -351,7 +329,7 @@ img {
 <p class="admonition-title">Tip</p>
 <p>If you pass  both a file URL and file promise, the promise is used and the URL value is  ignored.</p>
 </div>
-<div class="section" id="file-url">
+<section id="file-url">
 <h3>File URL<a class="headerlink" href="#file-url" title="Permalink to this headline">¶</a></h3>
 <p>Passing PDF data via a URL is self-explanatory, but note that some scenarios require special handling.</p>
 <p><strong>Token-based authentication</strong></p>
@@ -375,16 +353,16 @@ img {
 </span>     <span class="p">});</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="cross-origin-resource-sharing">
+</section>
+<section id="cross-origin-resource-sharing">
 <h3>Cross-origin resource sharing<a class="headerlink" href="#cross-origin-resource-sharing" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS">Cross-origin resource sharing (CORS)</a> issues may occur when you pass PDF content as a URL and the PDF Embed API needs to download the file from the provided location in order to render it. To avoid this situation, you can choose one of two methods:</p>
 <ul class="simple">
 <li><p>Locate your webpage and file location URL on the same domain. Example: webpage: <a class="reference external" href="https://example.com/viewer/test.html">https://example.com/viewer/test.html</a>; PDF location: <a class="reference external" href="https://example.com/resources/abc.pdf">https://example.com/resources/abc.pdf</a>)</p></li>
 <li><p>Enable CORS headers on the PDF resource to allow access from your webpage domain.</p></li>
 </ul>
-</div>
-<div class="section" id="file-promise">
+</section>
+<section id="file-promise">
 <h3>File promise<a class="headerlink" href="#file-promise" title="Permalink to this headline">¶</a></h3>
 <p>If the file content is available as an ArrayBuffer (for example, local PDF files), then it can be passed directly as a Promise which should resolve to the ArrayBuffer of the file content.</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">adobeDCView</span><span class="p">.</span><span class="nx">previewFile</span><span class="p">({</span>
@@ -419,19 +397,19 @@ img {
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="pdf-linearization">
+</section>
+</section>
+<section id="pdf-linearization">
 <span id="linearization"></span><h2>PDF Linearization<a class="headerlink" href="#pdf-linearization" title="Permalink to this headline">¶</a></h2>
 <p>Linearization is an approach to optimize PDFs for faster viewing by displaying the first page as quickly as possible before the entire PDF gets downloaded. Linearized PDFs contain information so that pages can be streamed one at a time via byte range requests from a server. Linearization is extremely useful for displaying large-sized documents as well as displaying documents on slow networks, thus providing an overall faster PDF viewing experience.</p>
 <p>PDF Embed API supports the rendering of linearized PDFs which are hosted on servers with byte-range support.</p>
 <p>For details, see <a class="reference internal" href="#enablebytestream"><span class="std std-ref">Enabling byte-streaming on a server</span></a>.</p>
-<div class="section" id="display-linearized-pdfs">
+<section id="display-linearized-pdfs">
 <h3>Display linearized PDFs<a class="headerlink" href="#display-linearized-pdfs" title="Permalink to this headline">¶</a></h3>
 <p>In order to display linearized PDFs using PDF Embed API, set the variable <code class="docutils literal notranslate"><span class="pre">enableLinearization</span></code> to true (default value is false) and pass it as a preview configuration to the <code class="docutils literal notranslate"><span class="pre">previewFile</span></code> API.</p>
 <p>As described in the section <a class="reference internal" href="#passing"><span class="std std-ref">Passing file content</span></a>, the linearized PDF can be passed as a file URL or file Promise.</p>
-</div>
-<div class="section" id="id1">
+</section>
+<section id="id1">
 <h3>File URL<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <p>Pass the URL of the linearized PDF in the <code class="docutils literal notranslate"><span class="pre">content</span></code> field and invoke the <code class="docutils literal notranslate"><span class="pre">previewFile</span></code> API.</p>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;adobe-dc-view&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
@@ -450,8 +428,8 @@ img {
 <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id2">
+</section>
+<section id="id2">
 <h3>File Promise<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p>If the file content is available as an ArrayBuffer, then it can be passed directly as a Promise resolving to the ArrayBuffer of the file content.</p>
 <p>Pass this file promise in the <code class="docutils literal notranslate"><span class="pre">content</span></code> field. Along with this, it is <strong>mandatory</strong> to pass an object called the <code class="docutils literal notranslate"><span class="pre">linearizationInfo</span></code> in the <code class="docutils literal notranslate"><span class="pre">content</span></code> field.</p>
@@ -493,7 +471,7 @@ img {
 <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://documentcloud.adobe.com/view-sdk/main.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
   <span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;adobe_dc_view_sdk.ready&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kr">const</span> <span class="nx">linearizationInfoObject</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">linearizationInfoObject</span> <span class="o">=</span> <span class="p">{</span>
       <span class="nx">getInfo</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">getInfo</span><span class="p">(),</span>
       <span class="nx">getInitialBuffer</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">getInitialBuffer</span><span class="p">(),</span>
       <span class="nx">getFileBufferRanges</span><span class="o">:</span> <span class="nx">ranges</span> <span class="p">=&gt;</span> <span class="nx">getFileBufferRanges</span><span class="p">(</span><span class="nx">ranges</span><span class="p">)</span>
@@ -552,20 +530,20 @@ img {
 <p class="admonition-title">Note</p>
 <p>Find the working code sample <a class="reference external" href="https://www.adobe.com/go/pdfembedapi_samples">here</a>  under <code class="docutils literal notranslate"><span class="pre">/More</span> <span class="pre">Samples/Linearization</span></code></p>
 </div>
-</div>
-<div class="section" id="supported-browsers-and-platforms">
+</section>
+<section id="supported-browsers-and-platforms">
 <h3>Supported browsers and platforms<a class="headerlink" href="#supported-browsers-and-platforms" title="Permalink to this headline">¶</a></h3>
 <p>Displaying linearized PDFs using PDF Embed API will work in browsers which support SharedArrayBuffer, such as Chrome and Chromium-based Microsoft Edge desktop browsers.
 In case of other desktop browsers and mobile browsers, it will automatically fall back to the normal behaviour (non-linearized flow) of downloading the entire PDF before file preview.</p>
-</div>
-<div class="section" id="other-supported-functionalities">
+</section>
+<section id="other-supported-functionalities">
 <h3>Other supported functionalities<a class="headerlink" href="#other-supported-functionalities" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Support for linearized PDF is currently available only in Full window embed mode. In all other embed modes, it will automatically fall back to the normal file rendering approach.</p></li>
 <li><p>As the main focus here is to enable fast rendering of PDFs, certain functionalities which depend on the complete PDF buffer are not available immediately. These functionalities (for example, annotation tools and APIs, print and download PDF, document search, etc.) will be available once the PDF is fully downloaded and website developers will be notified through the PDF_VIEWER_READY event. To know more about this event, see the section <a class="reference internal" href="howtodata.html#basicevents"><span class="std std-ref">Basic events</span></a> under Analytics.</p></li>
 </ul>
-</div>
-<div class="section" id="enabling-byte-streaming-on-a-server">
+</section>
+<section id="enabling-byte-streaming-on-a-server">
 <span id="enablebytestream"></span><h3>Enabling byte-streaming on a server<a class="headerlink" href="#enabling-byte-streaming-on-a-server" title="Permalink to this headline">¶</a></h3>
 <p>The server where the linearized PDFs are hosted should have support of byte-streaming to be able to send partial file content via HTTP 206 calls.</p>
 <p>For example, you can follow these steps to enable byte-streaming in an Apache 2.4 server:</p>
@@ -581,9 +559,9 @@ In case of other desktop browsers and mobile browsers, it will automatically fal
 </pre></div>
 </div>
 <p>Please see this <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Headers">article</a> to know more about Access-Control-Allow-Headers.</p>
-</div>
-</div>
-<div class="section" id="embed-modes">
+</section>
+</section>
+<section id="embed-modes">
 <span id="embedmodes"></span><h2>Embed modes<a class="headerlink" href="#embed-modes" title="Permalink to this headline">¶</a></h2>
 <p>The PDF Embed API’s embed modes govern the PDF viewing area’s size and position within a web page. Available options allow you to control the viewing experience and layout much like you would an image, video, or any other web content. In order to use any of the available modes, pass the mode name along with other preview configurations in the <code class="docutils literal notranslate"><span class="pre">previewFile</span></code> API. For example, you could set IN_LINE as the <code class="docutils literal notranslate"><span class="pre">embedMode</span></code> value (line 5):</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">adobeDCView</span><span class="p">.</span><span class="nx">previewFile</span><span class="p">({</span>
@@ -617,35 +595,35 @@ In case of other desktop browsers and mobile browsers, it will automatically fal
 <tbody>
 <tr class="row-even"><td><p><a class="reference internal" href="#full"><span class="std std-ref">Full window</span></a> (default mode)</p></td>
 <td><p>The viewing area renders in the full browser. Best suited for storage and productivity applications.</p></td>
-<td><div class="figure align-default">
+<td><figure class="align-default">
 <img alt="_images/embedfull.png" src="_images/embedfull.png" />
-</div>
+</figure>
 </td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#sized"><span class="std std-ref">Sized container</span></a></p></td>
 <td><p>The sized container mode displays PDFs in a boxed container with landscape orientation. Best suited for presentations.</p></td>
-<td><div class="figure align-default">
+<td><figure class="align-default">
 <img alt="_images/embedsized.png" src="_images/embedsized.png" />
-</div>
+</figure>
 </td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#inline"><span class="std std-ref">In-Line</span></a></p></td>
 <td><p>All PDF pages rendered in line within a web page. Best suited for reading applications.</p></td>
-<td><div class="figure align-default">
+<td><figure class="align-default">
 <img alt="_images/embedinline.png" src="_images/embedinline.png" />
-</div>
+</figure>
 </td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#lightbox"><span class="std std-ref">Lightbox</span></a></p></td>
 <td><p>Displays PDFs in a focused view. Best suited for content websites, content portals, and email.</p></td>
-<td><div class="figure align-default">
+<td><figure class="align-default">
 <img alt="_images/lightbox.png" src="_images/lightbox.png" />
-</div>
+</figure>
 </td>
 </tr>
 </tbody>
 </table>
-<div class="section" id="full-window">
+<section id="full-window">
 <span id="full"></span><h3>Full window<a class="headerlink" href="#full-window" title="Permalink to this headline">¶</a></h3>
 <p>The full window mode is the default embed mode and renders the PDF in the full browser. This mode is best suited for storage and productivity applications. (<a class="reference external" href="https://documentcloud.adobe.com/view-sdk-demo/index.html#/view/FULL_WINDOW">View Demo</a>)</p>
 <div class="admonition tip">
@@ -674,8 +652,8 @@ In case of other desktop browsers and mobile browsers, it will automatically fal
 </pre></div>
 </div>
 <img alt="_images/fullwindow1.png" src="_images/fullwindow1.png" />
-</div>
-<div class="section" id="sized-container">
+</section>
+<section id="sized-container">
 <span id="sized"></span><h3>Sized container<a class="headerlink" href="#sized-container" title="Permalink to this headline">¶</a></h3>
 <p>The sized container mode displays PDFs in a boxed container with landscape orientation. Each page appears as a slide, so this mode works well for presentations and other workflows that require accurate placement of the PDF content within other content. (<a class="reference external" href="https://documentcloud.adobe.com/view-sdk-demo/index.html#/view/SIZED_CONTAINER">View Demo</a>)</p>
 <p>To use this mode:</p>
@@ -705,13 +683,13 @@ In case of other desktop browsers and mobile browsers, it will automatically fal
 </pre></div>
 </div>
 <img alt="_images/sized_new.png" src="_images/sized_new.png" />
-<div class="section" id="toggling-full-screen">
+<section id="toggling-full-screen">
 <h4>Toggling full screen<a class="headerlink" href="#toggling-full-screen" title="Permalink to this headline">¶</a></h4>
 <p>To display the PDF in full screen view, choose the <strong>full screen mode</strong> button in the page toolbar. The top bar contains a traditional exit (<strong>X</strong>) button which returns full screen mode to normal mode. In mobile browsers, you can also exit  full screen mode by swiping down.</p>
 <img alt="_images/exit.png" src="_images/exit.png" />
-</div>
-</div>
-<div class="section" id="in-line">
+</section>
+</section>
+<section id="in-line">
 <span id="inline"></span><h3>In-Line<a class="headerlink" href="#in-line" title="Permalink to this headline">¶</a></h3>
 <p>In-Line mode renders PDF pages inline with other web page content.  In this mode, all PDF pages are displayed at once which enables easy and smooth navigation. In this mode you need only specify the width of the embedded viewer in the enclosing div tag since the viewer height is automatically sized for the number of PDF pages. This mode is ideal for whitepapers, brochures, e-books, and other reading applications. (<a class="reference external" href="https://documentcloud.adobe.com/view-sdk-demo/index.html#/view/IN_LINE">View Demo</a>)</p>
 <p>To use this mode:</p>
@@ -734,8 +712,8 @@ In case of other desktop browsers and mobile browsers, it will automatically fal
 </pre></div>
 </div>
 <img alt="_images/inline_search.png" src="_images/inline_search.png" />
-</div>
-<div class="section" id="lightbox">
+</section>
+<section id="lightbox">
 <span id="id3"></span><h3>Lightbox<a class="headerlink" href="#lightbox" title="Permalink to this headline">¶</a></h3>
 <p>Lightbox mode renders the PDF in the foreground at top of the page. The background remains visible, but the focus is on the previewed PDF. The top bar displays the Adobe Acrobat logo and also provides configurable <strong>Close</strong> and <strong>Back</strong> buttons. The <strong>Close</strong> button appears by default. (<a class="reference external" href="https://documentcloud.adobe.com/view-sdk-demo/index.html#/view/LIGHT_BOX">View Demo</a>)</p>
 <p>To use this mode:</p>
@@ -766,20 +744,71 @@ In case of other desktop browsers and mobile browsers, it will automatically fal
 <img alt="_images/lightboxscreen.png" src="_images/lightboxscreen.png" />
 <p>Top bar with Back button (<code class="docutils literal notranslate"><span class="pre">exitPDFViewerType:</span> <span class="pre">&quot;RETURN&quot;</span></code>)</p>
 <img alt="_images/backbutton.png" src="_images/backbutton.png" />
+<section id="focus-on-pdf-rendering">
+<span id="focus-render"></span><h4>Focus on PDF rendering<a class="headerlink" href="#focus-on-pdf-rendering" title="Permalink to this headline">¶</a></h4>
+<p>Using PDF Embed API, website developers have the flexibility to control if the PDF should take focus when it is rendered within a website.</p>
+<p>This is achieved through the variable <code class="docutils literal notranslate"><span class="pre">focusOnRendering</span></code> which can be passed as a configuration to the <code class="docutils literal notranslate"><span class="pre">previewFile</span></code> API. This variable accepts a Boolean value.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">adobeDCView</span><span class="o">.</span><span class="n">previewFile</span><span class="p">({</span>
+  <span class="n">content</span><span class="p">:{</span><span class="n">location</span><span class="p">:</span> <span class="p">{</span><span class="n">url</span><span class="p">:</span> <span class="s2">&quot;&lt;URL_OF_PDF&gt;&quot;</span><span class="p">}},</span>
+  <span class="n">metaData</span><span class="p">:{</span><span class="n">fileName</span><span class="p">:</span> <span class="s2">&quot;&lt;FILE_NAME&gt;&quot;</span><span class="p">}</span>
+<span class="p">},</span> <span class="p">{</span><span class="n">embedMode</span><span class="p">:</span> <span class="s2">&quot;&lt;EMBED_MODE&gt;&quot;</span><span class="p">,</span> <span class="n">focusOnRendering</span><span class="p">:</span> <span class="n">true</span><span class="p">});</span>
+</pre></div>
 </div>
+<p>The default value of this configuration variable varies according to the embed mode.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 40%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Embed mode</p></th>
+<th class="head"><p>Default value of <code class="docutils literal notranslate"><span class="pre">focusOnRendering</span></code></p></th>
+<th class="head"><p>Default behaviour</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="#full"><span class="std std-ref">Full window</span></a></p></td>
+<td><p>true</p></td>
+<td><p>Acquires focus when PDF is rendered.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sized"><span class="std std-ref">Sized container</span></a></p></td>
+<td><p>false</p></td>
+<td><p>Doesn’t acquire focus when PDF is rendered.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#inline"><span class="std std-ref">In-Line</span></a></p></td>
+<td><p>false</p></td>
+<td><p>Doesn’t acquire focus when PDF is rendered.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#lightbox"><span class="std std-ref">Lightbox</span></a></p></td>
+<td><p>true (Cannot be set to false)</p></td>
+<td><p>Always acquires focus when PDF is rendered. This cannot be changed.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The PDF will always acquire focus in Lightbox embed mode since this embed mode is intended to provide a focused view of the PDF by opening the PDF viewer on top of the webpage. This default behaviour in Lightbox embed mode cannot be changed.</p>
 </div>
-<div class="section" id="language-support">
+<p>The default behaviour of taking focus can be modified for all embed modes (except lightbox).</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Set the variable to true (<code class="docutils literal notranslate"><span class="pre">focusOnRendering:</span> <span class="pre">true</span></code>) if the PDF should take focus after rendering.</p></li>
+<li><p>Set the variable to false (<code class="docutils literal notranslate"><span class="pre">focusOnRendering:</span> <span class="pre">false</span></code>) if the PDF should not take focus after rendering.</p></li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+</section>
+<section id="language-support">
 <h2>Language support<a class="headerlink" href="#language-support" title="Permalink to this headline">¶</a></h2>
 <p>The PDF Embed API supports a number of languages. The default language is English (en-US), but you can select another language by passing the locale code variable when creating the <code class="docutils literal notranslate"><span class="pre">AdobeDC.View</span> <span class="pre">object</span></code>.</p>
-<div class="highlight-html notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4</pre></div></td><td class="code"><div class="highlight"><pre><span></span>var adobeDCView = new AdobeDC.View({
-    clientID: &quot;<span class="p">&lt;</span><span class="nt">YOUR_CLIENT_ID</span><span class="p">&gt;</span>&quot;,
-    divId: &quot;adobe-dc-view&quot;,
-<span class="hll">    locale: &quot;ja-JP&quot;,
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span>var adobeDCView = new AdobeDC.View({
+<span class="linenos">2</span>    clientID: &quot;<span class="p">&lt;</span><span class="nt">YOUR_CLIENT_ID</span><span class="p">&gt;</span>&quot;,
+<span class="linenos">3</span>    divId: &quot;adobe-dc-view&quot;,
+<span class="hll"><span class="linenos">4</span>    locale: &quot;ja-JP&quot;,
 </span></pre></div>
-</td></tr></table></div>
+</div>
 <table class="colwidths-given docutils align-default" id="id5">
 <caption><span class="caption-text">Supported languages</span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
 <colgroup>
@@ -854,8 +883,8 @@ In case of other desktop browsers and mobile browsers, it will automatically fal
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="troubleshooting">
+</section>
+<section id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
 <p>Troubleshooting a web app and the PDF Embed API is straightforward web development. Use the tools you’re familiar with; for example, your IDE or Chrome Developer Tools.</p>
 <p><strong>Why is my URL value not used to access the PDF data?</strong></p>
@@ -864,8 +893,8 @@ In case of other desktop browsers and mobile browsers, it will automatically fal
 <p>Either your client ID is incorrect, or you are using it on a domain other than the one you registered.</p>
 <p><strong>Why does the file preview fail to load?</strong></p>
 <p>Cookies must be enabled in the browser for the file preview to load.</p>
-</div>
-</div>
+</section>
+</section>
 
 
     </div>
@@ -879,7 +908,7 @@ In case of other desktop browsers and mobile browsers, it will automatically fal
       
     </p>
     <p>
-       Last updated Jun 25, 2021 <br/>
+       Last updated Jul 29, 2021 <br/>
     </p>	
   </div>
   </footer>
