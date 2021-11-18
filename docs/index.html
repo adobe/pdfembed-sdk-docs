@@ -197,6 +197,7 @@ img {
 <li class="toctree-l2"><a class="reference internal" href="#live-demo">Live demo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#supported-browsers">Supported browsers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#mobile-support">Mobile support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#analytics">Analytics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#feedback-and-forum">Feedback and forum</a></li>
 </ul>
 </li>
@@ -285,6 +286,10 @@ img {
 <h2>Copy it. Run it.<a class="headerlink" href="#copy-it-run-it" title="Permalink to this headline">¶</a></h2>
 <p>The quickest way to get up and running is to simply copy the code below to an index.html file and open it in a browser. The example already points to an online PDF, and you do not need a client ID to run the viewer on your machine.</p>
 <p>If you wish to run it in a local web server (for example, localhost), then you need a valid client ID. You can generate a client ID from <a class="reference external" href="https://www.adobe.com/go/dcsdks_credentials">here</a>. Insert the client ID within the double quotes in line 16 in the code below and run the webpage from your server.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>After the first page of the PDF is rendered, PDF Embed API calls into a service to validate if the client ID is used with the correct website domain. If the client ID is incorrect or you are using it on a domain other than the one you registered, then the PDF preview is blocked with an error message.</p>
+</div>
 <p>There really are no environment setup steps or system requirements. Develop your web app using your preferred methods and tools.</p>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c">&lt;!--Get the samples from https://www.adobe.com/go/pdfembedapi_samples--&gt;</span>
 <span class="linenos"> 2</span><span class="cp">&lt;!DOCTYPE html&gt;</span>
@@ -388,6 +393,24 @@ The page handle appears on the right side for continuous view mode whereas it ap
 <p>PDF Embed API also supports pinch zoom gesture and users can zoom-in to magnify the PDF content for better reading experience. This functionality is supported with all embed modes.</p>
 </section>
 </section>
+<section id="analytics">
+<h2>Analytics<a class="headerlink" href="#analytics" title="Permalink to this headline">¶</a></h2>
+<p><strong>What information is collected to analyze PDF Embed API usage?</strong></p>
+<p>PDF Embed API <strong>ONLY</strong> collects essential information which helps Adobe understand how to scale the product and gain insights on product usage. The following information is collected:</p>
+<ul class="simple">
+<li><p>Browser and operating system type and version.</p></li>
+<li><p>Type of device used to open the PDF - desktop, mobile or tablet.</p></li>
+<li><p>Embed mode used to render the PDF.</p></li>
+<li><p>File size and number of pages.</p></li>
+<li><p>Performance metrics, such as, whether PDF was rendered in linearized manner or not, time taken to download the PDF and render the first page.</p></li>
+<li><p>URL of the webpage.</p></li>
+</ul>
+<p>Please note that PDF Embed API doesn’t store any user-generated content and never shares user-generated content with Adobe servers.</p>
+<p><strong>How will Adobe use the information?</strong></p>
+<p>The anonymous information will be used to develop new features, collect performance metrics and understand product usage in order to make improvements.</p>
+<p><strong>How is my privacy protected?</strong></p>
+<p>Adobe takes many precautions in protecting the information that is collected and transmitted. Since no personally identifiable information is collected, the data will not be meaningful to anyone outside Adobe.</p>
+</section>
 <section id="feedback-and-forum">
 <h2>Feedback and forum<a class="headerlink" href="#feedback-and-forum" title="Permalink to this headline">¶</a></h2>
 <p>Customer feedback is particularly valuable as it helps the team validate use cases, guide development, and troubleshoot issues. Comments and questions are always welcome on the <a class="reference external" href="https://community.adobe.com/t5/Document-Cloud-SDK/bd-p/Document-Cloud-SDK">Community Forum</a>.</p>
@@ -408,7 +431,7 @@ The page handle appears on the right side for continuous view mode whereas it ap
       
     </p>
     <p>
-       Last updated Sep 09, 2021 <br/>
+       Last updated Nov 18, 2021 <br/>
     </p>	
   </div>
   </footer>
